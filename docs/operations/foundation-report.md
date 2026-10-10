@@ -2,6 +2,8 @@
 
 Date: 2026-10-09. Workspace: `C:/Users/GrowB/Desktop/Vibequest`.
 
+**Historical report:** implementation, test counts and no-Identity/no-remote-CI statements below describe the foundation packet on that date, not the current app. S00 source preservation completed on 10 October 2026: public [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), development branch `phase-0-foundation`, initial commit `1e95baab86b7252cdd68f3d747824271631072f6`, exactly 232 approved files and thirteen migrations. [GitHub Actions run 38052826906](https://github.com/funmarket/VibeQuest/actions/runs/38052826906) succeeded. No `main` branch was created. Publication is not production or Railway acceptance. Local screenshot evidence was intentionally excluded from public GitHub; the filenames below identify retained local artifacts, not downloadable repository assets.
+
 **IMPLEMENTED / PARTIALLY VERIFIED.** The bounded local foundation is implemented and locally tested. Genuine Telegram acceptance, licensed map-provider rendering and product-owner visual approval remain unverified. This is not a production-readiness, deployment or remote-CI claim. Identity has not started.
 
 ## 1. References inspected and access gaps
@@ -90,7 +92,7 @@ Default browsing bounds are editorial Tunis coordinates, not visitor-location cl
 | Owner-approved visual fidelity | UNVERIFIED — source/mockup comparison performed, owner approval not claimed |
 | Remote CI/cloud/deployment     | NOT RUN / NOT PROVISIONED                                                   |
 
-The browser matrix covers all five pages at 360, 390, 393, 412, 430, 768, 820, 1024 and 1280px in both themes (90 page/theme/width screenshots), plus four-locale screenshots, nav/subrails, RTL, keyboard/dialog focus, system themes, ordinary Web, shared Telegram entry, simulated SDK and API states. Screenshots: [evidence folder](evidence/). Representative captures: [Home light](evidence/home-light-390.png), [Explore tablet](evidence/explore-light-820.png), [Share light](evidence/share-light-390.png), [Vibe dark](evidence/vibe-dark-390.png), [Arabic Vibe](evidence/vibe-ar-390.png), [Spanish Purse](evidence/purse-es-390.png).
+The browser matrix covers all five pages at 360, 390, 393, 412, 430, 768, 820, 1024 and 1280px in both themes (90 page/theme/width screenshots), plus four-locale screenshots, nav/subrails, RTL, keyboard/dialog focus, system themes, ordinary Web, shared Telegram entry, simulated SDK and API states. Local screenshots only (excluded from GitHub): `docs/operations/evidence/`. Representative filenames: `home-light-390.png`, `explore-light-820.png`, `share-light-390.png`, `vibe-dark-390.png`, `vibe-ar-390.png`, `purse-es-390.png`.
 
 Visual comparison retained source section order, expressive destination accents, gold Vibe capsule and central heart. Historical screenshots used incompatible four/five-item menus and populated fictitious cards; those are cataloged rather than substituted for V2 navigation or real empty data. Shared light/dark surfaces, responsive grids, RTL, readable copy and unavailable activity are intentional modernization. Review did not claim pixel equality or reproduce unlicensed images/seeded people.
 

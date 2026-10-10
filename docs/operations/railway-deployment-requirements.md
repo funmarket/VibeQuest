@@ -1,6 +1,6 @@
 # Railway deployment prerequisites — planned, not provisioned
 
-Railway is the intended hosting platform. D01 inspected local source/configuration only; no Railway account/resources, GitHub remote, production database or deployment state was verified or changed. The application is not certified production-ready.
+Railway is the intended hosting platform. At D01 preparation, only local source/configuration was inspected; its account/resource and remote-state limitations below are historical. S00 source preservation completed on 10 October 2026: public [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), development branch `phase-0-foundation`, initial commit `1e95baab86b7252cdd68f3d747824271631072f6`, exactly 232 approved files and thirteen migrations. [GitHub Actions run 38052826906](https://github.com/funmarket/VibeQuest/actions/runs/38052826906) succeeded. No `main` branch was created. Publication is not production or Railway acceptance. Railway staging creation is a separate bounded packet; no application service, database, storage or deployment is established by this document. The application is not certified production-ready.
 
 ## Required shared services and unresolved topology
 
@@ -27,4 +27,4 @@ Require backups/restore testing for database and managed Media, retention/access
 
 R49 owns the production-preparation decisions. R50 requires genuine device/provider acceptance, complete product dispositions, reproducible installation/checks and the runbook. Verify Web/Telegram canonical accounts, permissions and shared records, including denied/revoked capabilities, deep links and background/resume. Do not call Chrome fixtures genuine Telegram acceptance.
 
-GitHub source preservation, stable `main` promotion, Railway provisioning and production rollout are separate decisions/authorizations. The intended development branch is `phase-0-foundation`; `main` is reserved for accepted stable application. Latest master-plan intent is a public `funmarket/VibeQuest` repository, but existence/privacy/remote state were not checked in D01. Follow the unchanged [master plan](../product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md) and explicit S00 authority; no publication or deployment is performed here.
+GitHub source preservation is completed at the commit above. Stable `main` promotion, Railway service provisioning and production rollout remain separate decisions/authorizations. The development branch is `phase-0-foundation`; `main` is reserved for accepted stable application. Follow the [master plan](../product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md) and the latest explicit packet authority. An empty staging project, if separately created, does not resolve these deployment prerequisites.

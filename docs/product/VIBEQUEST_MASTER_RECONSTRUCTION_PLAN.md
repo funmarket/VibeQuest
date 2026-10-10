@@ -26,7 +26,7 @@ Source keys used throughout this plan:
 
 `C`, `L`, `B` plus a relative path resolve to the absolute source location above. The external report P supplies extra detail, but this plan embeds the essential coverage and packet criteria so execution does not depend on an unpublished local report. Read the 215 records for their source traces, not their stale completion claims. They are acceptance records, not 215 unique features or a percentage-complete metric.
 
-**Verified:** current manifests, HTTP registration/composition, domain ports, migration files, current page entry points, source-backed parity differences and the latest checkpoint were inspected. The workspace is not a Git repository; `git status` reports that fact. There is no current commit SHA or Git-generated change history. No `.ua` or `.understand-anything` project graph was found. Understand's source/dependency method was used; a graph rebuild and diff overlay were omitted because this task authorizes only this document. Understand Diff's Git-based comparison is unavailable; the complete new-document change and before/after source hashes are the review evidence instead.
+**Historical plan-preparation evidence (before S00 publication):** current manifests, HTTP registration/composition, domain ports, migration files, current page entry points, source-backed parity differences and the latest checkpoint were inspected. The workspace is not a Git repository; `git status` reports that fact. There is no current commit SHA or Git-generated change history. No `.ua` or `.understand-anything` project graph was found. Understand's source/dependency method was used; a graph rebuild and diff overlay were omitted because this task authorizes only this document. Understand Diff's Git-based comparison is unavailable; the complete new-document change and before/after source hashes are the review evidence instead.
 
 **Historical, not rerun here:** the Social checkpoint reports 43 unit tests, 50 genuine PostgreSQL integration cases, 13 applied migrations, real Chrome Activities/Events/Social flows and a later mobile header correction. Those results do not certify every original feature. This planning task does not rerun application tests, start services, execute legacy code or access the database. P's local connectivity attempts timed out; fresh browser acceptance is unknown.
 
@@ -264,7 +264,11 @@ Before executing a packet, record its **shared journey**, **host-specific integr
 
 Allocate adapter completion to the existing shell packets R01–R03 and visual acceptance R48; location/permission work to R09, capture to R13, microphone/voice to R21, delivery to R25 and authenticated launch/link/deep-link security to R38. R26–R27 and other deadline-driven packets verify shared backend outcomes on resume. R49 owns deployment preparation and R50 the integrated acceptance gate. These are subcases of existing packets; **no R51 or parallel Telegram reconstruction** is added.
 
-### S00 — source preservation prerequisite, separate authorization required
+### S00 — source preservation prerequisite, completed
+
+**Publication checkpoint — 10 October 2026.** S00 source preservation completed on 10 October 2026: public [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), development branch `phase-0-foundation`, initial commit `1e95baab86b7252cdd68f3d747824271631072f6`, exactly 232 approved files and thirteen migrations. [GitHub Actions run 38052826906](https://github.com/funmarket/VibeQuest/actions/runs/38052826906) succeeded. No `main` branch was created. Publication is not production or Railway acceptance. R01–R50, their acceptance criteria, order and unresolved decision register are unchanged. No reconstruction or deployment packet follows automatically.
+
+**Historical preparation requirements (fulfilled under separate S00 authority):**
 
 Recheck actual GitHub repository state, public publication-content/secret review, reproducible installation/build/test/migration instructions, lockfile and all 13 migrations/assets. Exclude `.local`, generated Media, database dumps, browser profiles, build/test/dependency artifacts, credentials and original legacy source/ZIPs; do not depend on ignored fixtures. Resolve concrete publication blockers. Only then, under explicit publication authorization, preserve the clean baseline on `phase-0-foundation` in public `funmarket/VibeQuest`; do not promote unfinished work to `main`. This document does not approve or execute that operation. No existing audit verdict is substituted for a fresh public-content gate.
 
@@ -509,7 +513,7 @@ R49 must decide shared entry versus separately configured origins, API proxy/COR
 
 ## 7. Architecture and production debt register
 
-This section separates existing source limitations from missing product journeys and future production prerequisites. Do not turn it into an unsolicited architecture rewrite.
+This section records plan-preparation limitations (before S00) separately from missing product journeys and future production prerequisites. The no-Git and publication-review entries are historical; the completed S00 checkpoint above supersedes their publication status. Do not turn it into an unsolicited architecture rewrite.
 
 | Item                                          | Evidence / classification                                                                                                                     | Narrow response / timing                                                                                                                                  |
 | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -530,7 +534,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 
 | Packet(s) | Current status of requested outcome | Evidence / next gate                                                                                               |
 | --------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| S00       | Not Started                         | No Git/remote preservation verified; separate authorization                                                        |
+| S00       | Runtime Verified                    | Completed publication; commit and successful CI recorded in S00 checkpoint above                                   |
 | R01–03    | Partial                             | Shared shell/theme/locale/menu exist; required scroll/header/drawer mechanics missing                              |
 | R04–05    | Partial                             | Core domains Implemented with historical runtime evidence; small parity gaps remain                                |
 | R06       | Partial                             | Real Profile fields/photos; missing interests/contact/self-screen/availability UI                                  |
@@ -558,7 +562,7 @@ At future packet completion, record: exact scope/feature IDs, changed files/migr
 
 This plan schedules complete journeys rather than another shell-first reconstruction. Each later packet must consume its predecessors' public capabilities; it may not recreate them for another page. Decisions block only dependent operations; independent work remains available under future authorization.
 
-### Documentation verification for this task
+### Historical documentation verification for plan preparation
 
 - Authorized change: only `C:/Users/GrowB/Desktop/Vibequest/docs/product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md`.
 - This is a new file; its full contents are the complete documentation diff. There is no Git-generated diff because no Git repository exists.

@@ -3,8 +3,27 @@ node_modules/
 .next/
 .local/
 .env
-.env.local
+.env.*
 !.env.example
 test-results/
 playwright-report/
 *.tsbuildinfo
+
+# Private credential material; public certificate/test fixtures remain visible.
+*.private.key
+*.private.pem
+id_rsa
+id_ed25519
+.netrc
+/.credentials/
+/credentials.json
+/service-account*.json
+
+# Historical evidence is retained locally, outside the published source tree.
+/docs/operations/evidence/
+/docs/operations/source-diff.patch
+/docs/product/product-truth-002.diff
+/docs/operations/reference-baseline.json
+/docs/operations/reference-verification.json
+/docs/operations/screenshot-manifest.json
+/docs/operations/source-manifest.json

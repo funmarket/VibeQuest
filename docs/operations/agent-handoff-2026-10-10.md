@@ -4,6 +4,12 @@ Prepared on 10 October 2026 from the conversation, current source, implementatio
 reports and a fresh local runtime/database check. This document summarizes the
 handoff; it does not grant new implementation, publication or deployment authority.
 
+## Publication checkpoint — 10 October 2026
+
+S00 source preservation completed on 10 October 2026: public [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), development branch `phase-0-foundation`, initial commit `1e95baab86b7252cdd68f3d747824271631072f6`, exactly 232 approved files and thirteen migrations. [GitHub Actions run 38052826906](https://github.com/funmarket/VibeQuest/actions/runs/38052826906) succeeded. No `main` branch was created. Publication is not production or Railway acceptance.
+
+The handoff and runtime/database findings below describe their pre-publication inspection date. Their no-Git/remote-CI statements are historical, superseded by this checkpoint. No new database, browser, Telegram or Railway acceptance is claimed. The latest owner-authorized packet controls future work.
+
 ## 1. What we are building
 
 VibeQuest is a mobile-first local discovery and social application: discover
@@ -91,10 +97,10 @@ owner's next instruction to determine implementation authority. Do not turn this
 handoff or the older broad program authorization into permission to ignore the
 latest bounded stop condition.
 
-There is no Git repository in the VibeQuest workspace. Do not initialize Git,
-publish to GitHub, create PRs, provision Railway, deploy or provision a Telegram
-bot without new explicit authorization. GitHub/Railway are intended future
-destinations, not configured/proven current infrastructure.
+At the original handoff inspection, Git was absent and GitHub/Railway were future
+destinations. S00 subsequently initialized Git and published the baseline, as
+recorded above. Further commits, publication, PRs, Railway resources, deployment
+and Telegram provisioning still require their own explicit bounded authority.
 
 ## 4. Architecture established
 
@@ -361,7 +367,7 @@ Fresh read-only handoff check:
 - Both databases have 13 applied checksummed migrations.
 - Both contained zero users, scoped privileges, businesses, Activities, Events,
   follows, Media objects, Activity/Event retirements and pending file-cleanup jobs.
-- `.git` is absent. There is no VibeQuest commit SHA, PR or remote CI result to report.
+- Historical inspection: `.git` was absent; no commit, PR or remote CI existed then. See the later S00 checkpoint above for the published commit and successful CI.
 
 This empty state is intentional after scoped test cleanup. Empty feeds are
 truthful; do not seed fake production activity to make screenshots look busy.

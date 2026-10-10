@@ -1,5 +1,7 @@
 # VQ-PRODUCT-TRUTH-002 — evidence report
 
+**Historical report:** the findings, source priority and next-step statements below belong to this earlier product-truth packet; later owner decisions and the master reconstruction plan control current work. S00 source preservation completed on 10 October 2026: public [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), development branch `phase-0-foundation`, initial commit `1e95baab86b7252cdd68f3d747824271631072f6`, exactly 232 approved files and thirteen migrations. [GitHub Actions run 38052826906](https://github.com/funmarket/VibeQuest/actions/runs/38052826906) succeeded. No `main` branch was created. Publication is not production or Railway acceptance. The original documentation diff remains local and was intentionally excluded from GitHub.
+
 Documentation reconciliation only. The production target forbids simulations. The application is not certified production-ready by this report. NEXT STEP: NOT AUTHORIZED.
 
 ## A. Inspected state
@@ -65,7 +67,7 @@ Shell owns navigation; Identity owns verified accounts/session/linking; Profile 
 
 ## J. Complete diff and verification
 
-[Complete documentation diff](product-truth-002.diff) includes every changed product document, new registers/coverage/report and historical-catalog headers. The diff excludes itself to avoid recursive content. Historical catalog bodies are preserved unchanged. Verification:840 baseline files checked; changes were confined to product documents, with no missing baseline files or reference changes. All522 coverage hashes matched. The three historical catalog bodies matched their original hashes after removing the new header. Register counts were101+54+60 with unique IDs;175 document/source links had no missing targets, and150 linked source line locations were within bounds. These checks verify documentation integrity, not production behavior. Application/reference/database/Git/GitHub/Railway/deployment mutations are outside this packet and were not performed. No Git repository was initialized.
+Local-only complete documentation diff `docs/product/product-truth-002.diff` (excluded from GitHub) includes every changed product document, new registers/coverage/report and historical-catalog headers. The diff excludes itself to avoid recursive content. Historical catalog bodies are preserved unchanged. Verification:840 baseline files checked; changes were confined to product documents, with no missing baseline files or reference changes. All522 coverage hashes matched. The three historical catalog bodies matched their original hashes after removing the new header. Register counts were101+54+60 with unique IDs;175 document/source links had no missing targets, and150 linked source line locations were within bounds. These checks verify documentation integrity, not production behavior. Application/reference/database/Git/GitHub/Railway/deployment mutations are outside this packet and were not performed. No Git repository was initialized.
 
 ## K. Next bounded step
 

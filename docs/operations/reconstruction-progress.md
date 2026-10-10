@@ -1,6 +1,12 @@
 # Local reconstruction checkpoint
 
-Latest completed packet: **Social Graph / Orbit & Echo**, with the authority and
+## S00 publication checkpoint — 10 October 2026
+
+S00 source preservation completed on 10 October 2026: public [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), development branch `phase-0-foundation`, initial commit `1e95baab86b7252cdd68f3d747824271631072f6`, exactly 232 approved files and thirteen migrations. [GitHub Actions run 38052826906](https://github.com/funmarket/VibeQuest/actions/runs/38052826906) succeeded. No `main` branch was created. Publication is not production or Railway acceptance.
+
+The reconstruction checkpoints below retain their historical implementation and test evidence. Their no-Git/publication prohibitions applied to those earlier packets and are superseded only by subsequent explicit owner authority. No new database/browser/Telegram/Railway result is claimed here. R01–R50 remain unchanged and unfinished work requires its own packet.
+
+Latest completed product packet: **Social Graph / Orbit & Echo**, with the authority and
 verified results in the final checkpoint below. Its explicit stop-after-report
 boundary supersedes broader continuation for this turn. Public basic profile
 visibility is approved; the older pending visibility question is resolved.
@@ -12,7 +18,7 @@ Continuation authority: RESUME FULL RECONSTRUCTION,
 `C:/Users/GrowB/.codex/attachments/0e4c6da1-2ecd-4460-b5b2-015358071dfc/Pasted text.txt`.
 The owner also requests transparent, modern scrollbars throughout the application.
 
-All five phases are locally authorized. Git initialization/publication and Railway provisioning/deployment are forbidden. References remain read-only. No fabricated production records or sensor/provider success.
+Historical reconstruction-stage authority: all five phases were locally authorized; Git initialization/publication and Railway provisioning/deployment were forbidden in those packets. S00 publication subsequently completed under separate authority. References remain read-only. No fabricated production records or sensor/provider success.
 
 ## Execution decisions
 

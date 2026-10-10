@@ -12,5 +12,5 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
-# Database/browser suites are documented local gates. This workflow has not run
-# remotely; no repository or cloud resource was provisioned in Foundation-001.
+# Database/browser suites remain documented local gates. Initial publication CI
+# succeeded in GitHub Actions run 38052826906; this workflow does not deploy.
