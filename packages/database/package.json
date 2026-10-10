@@ -1,0 +1,19 @@
+{
+  "name": "@vq/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@vq/events": "workspace:*",
+    "@vq/activities": "workspace:*",
+    "@vq/identity": "workspace:*",
+    "@vq/profile": "workspace:*",
+    "@vq/media": "workspace:*",
+    "@vq/contracts": "workspace:*",
+    "drizzle-orm": "0.45.4",
+    "pg": "8.23.1",
+    "@vq/business": "workspace:*",
+    "@vq/social": "workspace:*"
+  }
+}

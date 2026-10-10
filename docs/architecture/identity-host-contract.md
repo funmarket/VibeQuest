@@ -1,0 +1,27 @@
+# Identity and host boundary
+
+Foundation public discovery uses one application router, typed API client and public Places authority in ordinary browsers and Telegram. The platform adapter returns presentation capabilities only. `/telegram` is an entry route into that same application, not a business backend.
+
+`HostProvider` and `useHost()` expose `kind`, `safeTop`, `safeBottom`, optional `scheme`, `back(handler?)` and `haptic()`. `back` returns cleanup; the shared shell supplies its existing router callback and disposes it when route state changes. No second navigation stack exists. Insets are nonnegative finite values using the maximum of host safe-area and content-safe-area hints. The shell alone applies `--host-safe-top` and `--host-safe-bottom` together with browser CSS safe-area values.
+
+Server rendering begins with browser capabilities and does not touch `window`. Before browser paint the provider detects the optional `window.Telegram.WebApp` object. A nonempty raw launch payload establishes only a presentation host hint. It is neither signature verification nor authentication. No `initDataUnsafe`, user ID, account, session or authorization is read or created. Optional capabilities are detected by method availability. Missing SDK/events/haptics/back methods degrade safely to ordinary browser behavior. `themeChanged`, `safeAreaChanged` and `contentSafeAreaChanged` update capabilities; provider cleanup removes handlers. The adapter invokes only a supplied back handler and a light haptic when requested. It neither requests geolocation nor opens camera/microphone.
+
+Theme hints feed `ThemeProvider` through its optional `hostScheme` property. Explicit light/dark choice wins; system preference follows a launched host's valid theme hint, otherwise the browser operating system. Such a presentation hint is untrusted and grants no security privileges.
+
+The shared document head should load Telegram's official SDK script, `https://telegram.org/js/telegram-web-app.js`, before executing `themeBootstrap` from `@vq/ui/theme-policy`. A raw synchronous script preserves ordering so a valid host scheme is available before first paint. Ordinary browsers still use the same head and application; absent launch data means browser capabilities. SDK loading is not bot provisioning and does not authenticate the launch payload. If the SDK cannot load, public discovery remains available through browser fallback; genuine Telegram capabilities remain unverified until SDK loading and host behavior are exercised inside Telegram.
+
+## Implemented Web Identity and authorization
+
+Web registration/login/logout and session resolution are implemented in `packages/identity/src/application/accounts.ts`, the Identity PostgreSQL adapter and `apps/api/src/modules/identity/http.ts`. The API crypto adapter uses scrypt password hashes and random session tokens; the database stores token digests. Sessions have a 14-day lifetime. The `vq.session` cookie is HttpOnly, SameSite=Lax and Secure when API `NODE_ENV=production`. Mutation routes enforce configured `WEB_ORIGINS`; domain adapters resolve the authenticated actor server-side rather than trusting body IDs. Scoped Business review authority belongs to Identity; no production administrator bootstrap is established by the documentation.
+
+Profile completion, Business hosting and foreign/private Media attachment authorization remain their respective owners' rules. Public discovery requires no fabricated guest account. Recovery/email verification, Google sign-in and Telegram verification/linking are not implemented.
+
+## Planned Telegram Identity and host completion
+
+R38 in the [master plan](../product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md) retains this one Identity owner. The server must verify authentic raw launch signatures/freshness with explicit replay defenses, then resolve a canonical user through valid creation or linking. Reject mismatched Web/Telegram credentials, forged/expired/replayed launches and conflicting concurrent bindings. Linking needs target-account proof and purpose-bound one-use server authorization; no silent account merge, username-only proof or browser-reported Telegram user authority.
+
+Current host support is partial: readiness/initialization, viewport handling, launch/deep-link normalization and real permission/device acceptance are future packet subcases. Extend the existing adapter and shared router; never copy pages, styles, services, navigation or database state. The theme remains one owner. Feature/device adapters own contextual camera/microphone/location acquisition and cleanup, with honest unsupported/denied states.
+
+Launch freshness limits, replay-resistant exchange/session transport, link/conflict UX, unlink/recovery and session consequences remain technical decisions for R38. Reusable sessions must be distinguished from one-use exchanges. Actual WebView cookie/origin behavior and shared versus separately configured frontend origins require real-device evidence and R49 topology decisions. This contract does not provision a bot or select an authentication replacement.
+
+Automated SDK fixtures verify adapter branches and cleanup only. Genuine Telegram acceptance still requires opening the actual Mini App in Telegram, checking host navigation, insets, supported SDK versions and theme updates. Ordinary browser simulation cannot establish this acceptance.

@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+storeDir: .pnpm-store
+strictPeerDependencies: true
+overrides:
+  "@swc/core": 1.16.2
+allowBuilds:
+  esbuild: true
+  sharp: true
+  "@swc/core": true
+  "@parcel/watcher": true

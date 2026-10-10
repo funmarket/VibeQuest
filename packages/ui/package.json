@@ -1,0 +1,14 @@
+{
+  "name": "@vq/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./theme": "./src/theme.tsx",
+    "./theme-policy": "./src/theme-policy.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "dependencies": {
+    "react": "19.3.0"
+  }
+}

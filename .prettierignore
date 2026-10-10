@@ -1,0 +1,11 @@
+pnpm-lock.yaml
+docs/operations/reference-baseline.json
+docs/operations/source-manifest.json
+docs/operations/source-diff.patch
+docs/operations/evidence/
+.next
+.local
+.pnpm-store
+node_modules
+test-results
+playwright-report

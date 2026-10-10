@@ -1,0 +1,328 @@
+"use client";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+import {
+  MapPin,
+  Search,
+  List,
+  Map,
+  Zap,
+  Footprints,
+  ShieldCheck,
+  Compass,
+  Radar,
+  Plus,
+  Flag,
+  MessageCircle,
+} from "lucide-react";
+import { boundsSchema, type PlacesQuery } from "@vq/contracts";
+import { usePlaces } from "./use-places";
+import { PlacesMap } from "./places-map";
+import {
+  Section,
+  Empty,
+  PendingButton,
+  NoticeDialog,
+  PageEnd,
+} from "../../components/presentation";
+
+const categories = [
+  "all",
+  "food",
+  "cafes",
+  "culture",
+  "art",
+  "venues",
+  "hidden",
+] as const;
+const initialBounds = {
+  west: 10.1,
+  east: 10.3,
+  south: 36.7,
+  north: 36.9,
+  limit: 50,
+};
+const categoryMapping: Record<string, string> = {
+  food: "food",
+  cafes: "cafe",
+  culture: "culture",
+  art: "art",
+  venues: "venue",
+  hidden: "hidden",
+};
+
+export function ExplorePage() {
+  const t = useTranslations("explore");
+  const c = useTranslations("common");
+  const [bounds, setBounds] = useState<PlacesQuery>(initialBounds);
+  const [draft, setDraft] = useState(initialBounds);
+  const [category, setCategory] = useState("all");
+  const [search, setSearch] = useState("");
+  const [q, setQ] = useState("");
+  const [view, setView] = useState<"list" | "map">("list");
+  const [notice, setNotice] = useState<string | null>(null);
+  const [locationMessage, setLocationMessage] = useState<string | null>(null);
+  const [invalid, setInvalid] = useState(false);
+  const data = usePlaces({
+    ...bounds,
+    ...(q ? { q } : {}),
+    ...(category === "all" ? {} : { category: categoryMapping[category] }),
+  });
+  function locate() {
+    if (!navigator.geolocation) {
+      setLocationMessage(c("locationDenied"));
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const next = {
+          west: Math.max(-180, coords.longitude - 0.05),
+          east: Math.min(180, coords.longitude + 0.05),
+          south: Math.max(-90, coords.latitude - 0.05),
+          north: Math.min(90, coords.latitude + 0.05),
+          limit: 50,
+        };
+        setBounds(next);
+        setDraft(next);
+        setLocationMessage(null);
+      },
+      () => setLocationMessage(c("locationDenied")),
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 },
+    );
+  }
+  return (
+    <>
+      <div className="page-heading">
+        <div className="eyebrow">
+          <Compass size={15} aria-hidden />
+          {t("community")}
+          <span className="dot-separator" />
+          {t("business")}
+        </div>
+        <h1>{t("title")}</h1>
+        <p>{t("intro")}</p>
+      </div>
+      <div className="explore-top">
+        <button className="soft-button" onClick={() => setNotice("area")}>
+          <MapPin size={16} aria-hidden />
+          {t("chooseBounds")}
+        </button>
+        <PendingButton onClick={() => setNotice("spawn")}>
+          {t("spawn")}
+        </PendingButton>
+      </div>
+      <div className="explore-prelude">
+        <Section title={t("secrets")} className="flash-panel">
+          <Zap className="feature-symbol" aria-hidden />
+          <Empty>{t("pendingBody")}</Empty>
+        </Section>
+        <Section title={t("trails")}>
+          <Footprints className="feature-symbol" aria-hidden />
+          <h3>{t("curation")}</h3>
+          <Empty>{t("pendingBody")}</Empty>
+        </Section>
+      </div>
+      <section className="panel discovery-panel">
+        <form
+          className="search-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            setQ(search.trim());
+          }}
+        >
+          <Search size={19} aria-hidden />
+          <input
+            aria-label={t("search")}
+            placeholder={t("search")}
+            value={search}
+            maxLength={100}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          <button
+            className="primary-button"
+            type="submit"
+            aria-label={t("search")}
+          >
+            <Search size={18} />
+          </button>
+        </form>
+        <div className="category-rail" aria-label={t("filter")}>
+          {categories.map((id) => (
+            <button
+              key={id}
+              aria-pressed={category === id}
+              onClick={() => setCategory(id)}
+            >
+              {t(id)}
+            </button>
+          ))}
+        </div>
+        <div className="results-heading">
+          <p>{t("results", { count: data.places.length })}</p>
+          <div className="view-toggle">
+            <button
+              aria-pressed={view === "list"}
+              onClick={() => setView("list")}
+            >
+              <List size={17} aria-hidden />
+              {t("list")}
+            </button>
+            <button
+              aria-pressed={view === "map"}
+              onClick={() => setView("map")}
+            >
+              <Map size={17} aria-hidden />
+              {t("map")}
+            </button>
+          </div>
+        </div>
+        <p className="area-caption">
+          {t("chooseBounds")}:{" "}
+          <bdi>
+            {bounds.west.toFixed(2)}–{bounds.east.toFixed(2)} /{" "}
+            {bounds.south.toFixed(2)}–{bounds.north.toFixed(2)}
+          </bdi>
+        </p>
+        <div aria-live="polite" className="places-state">
+          {data.status === "loading" && <Empty>{c("loading")}</Empty>}
+          {data.status === "error" && (
+            <div role="alert">
+              <p>{t("error")}</p>
+              <button className="soft-button" onClick={data.retry}>
+                {c("retry")}
+              </button>
+            </div>
+          )}
+          {view === "map" && <PlacesMap places={data.places} bounds={bounds} />}
+          {data.status === "ready" && data.places.length === 0 && (
+            <Empty>{t("empty")}</Empty>
+          )}
+          {data.status === "ready" && data.places.length > 0 && (
+            <ul className="place-list">
+              {data.places.map((place) => (
+                <li className="place-card" key={place.id}>
+                  <span className="place-glyph">
+                    <MapPin size={21} aria-hidden />
+                  </span>
+                  <div>
+                    <h3>
+                      <bdi>{place.name}</bdi>
+                    </h3>
+                    <p>{place.category}</p>
+                    <small>
+                      <bdi>
+                        {place.latitude.toFixed(4)},{" "}
+                        {place.longitude.toFixed(4)}
+                      </bdi>
+                    </small>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="contribution-actions">
+          <button onClick={() => setNotice("suggest")}>
+            <Plus size={17} aria-hidden />
+            {t("suggest")}
+          </button>
+          <button onClick={() => setNotice("report")}>
+            <Flag size={17} aria-hidden />
+            {t("report")}
+          </button>
+          <button onClick={() => setNotice("ask")}>
+            <MessageCircle size={17} aria-hidden />
+            {t("ask")}
+          </button>
+        </div>
+      </section>
+      <div className="explore-bottom">
+        <Section title={t("radar")} className="radar-panel">
+          <div className="radar-art" aria-hidden>
+            <span />
+            <span />
+            <Radar size={35} />
+          </div>
+          <h3>{t("heat")}</h3>
+          <p>{t("radarBody")}</p>
+        </Section>
+        <Section title={t("guardian")}>
+          <ShieldCheck className="feature-symbol" aria-hidden />
+          <p>{t("guardianBody")}</p>
+        </Section>
+        <Section title={t("suggestions")}>
+          <Empty>{t("pendingBody")}</Empty>
+        </Section>
+      </div>
+      <PageEnd />
+      {notice && (
+        <NoticeDialog
+          title={
+            notice === "area"
+              ? t("chooseBounds")
+              : notice === "spawn"
+                ? t("spawn")
+                : t(notice)
+          }
+          onClose={() => {
+            setNotice(null);
+            setInvalid(false);
+          }}
+        >
+          {notice === "area" ? (
+            <>
+              <p>{t("area")}</p>
+              <form
+                className="bounds-form"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  const parsed = boundsSchema.safeParse(draft);
+                  if (!parsed.success) {
+                    setInvalid(true);
+                    return;
+                  }
+                  setBounds(parsed.data);
+                  setNotice(null);
+                  setInvalid(false);
+                }}
+              >
+                {(["west", "east", "south", "north"] as const).map((key) => (
+                  <label key={key}>
+                    {t(key)}
+                    <input
+                      required
+                      type="number"
+                      step="any"
+                      value={draft[key]}
+                      onChange={(event) =>
+                        setDraft({
+                          ...draft,
+                          [key]: Number(event.target.value),
+                        })
+                      }
+                    />
+                  </label>
+                ))}
+                {invalid && <p role="alert">{t("invalidBounds")}</p>}
+                <button className="primary-button" type="submit">
+                  {t("apply")}
+                </button>
+              </form>
+              <button className="soft-button" onClick={locate}>
+                {c("useLocation")}
+              </button>
+              {locationMessage && <p role="status">{locationMessage}</p>}
+            </>
+          ) : (
+            <>
+              <p>
+                {notice === "spawn" ? t("pendingBody") : t(`${notice}Body`)}
+              </p>
+              <p className="pending-label">{t("contributionBody")}</p>
+            </>
+          )}
+        </NoticeDialog>
+      )}
+    </>
+  );
+}

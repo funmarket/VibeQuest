@@ -1,0 +1,13 @@
+{
+  "name": "@vq/events",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./ports": "./src/domain/ports.ts"
+  },
+  "dependencies": {
+    "@vq/contracts": "workspace:*"
+  }
+}

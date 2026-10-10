@@ -1,0 +1,71 @@
+.profile-menu {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  inline-size: min(440px, calc(100vw - 24px));
+  max-block-size: calc(100dvh - 48px);
+  padding: 20px;
+  overflow: auto;
+}
+.profile-menu::backdrop {
+  background: #0009;
+}
+.profile-menu-heading,
+.account-modes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.profile-menu details {
+  margin-block-start: 16px;
+}
+.profile-menu summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding-block: 8px;
+}
+.profile-menu label,
+.account-form {
+  display: grid;
+  gap: 8px;
+}
+.account-content,
+.account-form {
+  margin-block-start: 12px;
+}
+.account-form {
+  gap: 16px;
+}
+.profile-menu input,
+.profile-menu textarea,
+.profile-menu select {
+  inline-size: 100%;
+  min-inline-size: 0;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+.account-email {
+  overflow-wrap: anywhere;
+  color: var(--text);
+}
+.business-card {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  margin-block: 12px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: grid;
+  gap: 8px;
+}
+.guest-label {
+  max-inline-size: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

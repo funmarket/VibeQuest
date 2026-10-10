@@ -1,0 +1,24 @@
+{
+  "name": "@vq/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "@vq/events": "workspace:*",
+    "@vq/activities": "workspace:*",
+    "@vq/identity": "workspace:*",
+    "@vq/profile": "workspace:*",
+    "@vq/media": "workspace:*",
+    "sharp": "0.35.5",
+    "@vq/contracts": "workspace:*",
+    "@vq/database": "workspace:*",
+    "fastify": "5.12.5",
+    "tsx": "4.23.15",
+    "@vq/business": "workspace:*",
+    "@vq/social": "workspace:*"
+  }
+}
