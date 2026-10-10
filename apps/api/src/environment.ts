@@ -15,5 +15,6 @@ export function parseApiEnvironment(
   const port = Number(environment.PORT ?? 4100);
   if (!Number.isInteger(port) || port < 1 || port > 65535)
     throw new Error("PORT must be a valid TCP port.");
-  return { databaseURL, port };
+  const host = environment.NODE_ENV === "production" ? "0.0.0.0" : "127.0.0.1";
+  return { databaseURL, port, host };
 }
