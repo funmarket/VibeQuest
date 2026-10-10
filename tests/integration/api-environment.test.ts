@@ -14,7 +14,22 @@ it("rejects missing or invalid runtime database/port configuration", () => {
     expect(() => parseApiEnvironment(environment)).toThrow();
   expect(
     parseApiEnvironment({ DATABASE_URL: "postgresql://localhost/vq_test" }),
-  ).toEqual({ databaseURL: "postgresql://localhost/vq_test", port: 4100 });
+  ).toEqual({
+    databaseURL: "postgresql://localhost/vq_test",
+    port: 4100,
+    host: "127.0.0.1",
+  });
+  expect(
+    parseApiEnvironment({
+      DATABASE_URL: "postgresql://localhost/vq_test",
+      PORT: "8080",
+      NODE_ENV: "production",
+    }),
+  ).toEqual({
+    databaseURL: "postgresql://localhost/vq_test",
+    port: 8080,
+    host: "0.0.0.0",
+  });
 });
 
 it("never claims ready without a readiness dependency", async () => {
