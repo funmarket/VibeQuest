@@ -39,3 +39,11 @@ Cross-domain contract: Identity authenticates; Profile owns user preferences/rol
 Tracked structural debt from audit: application-layer import restrictions, contract purity, cycle detection, unused API pg/drizzle dependencies. Genuine Telegram/map acceptance, full business workflows and visual approval remain incomplete. No architecture/code correction occurs in Product Truth 002.
 
 **Next bounded recommendation: VQ-DESIGN-TOKENS-003**, one UI-token correction packet, with rendered phone/wide light/dark/system and four-locale/RTL evidence. Do not combine it with menu, navigation or business implementation. It is **NOT AUTHORIZED** by this documentation packet.
+
+## Approved 2026-10-10 foundation reconciliation
+
+The [open-first and live Places decision addendum](OPEN_FIRST_LIVE_PLACES_FOUNDATION_DECISIONS_2026-10-10.md) is the current product policy for guest access, Vibe Meter and confidence/history, city Radar, linked Trails, and prospective secure operator bootstrap. It supersedes incompatible legacy star-scoring/review-count/ranking, forced-login, simulated guest balance and flat-trail assumptions; do not copy legacy persistence or UI state ownership. Existing R01–R50 numbers and feature owners are unchanged.
+
+Establish early shared foundations in bounded packets: staging PostGIS/Web/API reachability; server-verified Telegram canonical Identity plus open-first Web browsing/contextual auth; authenticated operator verification/controlled privilege bootstrap; durable Media, Redis transient concerns and worker contracts; shared interaction-tree/shell/accessibility proof. For R28–R32 prioritize truthful community reports, consent and evidence, current/fading-atmosphere aggregates (history retained), accessible Vicinity visualization, nearby city/town pulse and ordered canonical Places itineraries. Preserve approved feature-specific reviews (Activities/Events) and original nested modals; removing any other heavy feature still requires an explicit decision.
+
+**Concurrency:** Open infrastructure PR #2 edits the master plan and Railway requirements. Neither overlapping file is updated by this packet. Sync those two after PR #2 is resolved, using a fresh base and full diff.
