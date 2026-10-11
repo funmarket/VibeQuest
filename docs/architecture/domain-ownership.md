@@ -42,3 +42,11 @@ The [master reconstruction plan](../product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN
 - Notifications deliver approved domain intents; Admin orchestrates scoped owner commands rather than writing arbitrary foreign tables.
 
 Do not revive the foundation-era catalog that grouped Flash Events with official Events or challenges/connections with Social Graph. Do not split correct domains merely to increase folders. Future exact schemas and public interfaces are established only in their separately authorized packets.
+
+## Approved open-first and Places-feedback boundary (2026-10-10)
+
+The [product addendum](../product/OPEN_FIRST_LIVE_PLACES_FOUNDATION_DECISIONS_2026-10-10.md) supersedes conflicting aspirational ratings/login assumptions. Anonymous callers may read **publicly authorized** Places, pages, historical Vibe reports and nested public details without creating a guest account. Shared Identity owns the contextual authentication gate and canonical actor resolution for account-required mutations; individual domains continue to enforce their own authorization and eligibility. Telegram R38 automatically resolves/creates one canonical user only after verified genuine launch credentials.
+
+Places retains canonical place records. Planned Place Contributions accepts separate subjective HighVibes/Vibing/LowVibes atmosphere observations and factual Waze-style validation/reports. The mood is not a star, penalty or permanent business rank. Its recent derived view may favor trustworthy location-verified evidence, with few-hour influence and retained moderated history. It may be consumed by Explore/Vicinity, Home/City Radar and linked Trails via one canonical capability; never duplicate scoring or place facts per page. Geo owns opt-in/proximity evidence, Trails/curation owns ordered itineraries referencing canonical Places, Media owns bytes, Notifications delivers intents, and Workers execute owner-defined due jobs. Exact tables/algorithms remain deferred to approved owner packets.
+
+The designated administrator username @CryptoTemplar is identification context only, not authorization: Identity must first verify a numeric Telegram actor and link one canonical Web account, and an approved R42 bootstrap must separately grant auditable privileges. The existing `business.review` permission must not be mislabeled full admin.
