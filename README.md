@@ -16,6 +16,7 @@ Requires Node 24, pnpm 11.1.1 and a separately configured PostgreSQL/PostGIS dat
 
 ```powershell
 pnpm.cmd install --frozen-lockfile
+pnpm.cmd hooks:install
 # Export the explicit environment described in the local development guide.
 # Confirm the authorized development database before running:
 pnpm.cmd db:migrate
