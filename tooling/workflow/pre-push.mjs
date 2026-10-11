@@ -35,8 +35,17 @@ try {
     manifest.packageManager ?? "",
   )?.[1];
   if (!expectedPnpm) throw new Error("packageManager must pin pnpm exactly.");
-  const pnpmOptions = { shell: process.platform === "win32" };
-  const actualPnpm = command("pnpm", ["--version"], pnpmOptions);
+  const windows = process.platform === "win32";
+  if (windows && !process.env.SystemRoot) {
+    throw new Error("SystemRoot is required to execute pnpm on Windows.");
+  }
+  const executable = windows
+    ? join(process.env.SystemRoot, "System32", "cmd.exe")
+    : "pnpm";
+  const actualPnpm = command(
+    executable,
+    windows ? ["/d", "/s", "/c", "pnpm --version"] : ["--version"],
+  );
   if (actualPnpm !== expectedPnpm) {
     throw new Error(
       `Use pnpm ${expectedPnpm}; found ${actualPnpm}. Check your PATH/Corepack setup.`,
@@ -72,10 +81,11 @@ try {
       );
     }
   }
-  const result = spawnSync("pnpm", ["format:check"], {
-    ...pnpmOptions,
-    stdio: "inherit",
-  });
+  const result = spawnSync(
+    executable,
+    windows ? ["/d", "/s", "/c", "pnpm format:check"] : ["format:check"],
+    { stdio: "inherit" },
+  );
   if (result.error || result.status !== 0) {
     throw new Error(
       "Formatting validation failed or could not execute. Fix each reported file with: pnpm exec prettier --write <file>. Then run pnpm check, commit and push again.",
