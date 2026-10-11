@@ -13,7 +13,18 @@ Source-derived instructions, checked 10 October 2026. Run commands from the repo
 node --version
 pnpm.cmd --version
 pnpm.cmd install --frozen-lockfile
+pnpm.cmd hooks:install
 ```
+
+### Repository push guard
+
+Run `pnpm hooks:install` once in each fresh Git clone. It sets repository-local `core.hooksPath` to the checked-in `.githooks` directory; it refuses to overwrite another hook configuration. Git worktrees share repository-local configuration unless worktree-specific configuration is enabled. No hook manager or additional formatter is installed. `.gitattributes` preserves LF text on Windows as well as Linux.
+
+Before an ordinary `git push`, the hook verifies Node against `engines`, pnpm against `packageManager`, and installed Prettier against the existing pinned dependency. Keep pnpm 11.1.1 available on PATH (for example through your configured Corepack shims); `pnpm --version` must match. Missing tools, failed commands or mismatched versions block the push.
+
+The hook checks the existing `pnpm format:check` command without writing files. A reported formatting failure identifies the file; fix only that file with `pnpm exec prettier --write <file>`, run `pnpm check`, inspect the full diff and commit before pushing. A clean source tree is required so formatted but uncommitted corrections cannot hide an unformatted commit. Push the checked-out HEAD; check out another branch before pushing its commits. Do not bypass validation with `--no-verify`.
+
+The existing `pnpm check` chain remains the complete local source gate. Hooks are checkout-local and can be bypassed or omitted; GitHub API writes, remote editors and other direct remote writes do not execute them. Only verified GitHub branch protection/rulesets and required current-commit PR checks enforce remote integration. Installing this hook does not establish that protection or authorize deployment.
 
 The install command/flag is supported by the installed pnpm and used by the checked-in workflow; a fresh installation was not executed in D01. Keep `pnpm-lock.yaml`, workspace manifests and `pnpm-workspace.yaml` together. Do not regenerate the lockfile to hide incompatibility.
 
