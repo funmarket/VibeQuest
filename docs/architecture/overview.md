@@ -19,7 +19,7 @@ flowchart LR
 
 ## Current composition and execution
 
-`apps/api/src/main.ts` parses database/port configuration, creates the database adapters, supplies the Media root and allowed Web origins, listens on loopback and closes the pool on shutdown. `apps/api/src/app.ts` registers Places, Identity, Profile, Business, Media, Activities, Events, Social Graph and the public Profile projection. It injects authenticated actor resolvers and explicit owner capabilities. It also owns the current 60-second cleanup timer; this is an API-hosted worker, not a separately deployed service.
+`apps/api/src/main.ts` parses database/port configuration, creates the database adapters, supplies the Media root and allowed Web origins, listens on loopback locally or on `0.0.0.0` in production and closes the pool on shutdown. `apps/api/src/app.ts` registers Places, Identity, Profile, Business, Media, Activities, Events, Social Graph and the public Profile projection. It injects authenticated actor resolvers and explicit owner capabilities. It also owns the current 60-second cleanup timer; this is an API-hosted worker, not a separately deployed service.
 
 `packages/database/src/index.ts` creates one bounded PostgreSQL pool and the domain-specific adapters. Its readiness queries check schema availability, including all implemented owners. A shared adapter package does not confer permission to query another owner's business tables.
 
@@ -41,4 +41,4 @@ Gossip/feeds, Drift/accepted matches/Pulls, SHARE moments/connections/Circles, c
 
 Telegram currently supplies an entry and partial presentation adapter. Server launch verification/linking and genuine device acceptance remain pending R38 and related gates. There is no separate Telegram account/database/theme/product implementation. See [Identity and host](identity-host-contract.md), [Media](media-contract.md), [database](database-contract.md), [design system](design-system.md) and [technical requirements](../requirements/technical-requirements.md).
 
-Railway is the intended hosting target, not an established deployment. The current loopback binds, local bytes and API-hosted cleanup require separately authorized production preparation. See [Railway requirements](../operations/railway-deployment-requirements.md).
+Railway is the intended hosting target, not an established deployment. Production listener bindings are prepared, but deployment configuration, local Media bytes and API-hosted cleanup still require separately authorized production preparation. See [Railway requirements](../operations/railway-deployment-requirements.md).

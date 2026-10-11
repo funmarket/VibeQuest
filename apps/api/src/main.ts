@@ -3,7 +3,7 @@ import { buildApi } from "./app";
 import { parseApiEnvironment } from "./environment";
 import { fileURLToPath } from "node:url";
 
-const { databaseURL, port } = parseApiEnvironment(process.env);
+const { databaseURL, port, host } = parseApiEnvironment(process.env);
 const database = createDatabase(databaseURL);
 const app = buildApi(database.repository, {
   logger: true,
@@ -37,7 +37,7 @@ for (const signal of ["SIGINT", "SIGTERM"] as const)
     });
   });
 try {
-  await app.listen({ host: "127.0.0.1", port });
+  await app.listen({ host, port });
 } catch (error) {
   app.log.error({ err: error }, "Startup failed");
   await app.close();

@@ -10,7 +10,7 @@ Foundation has one PostgreSQL/PostGIS system of record and one public read autho
 
 `pnpm db:migrate` requires a PostgreSQL `DATABASE_URL`. The runner uses one transaction and a transaction advisory lock, records migration filename/SHA256, skips unchanged applied files, and rejects altered applied migrations. Failed DDL rolls back with its ledger entry. Migrations create schema only, with no production seed. `postgis` installation requires an appropriate migration role. Production runtime permissions must support the implemented owners' authorized reads/writes without migration privileges; a read-only role suffices only for the Places reader. Role provisioning remains a separately authorized infrastructure operation. No infrastructure or remote database was provisioned here.
 
-The API validates required database URL/port at startup, binds loopback port 4100 by default, uses structured logs and bounded connection/query/request timeouts, and closes HTTP/database resources on SIGINT/SIGTERM. `/health/live` reports process availability; `/health/ready` executes a real schema query and returns 503 when unavailable. A generic API built without a readiness dependency returns 503 for readiness.
+The API validates required database URL/port at startup, binds loopback port 4100 by default and `0.0.0.0` in production, uses structured logs and bounded connection/query/request timeouts, and closes HTTP/database resources on SIGINT/SIGTERM. `/health/live` reports process availability; `/health/ready` executes a real schema query and returns 503 when unavailable. A generic API built without a readiness dependency returns 503 for readiness.
 
 ## Current canonical database ownership
 
