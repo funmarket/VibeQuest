@@ -14,6 +14,7 @@
     "lint": "eslint apps packages tooling tests *.ts *.mjs",
     "format": "prettier --write apps packages tooling tests docs *.json *.yaml *.md *.ts *.mjs .github",
     "format:check": "prettier --check apps packages tooling tests docs *.json *.yaml *.md *.ts *.mjs .github",
+    "hooks:install": "node tooling/workflow/install-hooks.mjs",
     "test": "vitest run",
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "test:browser": "pnpm build && playwright test",
