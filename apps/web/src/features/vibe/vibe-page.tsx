@@ -47,26 +47,18 @@ export function VibePage() {
           aria-label={t("camera")}
           onClick={() => setNotice(t("camera"))}
         >
-          <Camera
-            data-icon-role="action"
-            data-icon-tone="identity"
-            aria-hidden
-          />
+          <Camera data-icon-role="feature" aria-hidden />
         </button>
         <button className="capsule-title" onClick={() => setNotice(t("share"))}>
           {t("share")}
-          <small>{t("composer")}</small>
+          <small className="sr-only">{t("composer")}</small>
         </button>
         <button
           className="capsule-dial"
           aria-label={t("chat")}
           onClick={() => setNotice(t("chat"))}
         >
-          <MessageCircle
-            data-icon-role="action"
-            data-icon-tone="identity"
-            aria-hidden
-          />
+          <MessageCircle data-icon-role="feature" aria-hidden />
         </button>
       </div>
       <blockquote className="vibe-quote">

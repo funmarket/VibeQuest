@@ -42,7 +42,9 @@
   --nav-on-active: #ffffff;
   --gold: #efc76e;
   --capsule: #101010;
-  --capsule-text: #efc76e;
+  --capsule-text: #ffffff;
+  --capsule-highlight: #1c1c1e;
+  --capsule-badge: #ffffff;
   --scrim: rgb(0 0 0 / 60%);
   --shadow: 0 12px 40px rgb(0 0 0 / 9%);
 }
@@ -67,7 +69,7 @@
   --nav-on-active: #ffffff;
   --gold: #efc76e;
   --capsule: #101010;
-  --capsule-text: #efc76e;
+  --capsule-text: #ffffff;
   --scrim: rgb(0 0 0 / 60%);
   --shadow: 0 12px 40px rgb(0 0 0 / 28%);
 }
