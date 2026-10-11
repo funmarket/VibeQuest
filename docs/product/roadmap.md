@@ -4,6 +4,8 @@ Authority: [Product Truth 002](legacy-parity-inventory.md). All stable feature r
 
 Every future packet must name its register IDs, canonical owner, allowed files/state, prerequisites, acceptance tests and stop condition. A heading-only shell is not functional parity. Separate source, local runtime, genuine Telegram, CI, deployment and owner visual acceptance proofs.
 
+**Active execution authority (2026-10-11):** the single live [master plan](VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md), section 9, supersedes this document's historical ordering and next-packet advice. This roadmap preserves feature dependency context; it is not another live master or instruction to replay completed token work.
+
 | Order | Bounded packet / outcome                                                                  | Prerequisites and evidence                                                                                                                                                                                     |
 | ----- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1     | VQ-DESIGN-TOKENS-003: neutral dark and complementary light semantic token correction only | This source/visual contract; owner rendered acceptance, four locales/RTL; no new business features                                                                                                             |
@@ -38,7 +40,7 @@ Cross-domain contract: Identity authenticates; Profile owns user preferences/rol
 
 Tracked structural debt from audit: application-layer import restrictions, contract purity, cycle detection, unused API pg/drizzle dependencies. Genuine Telegram/map acceptance, full business workflows and visual approval remain incomplete. No architecture/code correction occurs in Product Truth 002.
 
-**Next bounded recommendation: VQ-DESIGN-TOKENS-003**, one UI-token correction packet, with rendered phone/wide light/dark/system and four-locale/RTL evidence. Do not combine it with menu, navigation or business implementation. It is **NOT AUTHORIZED** by this documentation packet.
+**Historical next-packet recommendation (superseded):** VQ-DESIGN-TOKENS-003 described earlier token work, not the current starting point. Follow the master plan's current pre-Railway checkpoint: A0 fresh preflight, then bounded R01 navbar, then owner-scoped shared token/typography/form acceptance and independently verified staging-contract tasks. No implementation is authorized by this supporting roadmap.
 
 ## Approved 2026-10-10 foundation reconciliation
 
