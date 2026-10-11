@@ -36,7 +36,7 @@ Only the five locale pages and shared / and /telegram entries currently exist. F
 
 HOME must keep Current Vibe/check-ins, Flash alert/Hunt/Create, live/upcoming activities/events, Daily Streak, Radar, Find Hub/social proximity, three feed tabs, curated coordinates, gems and Guide. Primary has Live Matrix and Neighborhood Loops vocabulary; secondary has richer activity/Flash/Find Hub flows. Preserve both evidence sets and resolve copy in the decision ledger, not generic place-search descriptions.
 
-EXPLORE retains seven original categories, area/search/nearby map and discovery, venue details/Mayor/Gatherings, Radar/Sonar/Heat Wave, Secrets/Spawn Flash, trails/curation/hidden gems, reviews/favorites/directions and suggestions. Waze reports are additions beside these systems.
+EXPLORE retains seven original categories, area/search/nearby map and discovery, venue details/Mayor/Gatherings as qualified historical interaction evidence, Radar/Sonar/Heat Wave, Secrets/Spawn Flash, Trails/curation/hidden gems, favorites/directions and suggestions. The approved target replaces legacy venue star/rating presentation with nonjudgmental current Vibe plus moderated history. Waze-style factual validation is a distinct Contributions journey, not a duplicate venue-editing owner; nearby cities and linked day tours extend these established entry points.
 
 SHARE retains capture/Live Vibe Shot, distinct VibeCheck/VibeFlash, Pure Heart/Friendly Spark/Shared Moments, ephemeral nearby feed, discovery compass categories/Echo/Circle, circles/hotspots and Support the Pulse.
 
