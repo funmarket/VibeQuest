@@ -28,7 +28,7 @@ Use [local development](../operations/local-development.md) for manifest-backed 
 
 Use [Railway prerequisites](../operations/railway-deployment-requirements.md) for production preparation. Current local filesystem Media and API-hosted cleanup are not distributed production acceptance. Storage/providers/topology remain unselected. No infrastructure, authentication replacement, dependency installation or deployment is authorized here.
 
-The [master plan](../product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md) remains unchanged and controls implementation scope and acceptance.
+The [master plan](../product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md) controls implementation scope and acceptance. Its approved open-first/current-Vibe/linked-Trails addendum is documented, not implemented; subsequent text reconciliation is not evidence of deployed functionality.
 
 ## Approved early foundation integration (2026-10-10)
 
