@@ -38,7 +38,7 @@ function fixture() {
   }
   git(source, "init", "--initial-branch=fixture");
   git(source, "config", "core.autocrlf", "false");
-  writeFileSync(join(source, ".gitignore"), "node_modules/\n");
+  writeFileSync(join(source, ".gitignore"), "/node_modules\n");
   writeFileSync(join(source, "docs/case.md"), "# Fixture\n\nValid text.\n");
   writeFileSync(
     join(source, "package.json"),
