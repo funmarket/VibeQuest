@@ -94,7 +94,11 @@ export function ExplorePage() {
     <>
       <div className="page-heading">
         <div className="eyebrow">
-          <Compass size={15} aria-hidden />
+          <Compass
+            data-icon-role="metadata"
+            data-icon-tone="identity"
+            aria-hidden
+          />
           {t("community")}
           <span className="dot-separator" />
           {t("business")}
@@ -104,7 +108,11 @@ export function ExplorePage() {
       </div>
       <div className="explore-top">
         <button className="soft-button" onClick={() => setNotice("area")}>
-          <MapPin size={16} aria-hidden />
+          <MapPin
+            data-icon-role="metadata"
+            data-icon-tone="identity"
+            aria-hidden
+          />
           {t("chooseBounds")}
         </button>
         <PendingButton onClick={() => setNotice("spawn")}>
@@ -113,11 +121,19 @@ export function ExplorePage() {
       </div>
       <div className="explore-prelude">
         <Section title={t("secrets")} className="flash-panel">
-          <Zap className="feature-symbol" aria-hidden />
+          <Zap
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <Empty>{t("pendingBody")}</Empty>
         </Section>
         <Section title={t("trails")}>
-          <Footprints className="feature-symbol" aria-hidden />
+          <Footprints
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <h3>{t("curation")}</h3>
           <Empty>{t("pendingBody")}</Empty>
         </Section>
@@ -130,7 +146,7 @@ export function ExplorePage() {
             setQ(search.trim());
           }}
         >
-          <Search size={19} aria-hidden />
+          <Search data-icon-role="action" aria-hidden />
           <input
             aria-label={t("search")}
             placeholder={t("search")}
@@ -143,7 +159,7 @@ export function ExplorePage() {
             type="submit"
             aria-label={t("search")}
           >
-            <Search size={18} />
+            <Search data-icon-role="action" aria-hidden />
           </button>
         </form>
         <div className="category-rail" aria-label={t("filter")}>
@@ -164,14 +180,22 @@ export function ExplorePage() {
               aria-pressed={view === "list"}
               onClick={() => setView("list")}
             >
-              <List size={17} aria-hidden />
+              <List
+                data-icon-role="action"
+                data-icon-tone="identity"
+                aria-hidden
+              />
               {t("list")}
             </button>
             <button
               aria-pressed={view === "map"}
               onClick={() => setView("map")}
             >
-              <Map size={17} aria-hidden />
+              <Map
+                data-icon-role="action"
+                data-icon-tone="identity"
+                aria-hidden
+              />
               {t("map")}
             </button>
           </div>
@@ -202,7 +226,7 @@ export function ExplorePage() {
               {data.places.map((place) => (
                 <li className="place-card" key={place.id}>
                   <span className="place-glyph">
-                    <MapPin size={21} aria-hidden />
+                    <MapPin data-icon-role="action" aria-hidden />
                   </span>
                   <div>
                     <h3>
@@ -223,15 +247,27 @@ export function ExplorePage() {
         </div>
         <div className="contribution-actions">
           <button onClick={() => setNotice("suggest")}>
-            <Plus size={17} aria-hidden />
+            <Plus
+              data-icon-role="action"
+              data-icon-tone="identity"
+              aria-hidden
+            />
             {t("suggest")}
           </button>
           <button onClick={() => setNotice("report")}>
-            <Flag size={17} aria-hidden />
+            <Flag
+              data-icon-role="action"
+              data-icon-tone="identity"
+              aria-hidden
+            />
             {t("report")}
           </button>
           <button onClick={() => setNotice("ask")}>
-            <MessageCircle size={17} aria-hidden />
+            <MessageCircle
+              data-icon-role="action"
+              data-icon-tone="identity"
+              aria-hidden
+            />
             {t("ask")}
           </button>
         </div>
@@ -241,13 +277,17 @@ export function ExplorePage() {
           <div className="radar-art" aria-hidden>
             <span />
             <span />
-            <Radar size={35} />
+            <Radar data-icon-role="illustration" aria-hidden />
           </div>
           <h3>{t("heat")}</h3>
           <p>{t("radarBody")}</p>
         </Section>
         <Section title={t("guardian")}>
-          <ShieldCheck className="feature-symbol" aria-hidden />
+          <ShieldCheck
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("guardianBody")}</p>
         </Section>
         <Section title={t("suggestions")}>

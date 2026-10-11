@@ -1,0 +1,71 @@
+# A2 icon source inventory
+
+Baseline: `f4a50450a54661277c2f146bca5dfbfbc3d1becd`. This supporting inventory is not another master plan. All 51 Lucide JSX render sites across ten files were inspected before migration. Dynamic Glyph sites expand to the five navbar destinations, selected VIBE tab, or current follow state; counts are source sites, not simultaneously visible DOM nodes.
+
+Every baseline glyph uses currentColor, rounded caps/joins and Lucide's stroke 2. The size column records explicit TSX size or the installed Lucide default, not a measured historical screenshot. Global contextual styling belongs to `apps/web/src/styles/global.css`; Social's following-state color belongs to `features/social/social.css`. Feature-symbol, radar, capsule, wallet, hero, button and navigation parents supply inherited colors. All glyphs accompany named controls/content or are decorative; they are not independently clickable. Parent handlers, labels and business state remain unchanged.
+
+Current shared presentation owner: `packages/ui/src/icons.css`, consuming canonical `tokens.css`; role annotations select presentation without moving glyph identity out of the feature.
+
+| #   | Baseline source / line                               | Glyph         | Actual purpose / parent action                                        | Before: size px / stroke / fill     | Shared role  |
+| --- | ---------------------------------------------------- | ------------- | --------------------------------------------------------------------- | ----------------------------------- | ------------ |
+| 1   | `apps/web/src/components/presentation.tsx:35`        | ArrowUpRight  | Pending action arrow                                                  | 16 / 2 / none                       | action       |
+| 2   | `apps/web/src/components/presentation.tsx:75`        | Clock         | Planned status                                                        | 14 / 2 / none                       | metadata     |
+| 3   | `apps/web/src/components/presentation.tsx:83`        | X             | Close notice dialog                                                   | 20 / 2 / none                       | action       |
+| 4   | `apps/web/src/components/profile-menu.tsx:44`        | X             | Close account/settings dialog                                         | 20 / 2 / none                       | action       |
+| 5   | `apps/web/src/components/shell.tsx:76`               | Bell          | Open notifications                                                    | 18 / 2 / none                       | action       |
+| 6   | `apps/web/src/components/shell.tsx:83`               | CircleUser    | Open account/settings                                                 | 22 / 2 / none                       | action       |
+| 7   | `apps/web/src/components/shell.tsx:89`               | MapPin        | Open area discovery                                                   | 14 / 2 / none                       | metadata     |
+| 8   | `apps/web/src/components/shell.tsx:116`              | Glyph         | Five destination links; Purse changes from Bitcoin to approved Wallet | id === "share" ? 22 : 18 / 2 / none | navigation   |
+| 9   | `apps/web/src/features/home/home-page.tsx:40`        | Radio         | Current Vibe status                                                   | 15 / 2 / none                       | metadata     |
+| 10  | `apps/web/src/features/home/home-page.tsx:52`        | Zap           | Home Flash section                                                    | 24 (Lucide default) / 2 / none      | feature      |
+| 11  | `apps/web/src/features/home/home-page.tsx:66`        | Flame         | Streak section                                                        | 24 (Lucide default) / 2 / none      | feature      |
+| 12  | `apps/web/src/features/home/home-page.tsx:79`        | Radar         | Discovery Radar illustration                                          | 38 / 2 / none                       | illustration |
+| 13  | `apps/web/src/features/home/home-page.tsx:87`        | Users         | Activity Hub section                                                  | 24 (Lucide default) / 2 / none      | feature      |
+| 14  | `apps/web/src/features/home/home-page.tsx:119`       | MapPinned     | Heritage coordinates                                                  | 24 (Lucide default) / 2 / none      | feature      |
+| 15  | `apps/web/src/features/home/home-page.tsx:123`       | Footprints    | Hidden gems                                                           | 24 (Lucide default) / 2 / none      | feature      |
+| 16  | `apps/web/src/features/home/home-page.tsx:127`       | BookOpen      | Guide                                                                 | 24 (Lucide default) / 2 / none      | feature      |
+| 17  | `apps/web/src/features/explore/explore-page.tsx:97`  | Compass       | Explorer heading                                                      | 15 / 2 / none                       | metadata     |
+| 18  | `apps/web/src/features/explore/explore-page.tsx:107` | MapPin        | Current area                                                          | 16 / 2 / none                       | metadata     |
+| 19  | `apps/web/src/features/explore/explore-page.tsx:116` | Zap           | Current Vibe section                                                  | 24 (Lucide default) / 2 / none      | feature      |
+| 20  | `apps/web/src/features/explore/explore-page.tsx:120` | Footprints    | Trails section                                                        | 24 (Lucide default) / 2 / none      | feature      |
+| 21  | `apps/web/src/features/explore/explore-page.tsx:133` | Search        | Search field                                                          | 19 / 2 / none                       | action       |
+| 22  | `apps/web/src/features/explore/explore-page.tsx:146` | Search        | Submit search                                                         | 18 / 2 / none                       | action       |
+| 23  | `apps/web/src/features/explore/explore-page.tsx:167` | List          | Select list view                                                      | 17 / 2 / none                       | action       |
+| 24  | `apps/web/src/features/explore/explore-page.tsx:174` | Map           | Select map view                                                       | 17 / 2 / none                       | action       |
+| 25  | `apps/web/src/features/explore/explore-page.tsx:205` | MapPin        | Place card location                                                   | 21 / 2 / none                       | action       |
+| 26  | `apps/web/src/features/explore/explore-page.tsx:226` | Plus          | Suggest place                                                         | 17 / 2 / none                       | action       |
+| 27  | `apps/web/src/features/explore/explore-page.tsx:230` | Flag          | Report place                                                          | 17 / 2 / none                       | action       |
+| 28  | `apps/web/src/features/explore/explore-page.tsx:234` | MessageCircle | Submit feedback                                                       | 17 / 2 / none                       | action       |
+| 29  | `apps/web/src/features/explore/explore-page.tsx:244` | Radar         | Vicinity Radar illustration                                           | 35 / 2 / none                       | illustration |
+| 30  | `apps/web/src/features/explore/explore-page.tsx:250` | ShieldCheck   | Contribution trust notice                                             | 24 (Lucide default) / 2 / none      | feature      |
+| 31  | `apps/web/src/features/explore/places-map.tsx:71`    | MapPinned     | Honest map-unavailable notice                                         | 44 / 2 / none                       | illustration |
+| 32  | `apps/web/src/features/share/share-page.tsx:21`      | Heart         | Decorative Share heart illustration                                   | 34 / 2 / currentColor               | feature      |
+| 33  | `apps/web/src/features/share/share-page.tsx:29`      | Camera        | Vibe Shot capture illustration                                        | 44 / 2 / none                       | illustration |
+| 34  | `apps/web/src/features/share/share-page.tsx:38`      | Sparkles      | VibeCheck section                                                     | 24 (Lucide default) / 2 / none      | feature      |
+| 35  | `apps/web/src/features/share/share-page.tsx:45`      | Zap           | Native VibeFlash section                                              | 24 (Lucide default) / 2 / none      | feature      |
+| 36  | `apps/web/src/features/share/share-page.tsx:58`      | Heart         | Mood selection buttons                                                | 15 / 2 / none                       | metadata     |
+| 37  | `apps/web/src/features/share/share-page.tsx:67`      | Compass       | Social Compass section                                                | 24 (Lucide default) / 2 / none      | feature      |
+| 38  | `apps/web/src/features/share/share-page.tsx:74`      | Users         | Circles section                                                       | 24 (Lucide default) / 2 / none      | feature      |
+| 39  | `apps/web/src/features/share/share-page.tsx:81`      | Heart         | Support section                                                       | 24 (Lucide default) / 2 / none      | feature      |
+| 40  | `apps/web/src/features/vibe/vibe-page.tsx:50`        | Camera        | Open camera notice                                                    | 21 / 2 / none                       | action       |
+| 41  | `apps/web/src/features/vibe/vibe-page.tsx:61`        | MessageCircle | Open chat notice                                                      | 21 / 2 / none                       | action       |
+| 42  | `apps/web/src/features/vibe/vibe-page.tsx:104`       | Glyph         | Selected VIBE tab illustration                                        | 32 / 2 / none                       | feature      |
+| 43  | `apps/web/src/features/vibe/vibe-page.tsx:113`       | Volume2       | Sound section                                                         | 24 (Lucide default) / 2 / none      | feature      |
+| 44  | `apps/web/src/features/purse/purse-page.tsx:58`      | Wallet        | Wallet balance section                                                | 34 / 2 / none                       | feature      |
+| 45  | `apps/web/src/features/purse/purse-page.tsx:66`      | ArrowUpRight  | Send action                                                           | 17 / 2 / none                       | action       |
+| 46  | `apps/web/src/features/purse/purse-page.tsx:73`      | ArrowDownLeft | Receive action                                                        | 17 / 2 / none                       | action       |
+| 47  | `apps/web/src/features/purse/purse-page.tsx:79`      | KeyRound      | Private-key notice                                                    | 24 (Lucide default) / 2 / none      | feature      |
+| 48  | `apps/web/src/features/purse/purse-page.tsx:83`      | ReceiptText   | Ledger section                                                        | 24 (Lucide default) / 2 / none      | feature      |
+| 49  | `apps/web/src/features/purse/purse-page.tsx:89`      | Handshake     | P2P trade illustration                                                | 38 / 2 / none                       | illustration |
+| 50  | `apps/web/src/features/purse/purse-page.tsx:96`      | ShieldCheck   | Safety notice                                                         | 18 / 2 / none                       | action       |
+| 51  | `apps/web/src/features/social/follow-button.tsx:39`  | Glyph         | Follow/unfollow/follow-back action                                    | 14 / 2 / none                       | action       |
+
+## Other rendering mechanisms and retained exceptions
+
+- Shell's 🤪 brand illustration: original brand content, not a functional control. Retained.
+- Activities' user-selected category emoji (including the category selector, card and metadata), official Event category imagery, Review star strings, actual Media photos and profile initials/fallback portraits: domain content or identity imagery. Retained; none creates a second upload, persistence or icon business owner. Activities/Events/Business/Identity/Profile forms contain native named inputs/actions rather than additional Lucide glyphs.
+- Social Orbit/Echo telescope/megaphone empty-state illustrations: intentional descriptive content, not buttons. Retained.
+- Share's filled hero heart: one explicit decorative `data-icon-fill="solid"` exception; all functional hearts remain transparent outlines.
+- Home Flash/Radio, Radar, capsule and following-state colors retain contextual meaning. Page identity icons use approved colors and contrast-safe theme treatments.
+- MapLibre generates zoom/bearing controls and SVG background sprites outside JSX when an approved live map style is supplied. Those library-owned controls and compass rotation are retained, not modified through private DOM/state. Their actual provider rendering remains unverified without a configured map style. The owner supplied the named Global Icon Design Standard screenshot during execution; the final Chrome glyph comparison is recorded separately from live-provider acceptance.
+- Before migration, no hand-authored SVG functional glyphs, SVG files, bitmap functional icon assets or other application icon library were found. The final reference adds a small Home roof/chimney recipe through the existing Lucide factory and a Wallet clasp detail through its supported children API in `components/icon-glyphs.tsx`; these geometry-only variants share the same CSS roles, and Wallet is reused by navigation and the Purse card. The baseline remains 51 consumer sites; the geometry adapter adds one internal SVG invocation and a factory definition, without another rendering library or presentation owner. CSS-only decorative radar/orbit shapes and native browser form indicators remain intentional.

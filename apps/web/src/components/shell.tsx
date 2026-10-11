@@ -3,27 +3,19 @@ import { useState, useEffect, type ReactNode, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  Home,
-  Compass,
-  Heart,
-  Users,
-  Bitcoin,
-  Bell,
-  CircleUser,
-  MapPin,
-} from "lucide-react";
+import { Compass, Heart, Users, Bell, CircleUser, MapPin } from "lucide-react";
+import { HomeGlyph, WalletGlyph } from "./icon-glyphs";
 import { useHost } from "../platform/host";
 import { NoticeDialog } from "./presentation";
 import { ProfileMenu } from "./profile-menu";
 import { useAccount } from "../features/identity/account-provider";
 
 const destinations = [
-  { id: "home", icon: Home },
+  { id: "home", icon: HomeGlyph },
   { id: "explore", icon: Compass },
   { id: "share", icon: Heart },
   { id: "vibe", icon: Users },
-  { id: "purse", icon: Bitcoin },
+  { id: "purse", icon: WalletGlyph },
 ] as const;
 
 export function Shell({ children }: { children: ReactNode }) {
@@ -73,20 +65,20 @@ export function Shell({ children }: { children: ReactNode }) {
             aria-label={c("notificationsTitle")}
             onClick={() => setDialog("notifications")}
           >
-            <Bell size={18} />
+            <Bell data-icon-role="action" aria-hidden />
           </button>
           <button
             className="icon-button account"
             aria-label={c("accountTitle")}
             onClick={() => setDialog("account")}
           >
-            <CircleUser size={22} />
+            <CircleUser data-icon-role="action" aria-hidden />
           </button>
         </div>
       </header>
       <div className="context-strip">
         <Link href={`/${locale}/explore`}>
-          <MapPin size={14} aria-hidden />
+          <MapPin data-icon-role="metadata" aria-hidden />
           {c("chooseArea")}
         </Link>
         <span className="guest-label">
@@ -113,12 +105,7 @@ export function Shell({ children }: { children: ReactNode }) {
             onClick={() => host.haptic()}
           >
             <span className="nav-icon">
-              <Glyph
-                size={id === "share" ? 22 : 18}
-                strokeWidth={2}
-                fill="none"
-                aria-hidden
-              />
+              <Glyph data-icon-role="navigation" fill="none" aria-hidden />
             </span>
             <span className="nav-label">{t(id)}</span>
             {destination === id && id !== "share" && (

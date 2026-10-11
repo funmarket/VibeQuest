@@ -36,7 +36,7 @@ export function FollowButton({
         disabled={busy}
         onClick={toggle}
       >
-        <Glyph size={14} aria-hidden />
+        <Glyph data-icon-role="action" aria-hidden />
         {t(
           busy
             ? "loading"

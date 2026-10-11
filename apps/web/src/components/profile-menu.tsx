@@ -41,7 +41,7 @@ export function ProfileMenu({ onClose }: { onClose: () => void }) {
           onClick={onClose}
           aria-label={c("close")}
         >
-          <X size={20} />
+          <X data-icon-role="action" aria-hidden />
         </button>
       </div>
       <details open>

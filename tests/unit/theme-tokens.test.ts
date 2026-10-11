@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const css = readFileSync("packages/ui/src/tokens.css", "utf8");
-function palette(selector: string) {
+function declaredPalette(selector: string) {
   const block = css.slice(css.indexOf(selector)).split("}")[0];
   return Object.fromEntries(
     [...block.matchAll(/--([\w-]+):\s*(#[\da-f]{6})/gi)].map((match) => [
@@ -10,6 +10,9 @@ function palette(selector: string) {
       match[2],
     ]),
   );
+}
+function palette(selector: string) {
+  return { ...declaredPalette(":root"), ...declaredPalette(selector) };
 }
 function rgb(hex: string) {
   return [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
@@ -90,10 +93,11 @@ describe("canonical semantic palette", () => {
       expect(
         contrast(tokens["capsule-text"]!, tokens.capsule!),
       ).toBeGreaterThanOrEqual(4.5);
-      expect(tokens["nav-orange"]).toBe("#f97316");
-      expect(tokens["nav-blue"]).toBe("#3b82f6");
-      expect(tokens["nav-pink"]).toBe("#f43f5e");
-      expect(tokens["nav-purple"]).toBe("#a855f7");
+      expect(tokens["identity-home"]).toBe("#00ced1");
+      expect(tokens["identity-explore"]).toBe("#00ff00");
+      expect(tokens["identity-share"]).toBe("#ff0040");
+      expect(tokens["identity-vibe"]).toBe("#9d00ff");
+      expect(tokens["identity-purse"]).toBe("#d4af37");
       for (const accent of [
         "orange",
         "blue",

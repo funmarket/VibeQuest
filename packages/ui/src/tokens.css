@@ -16,10 +16,29 @@
   --purple: #7138c2;
   --focus: #405cf5;
   --on-accent: #ffffff;
-  --nav-orange: #f97316;
-  --nav-blue: #3b82f6;
-  --nav-pink: #f43f5e;
-  --nav-purple: #a855f7;
+  --identity-home: #00ced1;
+  --identity-explore: #00ff00;
+  --identity-share: #ff0040;
+  --identity-vibe: #9d00ff;
+  --identity-purse: #d4af37;
+  --identity-home-ink: color-mix(in srgb, var(--identity-home) 40%, black);
+  --identity-explore-ink: color-mix(
+    in srgb,
+    var(--identity-explore) 40%,
+    black
+  );
+  --identity-share-ink: color-mix(in srgb, var(--identity-share) 60%, black);
+  --identity-vibe-ink: var(--identity-vibe);
+  --identity-purse-ink: color-mix(in srgb, var(--identity-purse) 40%, black);
+  --icon-metadata: 16px;
+  --icon-action: 20px;
+  --icon-navigation: 24px;
+  --icon-feature: 32px;
+  --icon-illustration: 44px;
+  --icon-stroke: 2;
+  --icon-stroke-metadata: 1.75;
+  --icon-stroke-feature: 2.25;
+  --icon-stroke-illustration: 2.5;
   --nav-on-active: #ffffff;
   --gold: #efc76e;
   --capsule: #101010;
@@ -45,10 +64,6 @@
   --purple: #c2a2ff;
   --focus: #90a6ff;
   --on-accent: #0a0a0a;
-  --nav-orange: #f97316;
-  --nav-blue: #3b82f6;
-  --nav-pink: #f43f5e;
-  --nav-purple: #a855f7;
   --nav-on-active: #ffffff;
   --gold: #efc76e;
   --capsule: #101010;

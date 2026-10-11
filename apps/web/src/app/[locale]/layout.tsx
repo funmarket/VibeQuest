@@ -6,6 +6,7 @@ import { themeBootstrap } from "@vq/ui/theme-policy";
 import { Providers } from "../../components/providers";
 import { Shell } from "../../components/shell";
 import "@vq/ui/tokens.css";
+import "@vq/ui/icons.css";
 import "../../styles/global.css";
 import "../../features/activities/activities.css";
 import "../../features/events/events.css";

@@ -37,7 +37,7 @@ export function HomePage() {
       <div className="home-grid">
         <Section title={t("checkins")} className="checkins-panel">
           <span className="status-label">
-            <Radio size={15} aria-hidden />
+            <Radio data-icon-role="metadata" aria-hidden />
             {t("current")}
           </span>
           <div className="empty-orbits" aria-hidden>
@@ -49,7 +49,11 @@ export function HomePage() {
           <Empty>{t("checkinsEmpty")}</Empty>
         </Section>
         <Section title={t("flash")} className="flash-panel">
-          <Zap className="feature-symbol" aria-hidden />
+          <Zap
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <Empty>{t("flashEmpty")}</Empty>
           <div className="button-row">
             <PendingButton onClick={() => setNotice(t("hunt"))}>
@@ -63,7 +67,11 @@ export function HomePage() {
         <ActivitiesPanel />
         <EventsPanel />
         <Section title={t("streak")} className="streak-panel">
-          <Flame className="feature-symbol" aria-hidden />
+          <Flame
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("streakBody")}</p>
           <div className="streak-track" aria-hidden>
             {Array.from({ length: 5 }, (_, i) => (
@@ -76,7 +84,7 @@ export function HomePage() {
           <div className="radar-art" aria-hidden>
             <span />
             <span />
-            <Radar size={38} />
+            <Radar data-icon-role="illustration" aria-hidden />
           </div>
           <p>{t("radarBody")}</p>
           <PendingButton onClick={() => setNotice(t("radar"))}>
@@ -84,7 +92,11 @@ export function HomePage() {
           </PendingButton>
         </Section>
         <Section title={t("hub")}>
-          <Users className="feature-symbol" aria-hidden />
+          <Users
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("hubBody")}</p>
           <PendingButton onClick={() => setNotice(t("hub"))}>
             {c("learnMore")}
@@ -116,15 +128,27 @@ export function HomePage() {
           </div>
         </section>
         <Section title={t("coordinates")}>
-          <MapPinned className="feature-symbol" aria-hidden />
+          <MapPinned
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <Empty>{c("notAvailable")}</Empty>
         </Section>
         <Section title={t("gems")}>
-          <Footprints className="feature-symbol" aria-hidden />
+          <Footprints
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <Empty>{c("empty")}</Empty>
         </Section>
         <Section title={t("guide")} className="guide-panel">
-          <BookOpen className="feature-symbol" aria-hidden />
+          <BookOpen
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("guideBody")}</p>
           <PendingButton onClick={() => setNotice(t("guide"))}>
             {c("learnMore")}

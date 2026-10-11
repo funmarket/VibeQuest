@@ -18,7 +18,7 @@ export function SharePage() {
     <>
       <div className="share-hero">
         <span className="hero-heart" aria-hidden>
-          <Heart size={34} fill="currentColor" />
+          <Heart data-icon-role="feature" data-icon-fill="solid" aria-hidden />
         </span>
         <h1>{t("title")}</h1>
         <p>{t("intro")}</p>
@@ -26,7 +26,11 @@ export function SharePage() {
       <div className="share-grid">
         <Section title={t("shot")} className="capture-panel">
           <div className="capture-frame">
-            <Camera size={44} aria-hidden />
+            <Camera
+              data-icon-role="illustration"
+              data-icon-tone="identity"
+              aria-hidden
+            />
             <p>{t("shotBody")}</p>
             <span className="pending-label">{c("notAvailable")}</span>
           </div>
@@ -35,14 +39,22 @@ export function SharePage() {
           </PendingButton>
         </Section>
         <Section title={t("check")}>
-          <Sparkles className="feature-symbol" aria-hidden />
+          <Sparkles
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("checkBody")}</p>
           <PendingButton onClick={() => setNotice(t("check"))}>
             {c("learnMore")}
           </PendingButton>
         </Section>
         <Section title={t("flash")}>
-          <Zap className="feature-symbol" aria-hidden />
+          <Zap
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("flashBody")}</p>
           <PendingButton onClick={() => setNotice(t("flash"))}>
             {c("learnMore")}
@@ -55,7 +67,11 @@ export function SharePage() {
               key={id}
               onClick={() => setNotice(t(id))}
             >
-              <Heart size={15} aria-hidden />
+              <Heart
+                data-icon-role="metadata"
+                data-icon-tone="identity"
+                aria-hidden
+              />
               {t(id)}
             </button>
           ))}
@@ -64,21 +80,33 @@ export function SharePage() {
           <Empty>{t("feedEmpty")}</Empty>
         </Section>
         <Section title={t("compass")}>
-          <Compass className="feature-symbol" aria-hidden />
+          <Compass
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("compassBody")}</p>
           <PendingButton onClick={() => setNotice(t("compass"))}>
             {c("learnMore")}
           </PendingButton>
         </Section>
         <Section title={t("circles")}>
-          <Users className="feature-symbol" aria-hidden />
+          <Users
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("circlesBody")}</p>
           <PendingButton onClick={() => setNotice(t("circles"))}>
             {c("learnMore")}
           </PendingButton>
         </Section>
         <Section title={t("support")} className="support-panel">
-          <Heart className="feature-symbol" aria-hidden />
+          <Heart
+            data-icon-role="feature"
+            className="feature-symbol"
+            aria-hidden
+          />
           <p>{t("supportBody")}</p>
         </Section>
       </div>

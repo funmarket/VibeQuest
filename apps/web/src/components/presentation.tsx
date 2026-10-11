@@ -32,7 +32,11 @@ export function PendingButton({
   return (
     <button className="soft-button" onClick={onClick}>
       {children}
-      <ArrowUpRight size={16} aria-hidden />
+      <ArrowUpRight
+        data-icon-role="action"
+        data-icon-tone="identity"
+        aria-hidden
+      />
     </button>
   );
 }
@@ -72,7 +76,7 @@ export function NoticeDialog({
     >
       <div className="dialog-heading">
         <span className="eyebrow">
-          <Clock size={14} aria-hidden />
+          <Clock data-icon-role="metadata" aria-hidden />
           {t("planned")}
         </span>
         <button
@@ -80,7 +84,7 @@ export function NoticeDialog({
           aria-label={t("close")}
           onClick={onClose}
         >
-          <X size={20} />
+          <X data-icon-role="action" aria-hidden />
         </button>
       </div>
       <h2 id={id}>{title}</h2>
