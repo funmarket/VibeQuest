@@ -58,7 +58,9 @@ for (const locale of ["en", "ar", "fr", "es"]) {
             raised: getComputedStyle(document.querySelector(".account")!)
               .backgroundColor,
             muted: getComputedStyle(
-              document.querySelector(".page-heading p, .share-hero p")!,
+              document.querySelector(
+                ".page-heading p, .share-hero p, .home-flash-layout p",
+              )!,
             ).color,
             clipped: document.documentElement.scrollWidth > innerWidth,
           }));

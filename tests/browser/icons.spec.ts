@@ -115,20 +115,17 @@ for (const locale of ["en", "ar"]) {
             return values;
           });
           expect(identities).toEqual(colors);
-          const identityIcons = await page
-            .locator('svg[data-icon-tone="identity"]')
+          const utilityIcons = await page
+            .locator(
+              "main .soft-button svg, main .primary-button svg, .view-toggle svg, .contribution-actions svg",
+            )
             .evaluateAll((elements) =>
               elements.map((el) => {
-                const scope = el.closest(".app-shell")!;
-                const swatch = document.createElement("span");
-                swatch.style.color = "var(--icon-accent)";
-                scope.append(swatch);
-                const expected = getComputedStyle(swatch).color;
-                swatch.remove();
+                const expected = getComputedStyle(el.closest("button")!).color;
                 return { actual: getComputedStyle(el).color, expected };
               }),
             );
-          for (const icon of identityIcons)
+          for (const icon of utilityIcons)
             expect(icon.actual).toBe(icon.expected);
           const icons = await page
             .locator("main svg.lucide")
@@ -238,7 +235,7 @@ test("reference glyph details and shared notice actions remain accessible", asyn
   await expect(page.locator('.nav-purse svg path[d="M18 14h.01"]')).toHaveCount(
     1,
   );
-  const capture = page.locator(".capture-panel .soft-button");
+  const capture = page.locator(".broadcast-button");
   await capture.click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();

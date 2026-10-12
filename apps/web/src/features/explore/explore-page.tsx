@@ -6,8 +6,8 @@ import {
   Search,
   List,
   Map,
-  Zap,
-  Footprints,
+  VenetianMask,
+  Route,
   ShieldCheck,
   Compass,
   Radar,
@@ -94,11 +94,7 @@ export function ExplorePage() {
     <>
       <div className="page-heading">
         <div className="eyebrow">
-          <Compass
-            data-icon-role="metadata"
-            data-icon-tone="identity"
-            aria-hidden
-          />
+          <Compass data-icon-role="metadata" aria-hidden />
           {t("community")}
           <span className="dot-separator" />
           {t("business")}
@@ -108,11 +104,7 @@ export function ExplorePage() {
       </div>
       <div className="explore-top">
         <button className="soft-button" onClick={() => setNotice("area")}>
-          <MapPin
-            data-icon-role="metadata"
-            data-icon-tone="identity"
-            aria-hidden
-          />
+          <MapPin data-icon-role="metadata" aria-hidden />
           {t("chooseBounds")}
         </button>
         <PendingButton onClick={() => setNotice("spawn")}>
@@ -121,15 +113,15 @@ export function ExplorePage() {
       </div>
       <div className="explore-prelude">
         <Section title={t("secrets")} className="flash-panel">
-          <Zap
+          <VenetianMask
             data-icon-role="feature"
             className="feature-symbol"
             aria-hidden
           />
           <Empty>{t("pendingBody")}</Empty>
         </Section>
-        <Section title={t("trails")}>
-          <Footprints
+        <Section title={t("trails")} className="trails-panel">
+          <Route
             data-icon-role="feature"
             className="feature-symbol"
             aria-hidden
@@ -180,22 +172,14 @@ export function ExplorePage() {
               aria-pressed={view === "list"}
               onClick={() => setView("list")}
             >
-              <List
-                data-icon-role="action"
-                data-icon-tone="identity"
-                aria-hidden
-              />
+              <List data-icon-role="action" aria-hidden />
               {t("list")}
             </button>
             <button
               aria-pressed={view === "map"}
               onClick={() => setView("map")}
             >
-              <Map
-                data-icon-role="action"
-                data-icon-tone="identity"
-                aria-hidden
-              />
+              <Map data-icon-role="action" aria-hidden />
               {t("map")}
             </button>
           </div>
@@ -212,7 +196,7 @@ export function ExplorePage() {
           {data.status === "error" && (
             <div role="alert">
               <p>{t("error")}</p>
-              <button className="soft-button" onClick={data.retry}>
+              <button className="primary-button" onClick={data.retry}>
                 {c("retry")}
               </button>
             </div>
@@ -247,27 +231,15 @@ export function ExplorePage() {
         </div>
         <div className="contribution-actions">
           <button onClick={() => setNotice("suggest")}>
-            <Plus
-              data-icon-role="action"
-              data-icon-tone="identity"
-              aria-hidden
-            />
+            <Plus data-icon-role="action" aria-hidden />
             {t("suggest")}
           </button>
           <button onClick={() => setNotice("report")}>
-            <Flag
-              data-icon-role="action"
-              data-icon-tone="identity"
-              aria-hidden
-            />
+            <Flag data-icon-role="action" aria-hidden />
             {t("report")}
           </button>
           <button onClick={() => setNotice("ask")}>
-            <MessageCircle
-              data-icon-role="action"
-              data-icon-tone="identity"
-              aria-hidden
-            />
+            <MessageCircle data-icon-role="action" aria-hidden />
             {t("ask")}
           </button>
         </div>
@@ -282,7 +254,7 @@ export function ExplorePage() {
           <h3>{t("heat")}</h3>
           <p>{t("radarBody")}</p>
         </Section>
-        <Section title={t("guardian")}>
+        <Section title={t("guardian")} className="guardian-panel">
           <ShieldCheck
             data-icon-role="feature"
             className="feature-symbol"

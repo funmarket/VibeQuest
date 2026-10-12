@@ -169,3 +169,21 @@ in installed Chrome at 320/390px in all four languages, including account and
 notification dialog opening and no horizontal overflow. Production build and
 CSS formatting passed; dark/light screenshots were inspected. A second image
 reference was not present in the request; no exact match to it is claimed.
+
+## Mobile SHARE composition and geometry correction
+
+The accepted mobile presentation keeps Live Vibe Shot, VibeCheck and VibeFlash
+in one horizontal row at phone widths. The owning SHARE stylesheet now uses
+content-driven equal-height cards, 11px supporting copy and a 148px minimum
+phone card height; the existing feature colors, icons, semantics and click
+behavior remain unchanged. The browser geometry assertion no longer measures
+Next.js' injected `#next-logo` development control as application UI, while
+the 44px minimum remains enforced for VibeQuest controls.
+
+Fresh verification passed: the production build, full formatting, ESLint,
+TypeScript, architecture checks, 47 unit tests and all 84 mobile browser
+cases. Chrome measured 320, 360, 375, 390, 393, 412 and 430px widths across
+English, French, Spanish and Arabic RTL in dark and light themes with no card
+clipping or horizontal overflow. Guest UI was verified visually; authenticated
+runtime, physical-device acceptance, Telegram acceptance and Railway readiness
+remain unverified.

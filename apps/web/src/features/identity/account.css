@@ -14,6 +14,7 @@
 .profile-menu-heading,
 .account-modes {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -25,6 +26,7 @@
   cursor: pointer;
   font-weight: 700;
   padding-block: 8px;
+  min-block-size: 44px;
 }
 .profile-menu label,
 .account-form {
@@ -48,6 +50,8 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
+  min-block-size: 44px;
+  font-size: 1rem;
 }
 .account-email {
   overflow-wrap: anywhere;
@@ -62,10 +66,4 @@
   border-radius: 12px;
   display: grid;
   gap: 8px;
-}
-.guest-label {
-  max-inline-size: 55%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

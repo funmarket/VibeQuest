@@ -8,6 +8,8 @@ import { Shell } from "../../components/shell";
 import "@vq/ui/tokens.css";
 import "@vq/ui/icons.css";
 import "../../styles/global.css";
+import "../../features/home/home.css";
+import "../../features/share/share.css";
 import "../../features/activities/activities.css";
 import "../../features/events/events.css";
 import "../../features/social/social.css";
