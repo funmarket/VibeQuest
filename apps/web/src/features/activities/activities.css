@@ -6,7 +6,7 @@
   --activity-expanded: #04331a;
   --activity-text: #f4f4f5;
   --activity-muted: #a1b9ad;
-  padding: 20px;
+  padding: 14px;
   border: 1px solid var(--activity-border);
   border-radius: 22px;
   background: var(--activity-bg);
@@ -40,6 +40,7 @@ html[data-theme="light"] .activities-panel {
   gap: 8px;
 }
 .activity-tabs button {
+  min-height: 44px;
   background: transparent;
   color: var(--activity-muted);
   padding: 8px 0;
@@ -66,7 +67,8 @@ html[data-theme="light"] .activities-panel {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
+  min-height: 44px;
+  max-width: 100%;
   background: var(--activity-card);
   color: var(--activity-accent);
   border: 1px solid var(--activity-border);
@@ -100,7 +102,7 @@ html[data-theme="light"] .activities-panel {
 .activity-summary {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
   background: transparent;
   text-align: start;
@@ -234,7 +236,8 @@ html[data-theme="light"] .activities-panel {
   border-radius: 8px;
   color: inherit;
   padding: 9px;
-  font: inherit;
+  min-height: 44px;
+  font-size: 1rem;
 }
 .activity-form p {
   font-size: 12px;
@@ -258,14 +261,8 @@ html[data-theme="light"] .activities-panel [role="alert"] {
   font-size: 10px;
   color: var(--activity-muted);
 }
-@media (max-width: 400px) {
+@media (min-width: 680px) {
   .activities-panel {
-    padding: 14px;
-  }
-  .activity-summary {
-    gap: 8px;
-  }
-  .activity-expand {
-    font-size: 9px;
+    padding: 20px;
   }
 }

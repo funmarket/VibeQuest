@@ -1,0 +1,122 @@
+.checkins-panel {
+  min-inline-size: 0;
+}
+.checkins-panel h2 {
+  font-size: 14px;
+  font-weight: 800;
+  margin-block-end: 12px;
+}
+.checkin-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 14px;
+}
+.checkin-current,
+.checkin-empty {
+  min-inline-size: 0;
+  min-block-size: 76px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 22px;
+  background: var(--checkin-surface);
+  border: 1px solid var(--checkin-border);
+}
+.checkin-current {
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+.checkin-current small {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.checkin-current strong {
+  font-size: 17px;
+  font-weight: 900;
+}
+.checkin-empty {
+  justify-content: flex-start;
+}
+.checkin-empty > span {
+  font-size: 18px;
+}
+.checkin-empty strong,
+.checkin-empty small {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.checkin-empty small {
+  color: var(--muted);
+}
+.home-flash-panel {
+  min-inline-size: 0;
+  padding: 20px;
+  background: var(--checkin-surface);
+  border: 1px solid var(--checkin-border);
+  border-radius: 22px;
+}
+.home-flash-panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: 14px;
+}
+.home-flash-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+.home-flash-layout p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.flash-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-block-start: 12px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.hunt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 8px;
+}
+.hunt-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1 1 max-content;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  min-block-size: 44px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+.hunt-primary {
+  background: var(--hunt-surface);
+  color: var(--hunt-text);
+}
+.hunt-secondary {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+@media (min-width: 680px) {
+  .checkins-panel {
+    grid-column: 1 / -1;
+    max-inline-size: 550px;
+  }
+}

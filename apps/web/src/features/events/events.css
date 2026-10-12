@@ -9,7 +9,7 @@
   background: var(--event-bg);
   border: 1px solid var(--event-border);
   border-radius: 22px;
-  padding: 20px;
+  padding: 14px;
   color: var(--event-text);
   min-width: 0;
   text-align: start;
@@ -37,6 +37,7 @@ html[data-theme="light"] .events-panel {
   margin-bottom: 14px;
 }
 .event-tabs button {
+  min-height: 44px;
   background: transparent;
   color: var(--event-muted);
   border-bottom: 1px dashed transparent;
@@ -60,7 +61,8 @@ html[data-theme="light"] .events-panel {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
+  min-height: 44px;
+  max-width: 100%;
   border: 1px solid var(--event-border);
   background: var(--event-card);
   color: var(--event-accent);
@@ -95,7 +97,7 @@ html[data-theme="light"] .events-panel {
 .event-summary {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
   text-align: start;
   background: transparent;
@@ -211,7 +213,8 @@ html[data-theme="light"] .events-panel {
   background: var(--event-bg);
   color: inherit;
   padding: 9px;
-  font: inherit;
+  min-height: 44px;
+  font-size: 1rem;
 }
 .event-form p {
   font-size: 12px;
@@ -235,14 +238,8 @@ html[data-theme="light"] .events-panel {
 html[data-theme="light"] .events-panel [role="alert"] {
   color: #a51e3a;
 }
-@media (max-width: 400px) {
+@media (min-width: 680px) {
   .events-panel {
-    padding: 14px;
-  }
-  .event-summary {
-    gap: 8px;
-  }
-  .event-expand {
-    font-size: 9px;
+    padding: 20px;
   }
 }

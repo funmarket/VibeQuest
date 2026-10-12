@@ -7,8 +7,10 @@ import {
   Camera,
   MessageCircle,
   Users,
-  Radio,
-  Sparkles,
+  Footprints,
+  Blend,
+  MessagesSquare,
+  Inbox,
   UserRoundPlus,
   Volume2,
 } from "lucide-react";
@@ -21,12 +23,12 @@ import {
 
 const tabs = ["gossip", "drift", "vibes", "orbit", "echo", "pulls"] as const;
 const icons = {
-  gossip: MessageCircle,
-  drift: Radio,
-  vibes: Sparkles,
+  gossip: MessagesSquare,
+  drift: Footprints,
+  vibes: Blend,
   orbit: UserRoundPlus,
   echo: Users,
-  pulls: UserRoundPlus,
+  pulls: Inbox,
 };
 export function VibePage() {
   const t = useTranslations("vibe");
@@ -88,6 +90,7 @@ export function VibePage() {
       </div>
       <section
         className={`panel vibe-view${tab === "orbit" || tab === "echo" ? " social-view" : ""}`}
+        data-feature={tab}
         role="tabpanel"
         id="vibe-view"
         aria-labelledby={`vibe-${tab}`}
@@ -101,11 +104,7 @@ export function VibePage() {
         ) : (
           <>
             <span className="empty-emblem">
-              <Glyph
-                data-icon-role="feature"
-                data-icon-tone="identity"
-                aria-hidden
-              />
+              <Glyph data-icon-role="feature" aria-hidden />
             </span>
             <h2>{t(`${tab}Title`)}</h2>
             <Empty>{t(`${tab}Body`)}</Empty>

@@ -96,8 +96,8 @@ html[data-theme="light"] .social-public {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.social-mutual {
-  color: var(--social-action) !important;
+.social-person-copy .social-mutual {
+  color: var(--social-action);
   font-size: 12px;
 }
 .social-follow-action {
@@ -109,6 +109,7 @@ html[data-theme="light"] .social-public {
   gap: 5px;
   align-items: center;
   padding: 7px 10px;
+  min-height: 44px;
   border: 1px solid var(--social-action-border);
   background: var(--social-action-bg);
   color: var(--social-action);
@@ -151,11 +152,12 @@ html[data-theme="light"] .social-public {
   width: 100%;
   min-width: 0;
   padding: 9px;
+  min-height: 44px;
+  font-size: 1rem;
   border: 1px solid var(--social-border);
   border-radius: 10px;
   background: var(--social-bg);
   color: var(--social-text);
-  font: inherit;
 }
 .social-lookup button,
 .social-empty button,
@@ -163,6 +165,7 @@ html[data-theme="light"] .social-public {
 .social-connections > div > button,
 .social-public > div > button {
   padding: 9px 12px;
+  min-height: 44px;
   border-radius: 10px;
   background: var(--social-link);
   color: #fff;

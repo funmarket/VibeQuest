@@ -32,11 +32,7 @@ export function PendingButton({
   return (
     <button className="soft-button" onClick={onClick}>
       {children}
-      <ArrowUpRight
-        data-icon-role="action"
-        data-icon-tone="identity"
-        aria-hidden
-      />
+      <ArrowUpRight data-icon-role="action" aria-hidden />
     </button>
   );
 }

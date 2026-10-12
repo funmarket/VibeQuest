@@ -68,11 +68,7 @@ export function PlacesMap({
   if (!validStyle || failed)
     return (
       <div className="map-unavailable" role="status">
-        <MapPinned
-          data-icon-role="illustration"
-          data-icon-tone="identity"
-          aria-hidden
-        />
+        <MapPinned data-icon-role="illustration" aria-hidden />
         <h3>{t("mapUnavailable")}</h3>
         <p>{t("mapBody")}</p>
       </div>

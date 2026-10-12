@@ -9,6 +9,7 @@ import { useHost } from "../platform/host";
 import { NoticeDialog } from "./presentation";
 import { ProfileMenu } from "./profile-menu";
 import { useAccount } from "../features/identity/account-provider";
+import { advanceNavigationScroll } from "./navigation-scroll";
 
 const destinations = [
   { id: "home", icon: HomeGlyph },
@@ -31,6 +32,18 @@ export function Shell({ children }: { children: ReactNode }) {
     null,
   );
   const destination = path.split("/")[2] ?? "home";
+  const [navigationHidden, setNavigationHidden] = useState(false);
+  useEffect(() => {
+    // This app scrolls the document; nested feeds and dialogs do not own the shell.
+    let state = { anchor: Math.max(0, window.scrollY), hidden: false };
+    setNavigationHidden(false);
+    const onScroll = () => {
+      state = advanceNavigationScroll(state, window.scrollY);
+      setNavigationHidden(state.hidden);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [path]);
   useEffect(
     () => host.back(destination === "home" ? undefined : () => router.back()),
     [host, destination, router],
@@ -94,7 +107,11 @@ export function Shell({ children }: { children: ReactNode }) {
       <main id="main" className="main-content">
         {children}
       </main>
-      <nav className="bottom-nav" aria-label={t("primary")}>
+      <nav
+        className="bottom-nav"
+        data-scroll-hidden={navigationHidden}
+        aria-label={t("primary")}
+      >
         {destinations.map(({ id, icon: Glyph }) => (
           <Link
             key={id}

@@ -63,22 +63,14 @@ export function PursePage() {
                   className="soft-button"
                   onClick={() => setNotice(t("send"))}
                 >
-                  <ArrowUpRight
-                    data-icon-role="action"
-                    data-icon-tone="identity"
-                    aria-hidden
-                  />
+                  <ArrowUpRight data-icon-role="action" aria-hidden />
                   {t("send")}
                 </button>
                 <button
                   className="soft-button"
                   onClick={() => setNotice(t("receive"))}
                 >
-                  <ArrowDownLeft
-                    data-icon-role="action"
-                    data-icon-tone="identity"
-                    aria-hidden
-                  />
+                  <ArrowDownLeft data-icon-role="action" aria-hidden />
                   {t("receive")}
                 </button>
               </div>

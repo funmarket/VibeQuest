@@ -1,0 +1,189 @@
+@font-face {
+  font-family: Caveat;
+  src: url("/fonts/caveat-700.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+.share-content {
+  max-inline-size: 650px;
+  margin-inline: auto;
+}
+.share-hero {
+  padding: 22px 18px 18px;
+  border: 1px solid var(--share-tile-border);
+  border-radius: 24px;
+  background: linear-gradient(
+    145deg,
+    var(--share-hero-start),
+    var(--share-hero-middle),
+    var(--share-hero-end)
+  );
+}
+.share-hero h1 {
+  font-family: Caveat, cursive;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(44px, 9vw, 64px);
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-block-end: 20px;
+}
+.share-hero h1 span {
+  display: block;
+}
+:lang(ar) .share-hero h1 {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: clamp(32px, 7vw, 48px);
+  line-height: 1.2;
+}
+.share-hero > p {
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  margin-block-end: 18px;
+}
+.share-camera-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.share-camera-tile {
+  min-inline-size: 0;
+  min-block-size: 148px;
+  padding: 10px 8px;
+  border-radius: 18px;
+  background: var(--share-tile);
+  color: var(--text);
+  border: 1px solid var(--share-tile-border);
+  display: grid;
+  grid-template-rows: auto auto;
+  align-items: start;
+  gap: 8px;
+  text-align: start;
+}
+.share-camera-tile strong,
+.share-camera-tile small {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+.share-camera-tile strong {
+  font-weight: 800;
+  margin-block-end: 3px;
+}
+.share-camera-tile small {
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+.share-camera-tile[data-feature="flash"] small {
+  color: var(--feature-tone);
+}
+.share-camera-badge {
+  inline-size: 28px;
+  block-size: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--feature-tone);
+  border: 1px solid color-mix(in srgb, var(--feature-tone) 20%, transparent);
+  background: color-mix(in srgb, var(--feature-tone) 10%, transparent);
+}
+.broadcast-button {
+  margin-block: 22px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  inline-size: 100%;
+  min-block-size: 48px;
+  padding: 12px;
+  border: 1px solid var(--broadcast-border);
+  border-radius: 999px;
+  background: var(--broadcast-surface);
+  color: var(--feature-broadcast);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.share-grid,
+.share-categories {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+.share-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 6px;
+}
+.share-filters .soft-button {
+  min-inline-size: 0;
+  padding: 10px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.share-feed-panel,
+.circles-panel {
+  background: var(--share-feed-surface);
+}
+.share-category {
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--feature-tone) 30%, var(--border));
+  background: color-mix(in srgb, var(--feature-tone) 8%, var(--bg));
+  border-radius: 24px;
+}
+.share-category h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: 12px;
+}
+.share-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.share-category li {
+  padding-block: 10px;
+  border-block-start: 1px solid var(--border);
+  font-size: 13px;
+}
+.support-panel {
+  background: var(--support-surface);
+  border-color: var(--support-border);
+}
+.share-camera-tile:hover,
+.broadcast-button:hover {
+  filter: brightness(1.08);
+}
+.share-camera-tile:active,
+.broadcast-button:active {
+  filter: brightness(0.95);
+}
+
+@media (min-width: 680px) {
+  .share-camera-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .share-camera-tile {
+    min-block-size: 96px;
+    padding: 14px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 12px;
+    align-content: start;
+  }
+  .share-camera-tile strong,
+  .share-camera-tile small {
+    font-size: 0.875rem;
+    line-height: 1.35;
+  }
+  .share-camera-badge {
+    inline-size: 36px;
+    block-size: 36px;
+  }
+}
