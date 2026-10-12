@@ -1,0 +1,42 @@
+/* Features own glyph identity; this stylesheet owns functional SVG presentation.
+ * Keep labels on the parent control; accompanying icons are aria-hidden.
+ * Standalone informative icons need a localized accessible name instead.
+ */
+svg.lucide {
+  --icon-size: var(--icon-action);
+  --icon-weight: var(--icon-stroke);
+  inline-size: var(--icon-size);
+  block-size: var(--icon-size);
+  flex-shrink: 0;
+  vertical-align: middle;
+  stroke: currentColor;
+  stroke-width: var(--icon-weight);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+svg.lucide > * {
+  vector-effect: non-scaling-stroke;
+}
+svg.lucide[data-icon-tone="identity"] {
+  color: var(--icon-accent);
+}
+svg.lucide[data-icon-role="metadata"] {
+  --icon-size: var(--icon-metadata);
+  --icon-weight: var(--icon-stroke-metadata);
+}
+svg.lucide[data-icon-role="navigation"] {
+  --icon-size: var(--icon-navigation);
+}
+svg.lucide[data-icon-role="feature"] {
+  --icon-size: var(--icon-feature);
+  --icon-weight: var(--icon-stroke-feature);
+}
+svg.lucide[data-icon-role="illustration"] {
+  --icon-size: var(--icon-illustration);
+  --icon-weight: var(--icon-stroke-illustration);
+}
+/* Explicit decorative Share illustration exception, never a functional control. */
+svg.lucide[data-icon-fill="solid"] {
+  fill: currentColor;
+}

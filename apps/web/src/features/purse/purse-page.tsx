@@ -3,7 +3,6 @@ import { useState } from "react";
 import { tabKeyboard } from "../../components/tab-keyboard";
 import { useTranslations } from "next-intl";
 import {
-  Wallet,
   ArrowUpRight,
   ArrowDownLeft,
   KeyRound,
@@ -11,6 +10,7 @@ import {
   Handshake,
   ReceiptText,
 } from "lucide-react";
+import { WalletGlyph } from "../../components/icon-glyphs";
 import {
   Section,
   Empty,
@@ -55,7 +55,7 @@ export function PursePage() {
         {tab === "wallet" ? (
           <div className="purse-grid">
             <Section title={t("balance")} className="wallet-card">
-              <Wallet size={34} aria-hidden />
+              <WalletGlyph data-icon-role="feature" aria-hidden />
               <p className="balance-state">{t("disconnected")}</p>
               <p>{t("balanceBody")}</p>
               <div className="button-row">
@@ -63,37 +63,53 @@ export function PursePage() {
                   className="soft-button"
                   onClick={() => setNotice(t("send"))}
                 >
-                  <ArrowUpRight size={17} aria-hidden />
+                  <ArrowUpRight
+                    data-icon-role="action"
+                    data-icon-tone="identity"
+                    aria-hidden
+                  />
                   {t("send")}
                 </button>
                 <button
                   className="soft-button"
                   onClick={() => setNotice(t("receive"))}
                 >
-                  <ArrowDownLeft size={17} aria-hidden />
+                  <ArrowDownLeft
+                    data-icon-role="action"
+                    data-icon-tone="identity"
+                    aria-hidden
+                  />
                   {t("receive")}
                 </button>
               </div>
             </Section>
             <Section title={t("key")}>
-              <KeyRound className="feature-symbol" aria-hidden />
+              <KeyRound
+                data-icon-role="feature"
+                className="feature-symbol"
+                aria-hidden
+              />
               <Empty>{t("keyBody")}</Empty>
             </Section>
             <Section title={t("ledger")} className="wide-panel">
-              <ReceiptText className="feature-symbol" aria-hidden />
+              <ReceiptText
+                data-icon-role="feature"
+                className="feature-symbol"
+                aria-hidden
+              />
               <Empty>{t("ledgerBody")}</Empty>
             </Section>
           </div>
         ) : (
           <Section title={t("tradesTitle")} className="trade-panel">
-            <Handshake size={38} aria-hidden />
+            <Handshake data-icon-role="illustration" aria-hidden />
             <Empty>{t("tradesBody")}</Empty>
             <span className="pending-label">{c("notAvailable")}</span>
           </Section>
         )}
       </div>
       <p className="safety-note">
-        <ShieldCheck size={18} aria-hidden />
+        <ShieldCheck data-icon-role="action" aria-hidden />
         {t("safety")}
       </p>
       <PageEnd />

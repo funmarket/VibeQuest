@@ -47,18 +47,18 @@ export function VibePage() {
           aria-label={t("camera")}
           onClick={() => setNotice(t("camera"))}
         >
-          <Camera size={21} />
+          <Camera data-icon-role="feature" aria-hidden />
         </button>
         <button className="capsule-title" onClick={() => setNotice(t("share"))}>
           {t("share")}
-          <small>{t("composer")}</small>
+          <small className="sr-only">{t("composer")}</small>
         </button>
         <button
           className="capsule-dial"
           aria-label={t("chat")}
           onClick={() => setNotice(t("chat"))}
         >
-          <MessageCircle size={21} />
+          <MessageCircle data-icon-role="feature" aria-hidden />
         </button>
       </div>
       <blockquote className="vibe-quote">
@@ -101,7 +101,11 @@ export function VibePage() {
         ) : (
           <>
             <span className="empty-emblem">
-              <Glyph size={32} aria-hidden />
+              <Glyph
+                data-icon-role="feature"
+                data-icon-tone="identity"
+                aria-hidden
+              />
             </span>
             <h2>{t(`${tab}Title`)}</h2>
             <Empty>{t(`${tab}Body`)}</Empty>
@@ -110,7 +114,11 @@ export function VibePage() {
         )}
       </section>
       <Section title={t("sound")}>
-        <Volume2 className="feature-symbol" aria-hidden />
+        <Volume2
+          data-icon-role="feature"
+          className="feature-symbol"
+          aria-hidden
+        />
         <Empty>{t("soundBody")}</Empty>
       </Section>
       <PageEnd />

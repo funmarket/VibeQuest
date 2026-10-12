@@ -94,9 +94,6 @@ h3 {
 p {
   color: var(--muted);
 }
-svg {
-  flex-shrink: 0;
-}
 .sr-only {
   position: absolute;
   inline-size: 1px;
@@ -107,6 +104,7 @@ svg {
   white-space: nowrap;
 }
 .app-shell {
+  --icon-accent: var(--identity-home-ink);
   --accent: var(--orange);
   --nav-height: 56px;
   --header-safe: max(env(safe-area-inset-top, 0px), var(--host-safe-top, 0px));
@@ -118,13 +116,34 @@ svg {
   padding-block-start: var(--header-safe);
 }
 .page-explore {
+  --icon-accent: var(--identity-explore-ink);
   --accent: var(--blue);
 }
 .page-share {
+  --icon-accent: var(--identity-share-ink);
   --accent: var(--pink);
 }
 .page-vibe {
+  --icon-accent: var(--identity-vibe-ink);
   --accent: var(--purple);
+}
+.page-purse {
+  --icon-accent: var(--identity-purse-ink);
+}
+[data-theme="dark"] .page-home {
+  --icon-accent: var(--identity-home);
+}
+[data-theme="dark"] .page-explore {
+  --icon-accent: var(--identity-explore);
+}
+[data-theme="dark"] .page-share {
+  --icon-accent: var(--identity-share);
+}
+[data-theme="dark"] .page-vibe {
+  --icon-accent: var(--identity-vibe);
+}
+[data-theme="dark"] .page-purse {
+  --icon-accent: var(--identity-purse);
 }
 .app-header {
   max-inline-size: 1200px;
@@ -291,7 +310,7 @@ svg {
   max-inline-size: 580px;
 }
 .feature-symbol {
-  color: var(--accent);
+  color: var(--icon-accent);
   margin-block-end: 8px;
 }
 .wide-panel,
@@ -458,7 +477,7 @@ svg {
   user-select: none;
 }
 .nav-destination {
-  --nav-color: #71717a;
+  --nav-color: var(--muted);
   position: relative;
   display: flex;
   flex: 1;
@@ -476,18 +495,25 @@ svg {
     color 250ms,
     box-shadow 250ms;
 }
-.nav-home,
+.nav-home {
+  --nav-active: var(--identity-home);
+  --nav-ink: var(--identity-home-ink);
+}
 .nav-purse {
-  --nav-active: var(--nav-orange);
+  --nav-active: var(--identity-purse);
+  --nav-ink: var(--identity-purse-ink);
 }
 .nav-explore {
-  --nav-active: var(--nav-blue);
+  --nav-active: var(--identity-explore);
+  --nav-ink: var(--identity-explore-ink);
 }
 .nav-vibe {
-  --nav-active: var(--nav-purple);
+  --nav-active: var(--identity-vibe);
+  --nav-ink: var(--identity-vibe-ink);
 }
 .nav-share {
-  --nav-active: var(--nav-pink);
+  --nav-active: var(--identity-share);
+  --nav-ink: var(--identity-share-ink);
   flex: 0 0 auto;
   block-size: 44px;
   padding-inline: 16px;
@@ -496,30 +522,36 @@ svg {
 .nav-icon {
   display: grid;
   place-items: center;
-  block-size: 18px;
+  block-size: var(--icon-navigation);
 }
-.nav-share .nav-icon {
-  block-size: 22px;
+.nav-icon .lucide {
+  color: var(--nav-ink);
+}
+[data-theme="dark"] .nav-icon .lucide {
+  color: var(--nav-active);
 }
 .nav-destination[aria-current] {
-  background: color-mix(in srgb, var(--nav-active) 95%, transparent);
+  background: var(--nav-ink);
   box-shadow:
     0 0 0 2px color-mix(in srgb, var(--nav-active) 30%, transparent),
     0 4px 6px rgb(0 0 0 / 10%);
   color: var(--nav-on-active);
 }
 .nav-share[aria-current] {
-  background: var(--nav-active);
+  background: var(--nav-ink);
   box-shadow:
     0 0 0 4px color-mix(in srgb, var(--nav-active) 25%, transparent),
     0 4px 6px rgb(0 0 0 / 10%);
 }
 [data-theme="light"] .nav-destination[aria-current] {
   background: var(--surface);
-  outline: 1.5px solid var(--nav-active);
+  outline: 1.5px solid var(--nav-ink);
   outline-offset: -1.5px;
   box-shadow: none;
-  color: var(--nav-active);
+  color: var(--nav-ink);
+}
+.nav-destination[aria-current] .lucide {
+  color: inherit;
 }
 .nav-label {
   font-size: 8px;
@@ -597,7 +629,7 @@ svg {
   place-items: center;
   inline-size: 72px;
   block-size: 72px;
-  color: var(--pink);
+  color: var(--icon-accent);
   border: 1px solid color-mix(in srgb, var(--pink) 30%, var(--border));
   border-radius: 26px;
   background: color-mix(in srgb, var(--pink) 6%, var(--surface));
@@ -653,26 +685,34 @@ svg {
   border-color: color-mix(in srgb, var(--pink) 40%, var(--border));
 }
 .vibe-capsule {
-  max-inline-size: 650px;
+  --capsule-diameter: 58px;
+  max-inline-size: 380px;
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--capsule-diameter) minmax(0, 1fr) var(
+      --capsule-diameter
+    );
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border: 1px solid var(--gold);
-  border-radius: 48px;
-  padding: 12px;
-  background: var(--capsule);
+  gap: 8px;
+  min-block-size: 64px;
+  border: 2px solid var(--identity-purse);
+  border-radius: 999px;
+  padding: 0;
+  background: linear-gradient(var(--capsule-highlight), var(--capsule));
   color: var(--capsule-text);
-  box-shadow: var(--shadow);
+  box-shadow:
+    0 4px 16px rgb(0 0 0 / 25%),
+    inset 0 1px 2px rgb(255 255 255 / 15%);
 }
 .capsule-dial {
-  inline-size: 48px;
-  block-size: 48px;
+  inline-size: var(--capsule-diameter);
+  block-size: var(--capsule-diameter);
   border-radius: 50%;
-  background: var(--capsule-text);
+  border: 3px solid var(--identity-purse);
+  background: var(--capsule-badge);
   color: var(--capsule);
-  flex-shrink: 0;
+  padding: 0;
+  box-shadow: inset 0 -2px 4px rgb(0 0 0 / 15%);
   display: grid;
   place-items: center;
 }
@@ -680,15 +720,14 @@ svg {
   background: transparent;
   color: var(--capsule-text);
   font-weight: 800;
-  font-size: 22px;
+  font-size: 25px;
   min-block-size: 44px;
 }
-.capsule-title small {
-  display: block;
-  font-size: 9px;
-  color: var(--gold);
-  font-weight: 500;
-  letter-spacing: 0.06em;
+@media (min-width: 640px) {
+  .vibe-capsule {
+    --capsule-diameter: 66px;
+    min-block-size: 72px;
+  }
 }
 .vibe-quote {
   text-align: center;
@@ -744,7 +783,7 @@ svg {
   background: color-mix(in srgb, var(--orange) 4%, var(--surface));
 }
 .wallet-card > svg {
-  color: var(--orange);
+  color: var(--icon-accent);
 }
 .panel .balance-state {
   color: var(--orange);
@@ -762,7 +801,7 @@ svg {
   justify-content: center;
 }
 .trade-panel > svg {
-  color: var(--orange);
+  color: var(--icon-accent);
   margin-block-end: 15px;
 }
 .safety-note {
@@ -893,7 +932,7 @@ svg {
   font-size: 10px;
 }
 .place-glyph {
-  color: var(--blue);
+  color: var(--icon-accent);
 }
 .contribution-actions {
   display: flex;
@@ -1011,9 +1050,6 @@ svg {
   .eyebrow {
     font-size: 9px;
     letter-spacing: 0.1em;
-  }
-  .vibe-capsule {
-    gap: 8px;
   }
   .capsule-title {
     font-size: 20px;
