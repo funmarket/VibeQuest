@@ -67,12 +67,14 @@ export function createMedia(
           await storage.write(id, "thumbnail", output.thumbnail);
           return await repository.ready(id, output);
         } catch (error) {
-          await repository.fail(id);
-          try {
-            await storage.remove(id);
-            await repository.completeCleanup(id);
-          } catch {
-            // The failed state and durable cleanup job survive this request.
+          // Only a confirmed failure transaction can authorize immediate removal.
+          if (await repository.fail(id)) {
+            try {
+              await storage.remove(id);
+              await repository.completeCleanup(id);
+            } catch {
+              // The failed state and durable cleanup job survive this request.
+            }
           }
           throw error;
         }

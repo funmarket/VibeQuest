@@ -45,12 +45,13 @@ export function createMediaRepository(pool: Pool): MediaRepository {
       return present(result.rows[0]);
     },
     async fail(id) {
-      await pool.query(
+      const result = await pool.query(
         `WITH failed AS (
           UPDATE media_objects SET status='failed',updated_at=now() WHERE id=$1 AND status='processing' RETURNING id,owner_id
-        ) INSERT INTO media_cleanup_jobs(object_id,owner_id) SELECT id,owner_id FROM failed ON CONFLICT(object_id) DO NOTHING`,
+        ) INSERT INTO media_cleanup_jobs(object_id,owner_id) SELECT id,owner_id FROM failed ON CONFLICT(object_id) DO NOTHING RETURNING object_id`,
         [id],
       );
+      return result.rowCount === 1;
     },
     async markDeleted(id, ownerId) {
       try {

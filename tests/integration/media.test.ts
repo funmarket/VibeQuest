@@ -618,3 +618,172 @@ it("bounds concurrent processing without consuming rejected upload intents", asy
     "ready",
   );
 });
+
+function observeRemoval() {
+  const storage = createLocalMediaStorage(root);
+  const removed: string[] = [];
+  return {
+    removed,
+    storage: {
+      ...storage,
+      async remove(objectId: string) {
+        removed.push(objectId);
+        await storage.remove(objectId);
+      },
+    },
+  };
+}
+async function uploadFixture() {
+  const account = (
+    await app.inject({ url: "/v1/identity/me", headers: { cookie } })
+  ).json().account;
+  const intent = await database.media.create(account.id, "private");
+  return { ownerId: account.id as string, id: intent.id };
+}
+
+it("preserves both variants and ready metadata after the ready commit response is lost", async () => {
+  const fixture = await uploadFixture();
+  const observed = observeRemoval();
+  const media = createMedia(
+    {
+      ...database.media,
+      async ready(objectId, output) {
+        await database.media.ready(objectId, output);
+        throw new Error("Ready commit response lost");
+      },
+    },
+    observed.storage,
+    imageProcessor,
+  );
+  await expect(
+    media.upload(fixture.ownerId, fixture.id, png, "image/png"),
+  ).rejects.toThrow("Ready commit response lost");
+  expect((await database.media.read(fixture.id))?.status).toBe("ready");
+  expect(observed.removed).toEqual([]);
+  for (const variant of ["image", "thumbnail"] as const) {
+    const response = await media.retrieve(fixture.id, variant, fixture.ownerId);
+    expect(Buffer.from(response.bytes).subarray(8, 12).toString()).toBe("WEBP");
+  }
+  await media.cleanup();
+  expect(observed.removed).toEqual([]);
+  for (const variant of ["image", "thumbnail"] as const)
+    expect(
+      (await media.retrieve(fixture.id, variant, fixture.ownerId)).bytes
+        .byteLength,
+    ).toBeGreaterThan(0);
+});
+
+it("retains real partial-write bytes when failure recording commits but its response is lost", async () => {
+  const fixture = await uploadFixture();
+  const blocked = path.join(root, fixture.id + "-thumbnail.webp");
+  await mkdir(blocked);
+  const observed = observeRemoval();
+  const media = createMedia(
+    {
+      ...database.media,
+      async fail(objectId) {
+        await database.media.fail(objectId);
+        throw new Error("Failure commit response lost");
+      },
+    },
+    observed.storage,
+    imageProcessor,
+  );
+  try {
+    await expect(
+      media.upload(fixture.ownerId, fixture.id, png, "image/png"),
+    ).rejects.toThrow();
+    expect((await database.media.read(fixture.id))?.status).toBe("failed");
+    expect(observed.removed).toEqual([]);
+    expect(
+      (await observed.storage.read(fixture.id, "image")).byteLength,
+    ).toBeGreaterThan(0);
+    const job = await database.pool.query(
+      "SELECT completed_at FROM media_cleanup_jobs WHERE object_id=$1",
+      [fixture.id],
+    );
+    expect(job.rows[0].completed_at).toBeNull();
+  } finally {
+    await rmdir(blocked);
+  }
+  await media.cleanup();
+  expect(
+    (await readdir(root)).filter((file) => file.startsWith(fixture.id)),
+  ).toEqual([]);
+  const job = await database.pool.query(
+    "SELECT completed_at FROM media_cleanup_jobs WHERE object_id=$1",
+    [fixture.id],
+  );
+  expect(job.rows[0].completed_at).not.toBeNull();
+});
+
+it("authorizes immediate cleanup only after an acknowledged failure transaction", async () => {
+  const fixture = await uploadFixture();
+  const observed = observeRemoval();
+  const media = createMedia(database.media, observed.storage, imageProcessor);
+  await expect(
+    media.upload(
+      fixture.ownerId,
+      fixture.id,
+      Buffer.from("invalid image bytes"),
+      "image/png",
+    ),
+  ).rejects.toMatchObject({ code: "INVALID_IMAGE" });
+  expect((await database.media.read(fixture.id))?.status).toBe("failed");
+  expect(observed.removed).toEqual([fixture.id]);
+  const job = await database.pool.query(
+    "SELECT completed_at FROM media_cleanup_jobs WHERE object_id=$1",
+    [fixture.id],
+  );
+  expect(job.rows[0].completed_at).not.toBeNull();
+});
+
+it("returns no cleanup authorization when the failure transition changes zero rows", async () => {
+  const fixture = await uploadFixture();
+  expect(await database.media.fail(fixture.id)).toBe(false);
+  expect((await database.media.read(fixture.id))?.status).toBe("pending");
+  expect(
+    (
+      await database.pool.query(
+        "SELECT object_id FROM media_cleanup_jobs WHERE object_id=$1",
+        [fixture.id],
+      )
+    ).rowCount,
+  ).toBe(0);
+});
+
+it("does not remove partial-write bytes when PostgreSQL rejects failure recording", async () => {
+  const fixture = await uploadFixture();
+  const blocked = path.join(root, fixture.id + "-thumbnail.webp");
+  await mkdir(blocked);
+  const constraint = "media_failure_" + fixture.id.replaceAll("-", "");
+  // Only this disposable fixture is rejected; the real failure SQL must roll back.
+  await database.pool.query(
+    `ALTER TABLE media_cleanup_jobs ADD CONSTRAINT ${constraint} CHECK (object_id <> '${fixture.id}'::uuid) NOT VALID`,
+  );
+  const observed = observeRemoval();
+  const media = createMedia(database.media, observed.storage, imageProcessor);
+  try {
+    await expect(
+      media.upload(fixture.ownerId, fixture.id, png, "image/png"),
+    ).rejects.toMatchObject({ code: "23514" });
+    expect(observed.removed).toEqual([]);
+    expect((await database.media.read(fixture.id))?.status).toBe("processing");
+    expect(
+      (await observed.storage.read(fixture.id, "image")).byteLength,
+    ).toBeGreaterThan(0);
+    expect(
+      (
+        await database.pool.query(
+          "SELECT object_id FROM media_cleanup_jobs WHERE object_id=$1",
+          [fixture.id],
+        )
+      ).rowCount,
+    ).toBe(0);
+  } finally {
+    await database.pool.query(
+      `ALTER TABLE media_cleanup_jobs DROP CONSTRAINT ${constraint}`,
+    );
+    await rmdir(blocked);
+  }
+});

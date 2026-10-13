@@ -15,7 +15,7 @@ export interface MediaRepository {
   read(id: string): Promise<MediaRecord | null>;
   claim(id: string, ownerId: string): Promise<boolean>;
   ready(id: string, output: ProcessedImage): Promise<MediaRecord>;
-  fail(id: string): Promise<void>;
+  fail(id: string): Promise<boolean>;
   markDeleted(id: string, ownerId: string): Promise<boolean>;
   expireUploads(): Promise<void>;
   cleanupJobs(): Promise<string[]>;
