@@ -35,6 +35,14 @@ Prepared: 10 October 2026. **Active checkpoint: 11 October 2026; formatting and 
 
 **No-repeat and sequencing rule:** A1/A2 source work and PR #11 repair are integrated; do not issue duplicate implementation packets. A0 remains the first unfinished source/security preflight; A1/A2 require bounded evidence/acceptance only, A3/A4 their already-authorized distinct UI scopes, A5/A6 explicit staging contract decisions. Gate B resource provisioning is not authorized or implied. A0 source/CI verification does not replace R49 configuration and R50 actual runtime/device acceptance. Historical gate descriptions below retain their original details but this truth table supersedes their obsolete completion labels.
 
+### A0 preflight execution record — 14 October 2026 (partially verified)
+
+- **Foundation / overlap:** GitHub `phase-0-foundation` verified at `4c32ff353e26c7fe37d8e459c2c0498b2c8a0854`, zero open PRs at this inspection; exact-head GitHub Actions `38406786558` completed successfully.
+- **Repository CI and deployment:** `.github/workflows/checks.yml` runs on push/pull_request with frozen installation and `pnpm check`; it contains no deployment job. This does not prove absence of externally configured deployment triggers. Railway staging has zero services, volumes, buckets and staged changes.
+- **Visible tracked configuration:** `.gitignore` excludes `.env*` except `.env.example`, local caches and common private keys; `.env.example` shows loopback placeholders, not deployed credentials; `.npmrc` contains a comment only. `apps/api/src/environment.ts` validates database URL protocol and port. `apps/api/src/main.ts` defaults `WEB_ORIGINS` to local origins, and `apps/web/next.config.ts` defaults `API_ORIGIN` to loopback. Hosted security/traffic behavior must be verified in A5, not inferred.
+- **Not yet verifiable:** live branch-protection REST endpoint returned `403 Resource not accessible by integration`; historical protection state is not re-certified. Dependabot alerts could not be retrieved through this connector. Dependency advisory review, exhaustive source/history secret scanning, and external GitHub/Railway auto-deploy policies are not certified by this inspection. No comprehensive security-clearance claim is made.
+- **A0 result:** **PARTIALLY VERIFIED / OPEN.** Retain these access/evidence gaps as A0 blockers; do not reimplement integrated A1/A2, change providers, provision Railway, or advance to Gate B on this evidence alone.
+
 ## 1. Authority, evidence and limits
 
 Source keys used throughout this plan:
