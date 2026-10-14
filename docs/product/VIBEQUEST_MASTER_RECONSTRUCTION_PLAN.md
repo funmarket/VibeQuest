@@ -1,6 +1,6 @@
 # VibeQuest master product reconstruction and execution plan
 
-Prepared: 10 October 2026. **Active checkpoint: 11 October 2026; formatting and repository integration protection verified.** Product reconstruction and Railway deployment remain incomplete. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
+Prepared: 10 October 2026. **Active execution checkpoint: 14 October 2026; see LIVE PRE-RAILWAY EXECUTION CHECKPOINT below.** Product reconstruction and Railway deployment remain incomplete. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
 
 **Goal:** Restore the complete original VibeQuest product through genuine, persisted user journeys while retaining the existing clean foundation.
 
@@ -42,6 +42,29 @@ Prepared: 10 October 2026. **Active checkpoint: 11 October 2026; formatting and 
 - **Visible tracked configuration:** `.gitignore` excludes `.env*` except `.env.example`, local caches and common private keys; `.env.example` shows loopback placeholders, not deployed credentials; `.npmrc` contains a comment only. `apps/api/src/environment.ts` validates database URL protocol and port. `apps/api/src/main.ts` defaults `WEB_ORIGINS` to local origins, and `apps/web/next.config.ts` defaults `API_ORIGIN` to loopback. Hosted security/traffic behavior must be verified in A5, not inferred.
 - **Not yet verifiable:** live branch-protection REST endpoint returned `403 Resource not accessible by integration`; historical protection state is not re-certified. Dependabot alerts could not be retrieved through this connector. Dependency advisory review, exhaustive source/history secret scanning, and external GitHub/Railway auto-deploy policies are not certified by this inspection. No comprehensive security-clearance claim is made.
 - **A0 result:** **PARTIALLY VERIFIED / OPEN.** Retain these access/evidence gaps as A0 blockers; do not reimplement integrated A1/A2, change providers, provision Railway, or advance to Gate B on this evidence alone.
+
+## LIVE PRE-RAILWAY EXECUTION CHECKPOINT — 14 October 2026
+
+**THIS IS THE CURRENT EXECUTION STATE.** This same document is the single authoritative product and pre-Railway plan. Historical milestones and old statuses later in this document are evidence only when contradicted by this verified checkpoint. After EVERY accepted code fix, UI change, implementation, merge or staging action, update this checkpoint in the same bounded workflow with source SHA, affected gate, evidence, outstanding work and next task. Never start a new competing plan or repeat a completed implementation because an older paragraph says "not started."
+
+**Implementation source:** `funmarket/VibeQuest` / `phase-0-foundation` at `4c32ff353e26c7fe37d8e459c2c0498b2c8a0854`. Exact-head CI run `38406786558` succeeded; zero open PRs at latest inspection. Branch currently reports `protected: false` — this was the user's choice; NEVER create, enable, change or restore repository protection or settings without explicit authorization. The newer plan checkpoint was composed on `docs/2026-10-13-pre-railway-live-reconciliation`, not integrated into foundation; integration and CI are NOT claimed here.
+
+**Global project invariant:** Complete original VibeQuest on one canonical Next.js shared Web/Telegram frontend, Fastify API, PostgreSQL/PostGIS system of record with separate Identity, Profile, Business, Places, Activities, Events, Media, Social owners; preserve the approved original mechanics, source hierarchy and 215 acceptance records; no duplicate products or catch-all owners. Open-first anonymous public browsing and contextual authentication; genuine server-verified Telegram launch and account linking under R38. Existing working activities/events/media/profile flows are protected. Unimplemented SHARE/VIBE/PURSE features remain in R01–R50, never labelled live. R48–R50 are not prerequisites to create a DEVELOPMENT staging environment.
+
+**Gate A ground truth (implemented vs accepted):**
+- **A0 PARTIAL:** exact source/CI, committed configuration and GitHub workflow inspected. Repository-wide secret-history/dependency advisories and external deployment automation not fully proven. Current branch protection OFF; do not count historical enforcement as active or attempt to re-enable it.
+- **A1 IMPLEMENTED / BROWSER GATE OPEN:** Shell uses `advanceNavigationScroll` with 20px tolerance, top reveal, unit regression tests; outstanding full real-browser directional/jitter/modal/RTL/device checks. Do NOT implement navigation again.
+- **A2 INTEGRATED / VISUAL GATE OPEN:** global icon standard and color tokens merged, mobile reconciliation merged; final device/contrast/owner acceptance not proven. Do NOT reintroduce the icon working branch.
+- **A3 OPEN:** Device Default text-scale preference and 200%/reflow acceptance not demonstrated.
+- **A4 PARTIAL:** existing Activities/Events/Identity/Profile real routes/tests, but complete protected forms/modals acceptance not demonstrated.
+- **A5 OPEN, source foundation exists:** API binds `0.0.0.0` in production; `PORT`, `WEB_ORIGINS`, Web `API_ORIGIN`, cookie/proxy/HTTPS/health/start contracts need staging-specific decision and verification; do not rebuild existing API listener.
+- **A6 OPEN, source foundation exists:** checksummed advisory-locked migrations, PostGIS repository, local Media storage, per-API 60-second cleanup. PR #11 Media ambiguous-commit deletion safety merged. Storage persistence, recovery/worker topology, staging DB roles/backups are not yet accepted. Do not replace canonical owners.
+
+**Railway fact:** project `9cd5ae90-5544-49ab-b3ab-74dee8105af9`, staging environment `7a75adec-2799-4ca3-971e-6e26de1b7796`: zero services, volumes, buckets and staged changes at last direct check. No deployed VibeQuest application exists yet. Do not claim failure or runtime acceptance.
+
+**Execution decision:** We do NOT need to finish all A1–A4 polish or all R01–R50 product features before beginning Railway staging. First finish only staging-critical parts of A0/A5/A6, explicitly preserve/dispose of real Media upload scope, obtain the user's authority for the staging service/storage choices, then execute Gate B1–B6 with real runtime proof. Outstanding UI/product acceptance continues against staging under the same R packets. Do not silently disable existing working features to simplify deployment. Production and genuine Telegram acceptance are later gates.
+
+**NEXT BOUNDED TASK:** Verify only outstanding staging-critical A0/A5/A6 evidence and present minimal source-grounded deployment configuration and Media persistence alternatives for owner decision. No automatic provisioning, changing GitHub settings, provider selection, R01 reimplementation, speculative fixes, or other project diversion.
 
 ## 1. Authority, evidence and limits
 
