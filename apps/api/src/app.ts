@@ -9,7 +9,7 @@ import {
 } from "./modules/identity/http";
 import type { ProfileRepository } from "@vq/profile";
 import { registerProfileRoutes } from "./modules/profile/http";
-import type { MediaRepository } from "@vq/media";
+import type { MediaRepository, MediaStorage } from "@vq/media";
 import { registerMediaRoutes } from "./modules/media/http";
 import { createLocalMediaStorage } from "./modules/media/infrastructure/local-storage";
 import { imageProcessor } from "./modules/media/infrastructure/image-processor";
@@ -36,6 +36,7 @@ export function buildApi(
     social?: SocialRepository;
     media?: MediaRepository;
     mediaRoot?: string;
+    mediaStorage?: MediaStorage;
     allowedOrigins?: string[];
     secureCookies?: boolean;
   } = {},
@@ -55,12 +56,17 @@ export function buildApi(
       options.allowedOrigins ?? [],
       options.secureCookies ?? true,
     );
+    const storage =
+      options.mediaStorage ??
+      (options.mediaRoot
+        ? createLocalMediaStorage(options.mediaRoot)
+        : undefined);
     const media =
-      options.media && options.mediaRoot
+      options.media && storage
         ? registerMediaRoutes(
             app,
             options.media,
-            createLocalMediaStorage(options.mediaRoot),
+            storage,
             imageProcessor,
             (request) => accounts.me(readSessionCookie(request)),
             options.allowedOrigins ?? [],
