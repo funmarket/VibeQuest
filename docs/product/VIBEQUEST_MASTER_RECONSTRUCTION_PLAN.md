@@ -1,6 +1,6 @@
 # VibeQuest master product reconstruction and execution plan
 
-Prepared: 10 October 2026. **Active checkpoint: 11 October 2026; formatting and repository integration protection verified.** Product reconstruction and Railway deployment remain incomplete. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
+Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepted for initial staging, B5 next.** Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
 
 **Goal:** Restore the complete original VibeQuest product through genuine, persisted user journeys while retaining the existing clean foundation.
 
@@ -9,6 +9,59 @@ Prepared: 10 October 2026. **Active checkpoint: 11 October 2026; formatting and 
 **Stack:** Node 24, pnpm 11.1.1, TypeScript, Next/React/next-intl, Fastify, PostgreSQL/PostGIS, existing Sharp Media processing, Vitest and installed Chrome/Playwright. No dependency or provider upgrade is implied.
 
 **Specification:** `C:/Users/GrowB/.codex/attachments/8b56829e-2067-472c-a87a-00589815f35d/Pasted text.txt`. Only this document may change in the present task. Future executors must read the relevant authorized packet and current source again; this roadmap does not authorize coding, database changes, publication or deployment. Use the applicable execution skill when implementation is separately authorized.
+
+<!-- prettier-ignore-start -->
+
+## Active execution remarks — 19 October 2026
+
+**Authority:** This checkpoint records the owner's acceptance of B4 for the current single-replica staging scope. It supersedes outdated next-task and Railway-status statements dated 10–12 October below. It does not remove or dilute the R01–R50 product requirements. Read live source and the latest GitHub/Railway state before each task.
+
+### Verified staging and repository
+
+- Repository: `funmarket/VibeQuest`, integration branch `phase-0-foundation`.
+- Last verified foundation: `31d5f99d84e277f23c60168dd5f3d12482d87ec3`.
+- [Foundation CI](https://github.com/funmarket/VibeQuest/actions/runs/38973941147) passed; no open PRs were reported at the last pre-update check.
+- Railway project: `9cd5ae90-5544-49ab-b3ab-74dee8105af9`; staging environment: `7a75adec-2799-4ca3-971e-6e26de1b7796`, Amsterdam.
+- Web deployment: `c7380aa8-7b75-40fb-aeac-4b84fa513413`, SUCCESS, one replica.
+- API deployment: `cfc1c56d-0cd2-4838-a272-ffbe6b379fe0`, SUCCESS, one replica.
+- PostGIS deployment: `2f55ebb0-c550-41a6-9ac2-41bca57c8659`, SUCCESS, one replica.
+- Web URL: https://web-staging-5951.up.railway.app/en/home
+- Web `/api/*` connects privately to Fastify at `api.railway.internal:4100`, then canonical PostGIS.
+- MediaBucket resource: `17687718-9d86-41da-814f-87ccb8b4a79a`; actual bucket: `mediabucket-jujionqm6h4di`. PR #12 merged the existing Railway MediaStorage adapter.
+- One shared Next.js Web/Telegram product, one Fastify API and one PostgreSQL/PostGIS authority remain the architecture. Genuine Telegram launch/session/device acceptance is pending.
+
+### Current milestone status
+
+- **A5:** Staging HTTPS Web, private API and PostGIS topology selected and deployed. Real Telegram acceptance remains pending.
+- **A6:** PostgreSQL migrations, separated roles and Railway bucket storage selected and implemented for initial staging. Worker and restore hardening remain pending.
+- **B1 Database:** COMPLETE. Existing thirteen migrations and checksums, readiness and roles verified.
+- **B2 API:** COMPLETE. Private Fastify runtime, readiness, Origin/cookie/security checks verified.
+- **B3 Web:** COMPLETE. HTTPS Next.js, real guest API reads, locale/RTL, navigation, responsive and protected-action checks verified.
+- **B4 Media/worker:** **ACCEPTED BY OWNER FOR CURRENT SINGLE-REPLICA STAGING ON 19 OCTOBER 2026.** This is not a claim of multi-instance or production resilience.
+- **B5 Functional and visual smoke:** **NEXT, NOT STARTED.** Test existing Activity, Event, Profile, Places/search/map, navigation, forms, accessibility and responsive journeys without replaying accepted B4 lifecycle tests.
+- **B6 Release evidence:** PENDING. Document exact staging revision, schema, health, smoke and rollback/redeploy results.
+- **R49:** MANDATORY production and distributed Media/Worker engineering. NOT STARTED under this checkpoint.
+- **R50:** MANDATORY full-product, real-device/Telegram/provider and production acceptance. NOT STARTED under this checkpoint.
+
+### B4 evidence remarks — do not repeat completed tests
+
+**Codex-reported live staging verification:** Authorized test-account registration and login; PNG/JPEG/WebP image upload; Media intent/claim/ready states; real Railway bucket object writes; image and thumbnail WebP checksums; anonymous public and owner-only private delivery; invalid Origin and revoked-session rejection; invalid-image and duplicate-upload rejection; attached-object deletion protection; physical delete and post-delete 404; Profile photo attachment/replacement/retirement; Activity attachment/detachment/cancellation/retirement; ten-minute intent expiry; scheduled cleanup; and persistence of four variant checksums across one actual API restart. Independent Railway checks confirmed healthy Web, API and PostGIS deployments.
+
+**Codex-reported isolated verification:** 34 integration tests and 21 storage/configuration unit tests passed. Positive Event image attachment/edit/detachment and scheduled retirement passed against an isolated database, including deletion of physical variants. Failure injection covered partial writes, failed reads/streams, delete failures, durable retries/backoff, lost acknowledgements and fresh-process cleanup. Isolated tests do not certify a live Railway provider outage or worker crash.
+
+**Required B5 Events carryover:** Live Event hosting returned expected HTTP 403 for the ordinary staging account because an approved active Business owner is required. B5 must use a legitimately approved Business host to verify positive live Event image attachment, edit/detachment and scheduled retirement. Do not bypass authorization, create privileges by assumption or claim this case already passed live.
+
+**Required R49 recovery and scalability:** Implement and verify distributed cleanup claiming/leases, multi-instance upload concurrency, appropriate Worker placement, crash recovery, abandoned `processing` recovery, operator recovery of jobs exhausted after eight attempts, provider failure resilience, load/scaling and database plus bucket backup/restore. The existing 60-second API-local cleanup timer is verified for one replica, not distributed safety. These are mandatory future engineering outcomes, not waived by B4 staging acceptance.
+
+**Retained staging fixtures:** One authorized test account `764859df-60c2-4320-bafa-29a54d55d8f4`, blank Profile, cancelled Activity and six completed cleanup jobs remain documented. Last reconciliation found three active and two revoked session rows; active sessions expired around 2 November 2026. It found zero Media records, bucket objects, pending cleanup jobs or retirement requests. No supported delete-account or revoke-all workflow was identified. Do not directly delete Identity/audit rows or expose credentials.
+
+### Execution instruction for the next agent
+
+The next plan milestone is **B5**, not another B4 reconciliation. Inspect current live code and infrastructure once as needed, then execute the first bounded B5 task under the master plan. Route uncovered missing features to their existing R01–R50 owners. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize new code, services or Business privileges.
+
+---
+
+<!-- prettier-ignore-end -->
 
 ## 1. Authority, evidence and limits
 
@@ -616,7 +669,7 @@ At future packet completion, record: exact scope/feature IDs, changed files/migr
 
 **Gate A release rule:** A0–A6 are individually reviewable packets, not authorization to implement all together. The owner-selected **UI foundation** is part of the pre-Railway work; completion of _every_ R01–R50 feature is not required merely to create staging resources. Before infrastructure provisioning, record which Gate A requirements are satisfied, which are approved conditional and which remain blockers. A provider or architectural choice marked pending must be approved, not guessed.
 
-### Gate B — first functional Railway staging acceptance (not started)
+### Gate B — first functional Railway staging acceptance (B1–B4 accepted; B5 next)
 
 - **B1 Database:** create the explicitly authorized PostgreSQL/PostGIS staging resource and least-privilege roles; apply unchanged migrations using the approved migration identity; verify all required schema/readiness checks, connection limits and isolated testing.
 - **B2 API:** deploy the existing Fastify runtime with correct secret/Origin/host/port contract; prove actual `/health/live`, `/health/ready`, failed-dependency behavior, startup/shutdown and logs.
@@ -631,7 +684,7 @@ R06–R47 keep their original owners/dependencies for fuller Profile, Social/Sha
 
 ### Exact next packet and update discipline
 
-**NEXT (not authorized for implementation): A0 preflight, followed by bounded R01 directional navbar as the first owner-selected UI implementation packet.** A2–A4 are separate visual/interaction packets that reuse the same component/token owners; A5–A6 infrastructure contract decisions may be inspected independently without editing R01. Each packet must inspect live source first, preserve game mechanics and existing working flows, verify full expected diff, formatter/checks and relevant browser/integration evidence, then update **this same live master plan** with final commit/CI/merge, deployed/runtime proof if any, actual status, remaining work and the next ready task. No parallel authoritative master plan.
+**HISTORICAL NEXT (superseded 19 October 2026): A0 preflight, followed by bounded R01 directional navbar as the first owner-selected UI implementation packet.** A2–A4 are separate visual/interaction packets that reuse the same component/token owners; A5–A6 infrastructure contract decisions may be inspected independently without editing R01. Each packet must inspect live source first, preserve game mechanics and existing working flows, verify full expected diff, formatter/checks and relevant browser/integration evidence, then update **this same live master plan** with final commit/CI/merge, deployed/runtime proof if any, actual status, remaining work and the next ready task. No parallel authoritative master plan.
 
 ### Historical documentation verification for original 10 October plan preparation (not the active checkpoint)
 
