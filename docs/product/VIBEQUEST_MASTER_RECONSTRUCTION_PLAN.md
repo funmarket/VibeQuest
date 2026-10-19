@@ -10,45 +10,34 @@ Prepared: 10 October 2026. **Active checkpoint: 19 October 2026 — B4 accepted 
 
 **Specification:** `C:/Users/GrowB/.codex/attachments/8b56829e-2067-472c-a87a-00589815f35d/Pasted text.txt`. Only this document may change in the present task. Future executors must read the relevant authorized packet and current source again; this roadmap does not authorize coding, database changes, publication or deployment. Use the applicable execution skill when implementation is separately authorized.
 
-## ACTIVE EXECUTION CHECKPOINT — 19 October 2026 (owner-approved)
+## Active checkpoint — 19 October 2026
 
-This checkpoint supersedes historical A0/A5/A6/Gate B deployment status and next-task wording below. It does not replace the approved R01–R50 mechanics, domain ownership or production acceptance criteria. Verify the live source, branch, PRs, CI and Railway resources again before each new mutation.
+This current checkpoint supersedes historical A0/A5/A6 and Gate B next-task and deployment-status wording below, but does not supersede the original R01–R50 product requirements. Reverify live GitHub and Railway state before each task.
 
-### Verified staging topology and foundation
+### Source and staging
 
-- Repository: [funmarket/VibeQuest](https://github.com/funmarket/VibeQuest), integration branch `phase-0-foundation`.
-- Last verified commit: `31d5f99d84e277f23c60168dd5f3d12482d87ec3`; [exact-head CI passed](https://github.com/funmarket/VibeQuest/actions/runs/38973941147). No PR was open when checked.
-- Railway project: `9cd5ae90-5544-49ab-b3ab-74dee8105af9`; staging environment: `7a75adec-2799-4ca3-971e-6e26de1b7796` (Amsterdam).
-- Web deployment: `c7380aa8-7b75-40fb-aeac-4b84fa513413`; API: `cfc1c56d-0cd2-4838-a272-ffbe6b379fe0`; PostGIS: `2f55ebb0-c550-41a6-9ac2-41bca57c8659`. Each reported SUCCESS and one replica.
-- Staging website: https://web-staging-5951.up.railway.app/en/home. The Web proxies `/api/*` privately to Fastify at `api.railway.internal:4100`; API Origin policy accepts the Web origin.
-- Railway MediaBucket resource: `17687718-9d86-41da-814f-87ccb8b4a79a`. The approved Railway bucket adapter was merged in PR #12; hosted Media does not fall back to local filesystem.
-- One shared Next.js Web/Telegram product, one Fastify API and one PostgreSQL/PostGIS authority. Genuine Telegram sessions and device acceptance are **not** yet proven.
-- Backups, restore tests and distributed Worker architecture are **not** production-accepted. No additional API replica, Worker or Redis has been approved.
+- Repository: `funmarket/VibeQuest`; integration branch: `phase-0-foundation`; last verified foundation: `31d5f99d84e277f23c60168dd5f3d12482d87ec3`.
+- Exact-head CI [passed](https://github.com/funmarket/VibeQuest/actions/runs/38973941147); no PRs were open at inspection.
+- Railway project: `9cd5ae90-5544-49ab-b3ab-74dee8105af9`; staging environment: `7a75adec-2799-4ca3-971e-6e26de1b7796`; Amsterdam.
+- Web: `c7380aa8-7b75-40fb-aeac-4b84fa513413`; API: `cfc1c56d-0cd2-4838-a272-ffbe6b379fe0`; PostGIS: `2f55ebb0-c550-41a6-9ac2-41bca57c8659`. All reported SUCCESS with one replica each.
+- Web URL: https://web-staging-5951.up.railway.app/en/home. The Web proxies `/api/*` to private Fastify at `api.railway.internal:4100`.
+- MediaBucket resource: `17687718-9d86-41da-814f-87ccb8b4a79a`. PR #12 added the approved Railway MediaStorage adapter, without hosted local-filesystem fallback.
+- The product uses one shared Web/Telegram frontend, one Fastify API and one PostgreSQL/PostGIS authority. Genuine Telegram acceptance is pending.
 
-### Accepted staging milestones
+### Milestones and owner decisions
 
-| Gate | State | Verified boundary |
-| --- | --- | --- |
-| A5 | Selected and deployed | Public HTTPS Web, private Fastify API, shared canonical PostGIS; genuine Telegram acceptance pending |
-| A6 | Staging storage selected | PostGIS migrations, separated roles and Railway MediaStorage adapter; Worker and recovery hardening pending |
-| B1 Database | Complete | Existing thirteen checksum-protected migrations and readiness |
-| B2 API | Complete | Private Fastify startup, health/readiness and security checks |
-| B3 Web | Complete | HTTPS Next.js, Web/API/DB integration, guest navigation, locales, RTL and responsive/security checks |
-| B4 Media/worker | **Owner accepted for initial single-replica staging** | Live upload/processing, private/public delivery, deletion, Profile/Activity retirement, cleanup and restart durability |
-| B5 Functional/visual smoke | **Next — not started** | Activities, Events, Profile, Places/search/maps, responsive forms, accessibility and navigation |
-| B6 Release evidence | Pending | Actual staging revision, schema, health, smoke, rollback and limitations |
-| R49 | Mandatory, pending | Distributed resilience, recovery, provider tests, backup and restore |
-| R50 | Mandatory, pending | Full product, genuine device/Telegram/provider and production acceptance |
+- A5 topology is selected and deployed. A6 PostGIS and Railway Media storage are selected and implemented for staging; backup/restore and distributed execution are not production-accepted.
+- B1 Database is COMPLETE: existing thirteen checksum-protected migrations and readiness verified.
+- B2 API is COMPLETE: private Fastify startup, health, readiness and security verified.
+- B3 Web is COMPLETE: HTTPS Next.js, private API/DB connection, guest navigation, locales, RTL, responsive and security checks verified.
+- B4 Media/worker is OWNER ACCEPTED for the current single-replica staging scope on 19 October 2026. Codex reported live PNG/JPEG/WebP processing, image/thumbnail delivery and integrity, public/private authorization, deletion, Profile and Activity retirement, scheduled cleanup and preserved checksums across an API restart. Isolated tests passed for Events retirement and failure/retry. This is not distributed or production acceptance.
+- B5 Functional and visual staging smoke is NEXT and NOT STARTED. Verify Activities, Events, Profile, Places, search/maps, navigation, forms, accessibility and phone layouts without repeating accepted Media work. Positive live Event image attachment and edit/detachment-to-scheduled-retirement with a legitimately approved Business host is a required B5 case. The staging test account's earlier hosting 403 was correct. Never bypass Business permissions.
+- B6 Release evidence remains PENDING; record exact staging revision, schema, health, smoke and rollback evidence after B5.
+- R49 distributed Media/Worker and production preparation is MANDATORY: implement and verify cross-instance cleanup claims/leases, concurrency, Worker placement, crash/interrupted-processing recovery, operator recovery after eight exhausted cleanup attempts, provider-outage resilience, load/scaling and database/storage backup and restore. Isolated failure tests satisfy B4 staging only. Do not confuse process-local overlap protection with multi-instance safety.
+- R50 complete product, real Telegram/device/provider and production acceptance remains PENDING.
+- The authorized staging test account, blank Profile, cancelled Activity and completed cleanup history are retained staging evidence. Three active sessions were reported with expiry around 2 November 2026. No supported account deletion or revoke-all flow was found; never manually delete Identity/audit data or disclose credentials.
 
-**B4 owner disposition (19 October 2026):** Codex reported live PNG/JPEG/WebP processing, bucket image/thumbnail integrity, authorized delivery, physical removal, Profile/Activity retirement, expiry cleanup and matching checksums after an API restart. Isolated tests passed for the positive Events retirement flow and Media failure/retry. Acceptance applies only to **current one-replica staging**, not multi-instance scaling or production resilience. Do not repeat the accepted Media lifecycle without a demonstrated need.
-
-**B5 carried-forward obligation:** Prove *positive live* Event image attachment and edit/detachment-to-scheduled-retirement through a legitimately approved Business host. The existing non-Business test account was correctly denied hosting with HTTP 403. Do not bypass permissions or silently claim this live case passed. B5 is a bounded smoke and gap-routing gate, not an endless verification loop or authorization to implement all R packets.
-
-**R49 mandatory implementation and verification:** Distributed upload bounds, durable cleanup claims/leases, suitable Worker execution and multi-instance races; interrupted/abandoned `processing` recovery; operator recovery after eight failed cleanup attempts; crash and genuine provider-failure resilience; load/scaling and database/storage backup/restore. Isolated failure tests satisfy B4 staging only. These are mandatory engineering deliverables, not waived requirements.
-
-**Retained staging fixtures:** One authorized test identity, blank Profile, cancelled Activity and completed cleanup history remain documented. The last reconciliation reported three active sessions expiring around 2 November 2026. No supported revoke-all or account-delete flow was identified. Do not manually delete Identity or audit history, reveal credentials or create unauthorized Business privileges.
-
-**Next authorized workflow:** Inspect the latest live source and prepare the first bounded B5 task under the existing master plan. This documentation approval does not authorize product implementation, deployment or new infrastructure. After each accepted milestone, update **this same authoritative plan** with actual source, CI, deployment/acceptance results, open obligations and the next task. Avoid redundant inspection and acceptance loops.
+Proceed under the existing master reconstruction plan, one bounded semantic outcome at a time. The next plan-defined milestone is B5, not another B4 testing loop. The current plan update does not itself authorize B5 source changes or deployments. After future accepted milestones, update this same authoritative plan so historical status does not mislead agents.
 
 ---
 
