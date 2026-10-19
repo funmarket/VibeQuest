@@ -108,6 +108,7 @@ p {
 .app-shell {
   --accent: var(--text);
   --nav-height: 4rem;
+  --header-height: 56px;
   --page-gutter: 1rem;
   --header-safe: max(env(safe-area-inset-top, 0px), var(--host-safe-top, 0px));
   --bottom-safe: max(
@@ -115,16 +116,21 @@ p {
     var(--host-safe-bottom, 0px)
   );
   min-block-size: 100dvh;
-  padding-block-start: var(--header-safe);
 }
 .app-header {
+  position: sticky;
+  inset-block-start: 0;
+  /* Shell chrome shares the navigation layer; native dialogs use the top layer. */
+  z-index: 10;
+  background: var(--bg);
   max-inline-size: 1200px;
   margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 16px;
-  min-block-size: 56px;
+  padding-block-start: calc(6px + var(--header-safe));
+  min-block-size: calc(var(--header-height) + var(--header-safe));
   flex-wrap: nowrap;
   gap: 8px;
   border-block-end: 1px solid var(--border);
@@ -161,6 +167,7 @@ p {
 }
 .brand-type small {
   display: block;
+  white-space: normal;
   color: var(--muted);
   font-size: 7px;
   letter-spacing: 0.14em;
@@ -237,6 +244,9 @@ p {
   white-space: nowrap;
 }
 .main-content {
+  scroll-margin-block-start: calc(
+    var(--header-height) + var(--header-safe) + 16px
+  );
   max-inline-size: 1152px;
   margin-inline: auto;
   padding: 18px var(--page-gutter)
@@ -962,9 +972,6 @@ p {
   grid-column: 1 / -1;
 }
 @media (min-width: 680px) {
-  .app-header {
-    padding-block: 20px 12px;
-  }
   .main-content {
     padding-block-start: 24px;
   }

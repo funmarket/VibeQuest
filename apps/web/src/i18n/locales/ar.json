@@ -61,6 +61,8 @@
   },
   "common": {
     "theme": "المظهر",
+    "switchToLightTheme": "التبديل إلى المظهر الفاتح",
+    "switchToDarkTheme": "التبديل إلى المظهر الداكن",
     "light": "فاتح",
     "dark": "داكن",
     "system": "النظام",

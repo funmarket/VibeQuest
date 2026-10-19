@@ -1,6 +1,6 @@
 # VibeQuest master product reconstruction and execution plan
 
-Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepted for initial staging, B5 next.** Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
+Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; R02 source implementation complete, R03 next; B5 remains partial.** B1–B4 remain accepted for initial staging. Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
 
 **Goal:** Restore the complete original VibeQuest product through genuine, persisted user journeys while retaining the existing clean foundation.
 
@@ -16,10 +16,20 @@ Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepte
 
 **Authority:** This checkpoint records the owner's acceptance of B4 for the current single-replica staging scope. It supersedes outdated next-task and Railway-status statements dated 10–12 October below. It does not remove or dilute the R01–R50 product requirements. Read live source and the latest GitHub/Railway state before each task.
 
+### R02 source implementation — 19 October 2026
+
+- **Source complete:** [implementation commit `2ad23e52e6034ae9a56fcad5cdb16019f0145513`](https://github.com/funmarket/VibeQuest/commit/2ad23e52e6034ae9a56fcad5cdb16019f0145513), based on foundation `fa75bfc205749b5530c5eb162d256526345cd389`. [PR #15](https://github.com/funmarket/VibeQuest/pull/15) is the canonical integration record for the final head, merge status and resulting foundation SHA; this documentation-only checkpoint follows the implementation commit in that same PR.
+- **Behavior:** the existing Shell has one native sticky, compact header. Safe-area padding stays inside it. Brand/Home, Notifications, Account and a 44px Sun/Moon quick-theme action remain available during document scrolling. Quick theme flips the resolved light/dark theme through `@vq/ui/theme.setPreference`; Settings retains Light/Dark/System and the existing Telegram bridge. EN/FR/ES/AR action labels describe the resulting theme. Skip navigation has header clearance and a focusable main target; narrow branding fits without horizontal overflow.
+- **R01 preserved:** unchanged `advanceNavigationScroll` and one document-scroll listener; downward hide, upward/top reveal, route reset, five destinations/central heart, keyboard reveal, reduced motion and bottom safe-area clearance remain. Context/location presentation remains a separate normal-flow strip with honest unset location. No GPS/city, R09 capability, duplicate scroll owner, drawer or challenge mechanics were introduced.
+- **Verification:** pinned Node 24 / pnpm 11.1.1 / Prettier; formatting, lint, TypeScript and architecture checks passed; 68 unit tests passed on the unchanged rerun after one existing locale-catalog five-second timeout; production build passed. Fourteen installed-Chrome regressions passed: header scrolling across five destinations at 320/390 RTL/430/1280px, all four localized quick-theme labels/persistence/System behavior, hydration-message checks, safe-area/long-label geometry, skip focus, dialog independence/Notifications restoration, three representative existing R01 navbar cases, and the existing simulated host/blocked-storage cases. The new regression first failed against the baseline's missing quick control. Independent source review found no actionable findings.
+- **Hosted checks:** [implementation-head CI](https://github.com/funmarket/VibeQuest/actions/runs/39312495181); [PR exact-head checks](https://github.com/funmarket/VibeQuest/pull/15/checks) also cover this checkpoint commit. Confirm successful final-head checks and mergeability before integration. GitHub reported no active branch protection/effective rules during inspection; no settings were changed, and the executor retains the PR plus green exact-head CI gate.
+- **Deployment not verified:** Railway Web remains explicitly pinned to `31d5f99d84e277f23c60168dd5f3d12482d87ec3`, deployment `c7380aa8-7b75-40fb-aeac-4b84fa513413`. Local production rendering used real public staging reads; no canonical records were created. R02 source acceptance is not live staging acceptance. Do not change the Railway pin or independently deploy without separate authorization. Actual Telegram hardware/safe-area/device acceptance remains R50; browser host fixtures are simulated adapter evidence.
+- **Next bounded implementation:** R03, the original sliding Console and dialog interactions, in the existing `ProfileMenu`/Account/Profile/Business presentation. Preserve current auth, theme and domain state. B5's required positive live Event Media case still requires a legitimate approved Business host; the completed public smoke did not establish authenticated CRUD or full product parity. R26/R27 caption differences and all other R requirements remain outside R02.
+
 ### Verified staging and repository
 
 - Repository: `funmarket/VibeQuest`, integration branch `phase-0-foundation`.
-- Last verified foundation: `31d5f99d84e277f23c60168dd5f3d12482d87ec3`.
+- Pre-R02 foundation: `fa75bfc205749b5530c5eb162d256526345cd389`; R02 implementation and integration evidence are recorded above. Deployed application source remains `31d5f99d84e277f23c60168dd5f3d12482d87ec3`.
 - [Foundation CI](https://github.com/funmarket/VibeQuest/actions/runs/38973941147) passed; no open PRs were reported at the last pre-update check.
 - Railway project: `9cd5ae90-5544-49ab-b3ab-74dee8105af9`; staging environment: `7a75adec-2799-4ca3-971e-6e26de1b7796`, Amsterdam.
 - Web deployment: `c7380aa8-7b75-40fb-aeac-4b84fa513413`, SUCCESS, one replica.
@@ -38,7 +48,8 @@ Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepte
 - **B2 API:** COMPLETE. Private Fastify runtime, readiness, Origin/cookie/security checks verified.
 - **B3 Web:** COMPLETE. HTTPS Next.js, real guest API reads, locale/RTL, navigation, responsive and protected-action checks verified.
 - **B4 Media/worker:** **ACCEPTED BY OWNER FOR CURRENT SINGLE-REPLICA STAGING ON 19 OCTOBER 2026.** This is not a claim of multi-instance or production resilience.
-- **B5 Functional and visual smoke:** **NEXT, NOT STARTED.** Test existing Activity, Event, Profile, Places/search/map, navigation, forms, accessibility and responsive journeys without replaying accepted B4 lifecycle tests.
+- **B5 Functional and visual smoke:** **PARTIAL — IMPLEMENTATION WORK REQUIRED.** Public destination navigation, guest gates, real empty feeds/search, honest map-unavailable state and representative widths/locales/themes were checked. No approved Business host was available; authenticated lifecycle and positive live Event Media remain outstanding. R02 repairs the observed header gap in source; it does not claim a new staging deployment or full B5 acceptance.
+- **R02:** **SOURCE IMPLEMENTATION COMPLETE**, with PR/integration and deployment evidence distinguished above. R01 is preserved; R03 is the next bounded implementation.
 - **B6 Release evidence:** PENDING. Document exact staging revision, schema, health, smoke and rollback/redeploy results.
 - **R49:** MANDATORY production and distributed Media/Worker engineering. NOT STARTED under this checkpoint.
 - **R50:** MANDATORY full-product, real-device/Telegram/provider and production acceptance. NOT STARTED under this checkpoint.
@@ -57,7 +68,7 @@ Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepte
 
 ### Execution instruction for the next agent
 
-The next plan milestone is **B5**, not another B4 reconciliation. Inspect current live code and infrastructure once as needed, then execute the first bounded B5 task under the master plan. Route uncovered missing features to their existing R01–R50 owners. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize new code, services or Business privileges.
+The next bounded source implementation is **R03**, following the R02 source checkpoint above. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R03 code, a staging deployment, services or Business privileges.
 
 ---
 
@@ -346,6 +357,8 @@ Recheck actual GitHub repository state, public publication-content/secret review
 
 ### R02 — original persistent mobile header and page movement
 
+**Current source status:** implemented and locally verified in PR #15; see the active checkpoint for exact implementation, CI/integration record and the explicit unverified-deployment boundary. The original requirements below remain the acceptance contract.
+
 **Owner/targets:** Shell/Home banner, existing theme owner. **Needs:** R01. **Journey:** scroll long Home/Explore/VIBE content while compact header remains available; brand returns Home, quick theme action uses canonical preference, page transition preserves original hierarchy; Home GPS banner's own hide/show is distinct from nav. City label stays honestly unset until R09. Preserve 44px touch targets and corrected one-row header. **API/DB:** none. **Gate:** Chrome scroll/bounds tests across locales and phone/tablet/desktop; reduced motion, dialogs and long account text; retain theme-host unit tests.
 
 ### R03 — sliding Console and dialog interactions
@@ -617,7 +630,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | Packet(s) | Current status of requested outcome | Evidence / next gate                                                                                               |
 | --------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | S00       | Runtime Verified                    | Completed publication; commit and successful CI recorded in S00 checkpoint above                                   |
-| R01–03    | Partial                             | Shared shell/theme/locale/menu exist; required scroll/header/drawer mechanics missing                              |
+| R01–03    | Partial                             | R01 directional navigation retained; R02 header/quick theme source complete in PR #15; R03 drawer remains pending  |
 | R04–05    | Partial                             | Core domains Implemented with historical runtime evidence; small parity gaps remain                                |
 | R06       | Partial                             | Real Profile fields/photos; missing interests/contact/self-screen/availability UI                                  |
 | R07–11    | Shell                               | Gossip/Home feed/Drift/Vibes/Pulls presentation; Graph independently Implemented, not these flows                  |

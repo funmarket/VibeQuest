@@ -61,6 +61,8 @@
   },
   "common": {
     "theme": "Theme",
+    "switchToLightTheme": "Switch to light theme",
+    "switchToDarkTheme": "Switch to dark theme",
     "light": "Light",
     "dark": "Dark",
     "system": "System",
