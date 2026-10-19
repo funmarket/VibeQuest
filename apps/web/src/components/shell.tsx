@@ -3,7 +3,17 @@ import { useState, useEffect, type ReactNode, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Compass, Heart, Users, Bell, CircleUser, MapPin } from "lucide-react";
+import {
+  Compass,
+  Heart,
+  Users,
+  Bell,
+  CircleUser,
+  MapPin,
+  Sun,
+  Moon,
+} from "lucide-react";
+import { useTheme } from "@vq/ui/theme";
 import { HomeGlyph, WalletGlyph } from "./icon-glyphs";
 import { useHost } from "../platform/host";
 import { NoticeDialog } from "./presentation";
@@ -28,6 +38,10 @@ export function Shell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const account = useAccount();
   const host = useHost();
+  const theme = useTheme();
+  const themeAction = c(
+    theme.theme === "dark" ? "switchToLightTheme" : "switchToDarkTheme",
+  );
   const [dialog, setDialog] = useState<"account" | "notifications" | null>(
     null,
   );
@@ -74,6 +88,22 @@ export function Shell({ children }: { children: ReactNode }) {
         </Link>
         <div className="header-tools">
           <button
+            type="button"
+            className="icon-button quick-theme"
+            aria-label={themeAction}
+            title={themeAction}
+            onClick={() => {
+              host.haptic();
+              theme.setPreference(theme.theme === "dark" ? "light" : "dark");
+            }}
+          >
+            {theme.theme === "dark" ? (
+              <Sun data-icon-role="action" aria-hidden />
+            ) : (
+              <Moon data-icon-role="action" aria-hidden />
+            )}
+          </button>
+          <button
             className="icon-button notifications"
             aria-label={c("notificationsTitle")}
             onClick={() => setDialog("notifications")}
@@ -104,7 +134,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 : c("guest")}
         </span>
       </div>
-      <main id="main" className="main-content">
+      <main id="main" className="main-content" tabIndex={-1}>
         {children}
       </main>
       <nav

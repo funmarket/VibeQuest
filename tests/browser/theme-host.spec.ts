@@ -64,6 +64,12 @@ test("simulated Telegram capabilities update shared theme and safe areas without
   const shell = page.locator("[data-host]");
   await expect(shell).toHaveAttribute("data-host", "telegram");
   await expect(root).toHaveAttribute("data-theme", "dark");
+  await page
+    .getByRole("button", { name: "Switch to light theme", exact: true })
+    .click();
+  await expect(root).toHaveAttribute("data-theme", "light");
+  await setTheme(page, "system");
+  await expect(root).toHaveAttribute("data-theme", "dark");
   expect(
     await shell.evaluate((el) =>
       getComputedStyle(el).getPropertyValue("--host-safe-top").trim(),
@@ -79,6 +85,9 @@ test("simulated Telegram capabilities update shared theme and safe areas without
     fixture.insets();
   });
   await expect(root).toHaveAttribute("data-theme", "light");
+  await expect(
+    page.getByRole("button", { name: "Switch to dark theme", exact: true }),
+  ).toBeVisible();
   expect(
     await shell.evaluate((el) =>
       getComputedStyle(el).getPropertyValue("--host-safe-bottom").trim(),
