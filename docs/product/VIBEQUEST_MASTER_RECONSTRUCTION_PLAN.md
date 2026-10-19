@@ -10,6 +10,8 @@ Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepte
 
 **Specification:** `C:/Users/GrowB/.codex/attachments/8b56829e-2067-472c-a87a-00589815f35d/Pasted text.txt`. Only this document may change in the present task. Future executors must read the relevant authorized packet and current source again; this roadmap does not authorize coding, database changes, publication or deployment. Use the applicable execution skill when implementation is separately authorized.
 
+<!-- prettier-ignore-start -->
+
 ## Active execution remarks — 19 October 2026
 
 **Authority:** This checkpoint records the owner's acceptance of B4 for the current single-replica staging scope. It supersedes outdated next-task and Railway-status statements dated 10–12 October below. It does not remove or dilute the R01–R50 product requirements. Read live source and the latest GitHub/Railway state before each task.
@@ -58,6 +60,8 @@ Prepared: 10 October 2026. **Active checkpoint: 19 October 2026; B1–B4 accepte
 The next plan milestone is **B5**, not another B4 reconciliation. Inspect current live code and infrastructure once as needed, then execute the first bounded B5 task under the master plan. Route uncovered missing features to their existing R01–R50 owners. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize new code, services or Business privileges.
 
 ---
+
+<!-- prettier-ignore-end -->
 
 ## 1. Authority, evidence and limits
 
