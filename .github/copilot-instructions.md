@@ -1,0 +1,3 @@
+# VibeQuest — GitHub Copilot repository instructions
+
+Follow [AGENTS.md](../AGENTS.md) and the [canonical agent operating contract](../docs/engineering/AGENT_OPERATING_CONTRACT.md). Before suggesting or editing code, inspect current canonical ownership, relevant source and applicable [master plan](../docs/product/VIBEQUEST_MASTER_RECONSTRUCTION_PLAN.md) requirements. Distinguish verified behavior, inference, reported evidence and unknowns; do not invent defects or release policy. Keep changes scoped, verify the complete diff and required checks, and never infer authorization for external mutations.
