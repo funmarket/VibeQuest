@@ -9,6 +9,7 @@ Before any consequential diagnosis, recommendation, execution packet or mutation
 ## 2. Classify the evidence
 
 Use the following distinctions for consequential claims:
+
 - **VERIFIED NOW:** directly checked in current source/tool/runtime evidence.
 - **PREVIOUSLY VERIFIED:** established earlier but not refreshed.
 - **REPORTED:** another agent/document claims it.
@@ -50,6 +51,7 @@ Use one master reconstruction plan, not competing roadmaps. Record verified mile
 ## 10. Pre-action decision check
 
 Before any consequential recommendation or action, establish:
+
 1. What exact currently verified facts support it?
 2. What authoritative product/technical/release contract governs it?
 3. Is the condition genuinely defective or expected?
