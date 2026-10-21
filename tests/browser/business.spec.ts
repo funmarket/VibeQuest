@@ -1,13 +1,11 @@
 import { randomUUID } from "node:crypto";
 import { test, expect, type Page } from "@playwright/test";
-import { createDatabase } from "../../packages/database/src/index";
+import { browserDatabase } from "./browser-database";
 test("business creation and membership survive reloads through real accounts", async ({
   browser,
 }) => {
   test.setTimeout(90000);
-  const database = createDatabase(
-    "postgresql://vq_local@127.0.0.1:55439/vq_foundation",
-  );
+  const database = browserDatabase();
   const ownerContext = await browser.newContext();
   const memberContext = await browser.newContext();
   const owner = await ownerContext.newPage();
