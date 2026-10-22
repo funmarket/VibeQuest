@@ -1,5 +1,11 @@
 "use client";
-import { useState, useEffect, type ReactNode, type CSSProperties } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  type ReactNode,
+  type CSSProperties,
+} from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -45,6 +51,7 @@ export function Shell({ children }: { children: ReactNode }) {
   const [dialog, setDialog] = useState<"account" | "notifications" | null>(
     null,
   );
+  const closeConsole = useRef<(() => void) | null>(null);
   const destination = path.split("/")[2] ?? "home";
   const [navigationHidden, setNavigationHidden] = useState(false);
   useEffect(() => {
@@ -59,9 +66,21 @@ export function Shell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [path]);
   useEffect(
-    () => host.back(destination === "home" ? undefined : () => router.back()),
-    [host, destination, router],
+    () =>
+      host.back(
+        dialog === "account"
+          ? () => closeConsole.current?.()
+          : dialog
+            ? () => setDialog(null)
+            : destination === "home"
+              ? undefined
+              : () => router.back(),
+      ),
+    [host, destination, router, dialog],
   );
+  useEffect(() => {
+    setDialog(null);
+  }, [path]);
   return (
     <div
       className={`app-shell page-${destination}`}
@@ -161,7 +180,12 @@ export function Shell({ children }: { children: ReactNode }) {
           </Link>
         ))}
       </nav>
-      {dialog === "account" && <ProfileMenu onClose={() => setDialog(null)} />}
+      {dialog === "account" && (
+        <ProfileMenu
+          onClose={() => setDialog(null)}
+          closeRequest={closeConsole}
+        />
+      )}
       {dialog === "notifications" && (
         <NoticeDialog
           title={c(`${dialog}Title`)}

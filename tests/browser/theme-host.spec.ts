@@ -114,9 +114,53 @@ test("simulated Telegram capabilities update shared theme and safe areas without
       ),
     )
     .toBe(1);
+  await page.locator(".account").click();
+  const consoleDrawer = page.locator(".profile-menu");
+  await expect(consoleDrawer).toBeVisible();
+  expect(
+    await consoleDrawer.evaluate((el) =>
+      parseFloat(getComputedStyle(el).paddingTop),
+    ),
+  ).toBe(30);
+  expect(
+    await consoleDrawer.evaluate((el) =>
+      parseFloat(getComputedStyle(el).paddingBottom),
+    ),
+  ).toBe(22);
   await page.evaluate(() =>
     (window as unknown as { hostFixture: { back(): void } }).hostFixture.back(),
   );
+  await expect(consoleDrawer).toHaveCount(0);
+  await expect(page).toHaveURL("/en/vibe");
+  await expect(page.locator(".account")).toBeFocused();
+  await page.evaluate(() =>
+    (window as unknown as { hostFixture: { back(): void } }).hostFixture.back(),
+  );
+  await expect(page).toHaveURL("/en/home");
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        (
+          window as unknown as { hostFixture: { backCount(): number } }
+        ).hostFixture.backCount(),
+      ),
+    )
+    .toBe(0);
+  await page.locator(".account").click();
+  await expect(consoleDrawer).toBeVisible();
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        (
+          window as unknown as { hostFixture: { backCount(): number } }
+        ).hostFixture.backCount(),
+      ),
+    )
+    .toBe(1);
+  await page.evaluate(() =>
+    (window as unknown as { hostFixture: { back(): void } }).hostFixture.back(),
+  );
+  await expect(consoleDrawer).toHaveCount(0);
   await expect(page).toHaveURL("/en/home");
   await expect
     .poll(() =>

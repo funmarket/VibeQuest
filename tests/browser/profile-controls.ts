@@ -16,6 +16,7 @@ export async function setTheme(page: Page, value: string) {
   await openPreferences(page);
   await page.locator(".profile-menu select").first().selectOption(value);
   await page.locator(".profile-menu .icon-button").click();
+  await page.locator(".profile-menu").waitFor({ state: "hidden" });
 }
 export async function setLocale(page: Page, value: string) {
   await openPreferences(page, "language");

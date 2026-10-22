@@ -1,12 +1,46 @@
+html:has(.profile-menu[open]) {
+  overflow: hidden;
+}
 .profile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  margin: 0;
   color: var(--text);
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  inline-size: min(440px, calc(100vw - 24px));
-  max-block-size: calc(100dvh - 48px);
-  padding: 20px;
+  border: 0;
+  border-left: 1px solid var(--border);
+  border-radius: 20px 0 0 20px;
+  width: min(80vw, 340px);
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  padding: max(20px, env(safe-area-inset-top), var(--host-safe-top, 0px))
+    max(20px, env(safe-area-inset-right))
+    max(20px, env(safe-area-inset-bottom), var(--host-safe-bottom, 0px))
+    max(20px, env(safe-area-inset-left));
   overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  animation: console-enter 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes console-enter {
+  from {
+    transform: translateX(100%);
+  }
+  80% {
+    transform: translateX(-0.6%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-menu {
+    animation: none;
+  }
 }
 .profile-menu::backdrop {
   background: #0009;
