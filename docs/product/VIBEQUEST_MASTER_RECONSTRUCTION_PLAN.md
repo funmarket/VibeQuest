@@ -76,7 +76,7 @@ Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02 and R03 sou
 
 ### Execution instruction for the next agent
 
-**Current next planned bounded implementation: R04 — Activities interaction parity**, after merged R03; no implementation is initiated by this document. The preceding 19 October R02 checkpoint identified R03 as next before its merge. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R03 code, a staging deployment, services or Business privileges.
+**Current next planned bounded implementation: R04 — Activities interaction parity**, after merged R03; no implementation is initiated by this document. The preceding 19 October R02 checkpoint identified R03 as next before its merge. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R04 code, a staging deployment, services or Business privileges.
 
 ---
 
@@ -638,7 +638,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | Packet(s) | Current status of requested outcome | Evidence / next gate                                                                                               |
 | --------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | S00       | Runtime Verified                    | Completed publication; commit and successful CI recorded in S00 checkpoint above                                   |
-| R01–03    | Implemented                         | R01 navigation retained; R02 header/quick theme merged in PR #15; R03 Console merged in PR #18 at `77adca6e4` with successful foundation CI. Deployed/device parity not verified. |
+| R01–03    | Implemented                         | R01/R02 retained; R03 merged via PR #18 (`77adca6e4`); staging/device parity unverified                         |
 | R04–05    | Partial                             | Core domains Implemented with historical runtime evidence; small parity gaps remain                                |
 | R06       | Partial                             | Real Profile fields/photos; missing interests/contact/self-screen/availability UI                                  |
 | R07–11    | Shell                               | Gossip/Home feed/Drift/Vibes/Pulls presentation; Graph independently Implemented, not these flows                  |
