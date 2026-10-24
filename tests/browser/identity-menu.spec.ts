@@ -39,6 +39,7 @@ test("guest preferences and real account lifecycle use the canonical profile men
     await expect(
       menu.getByText("Profile complete", { exact: true }),
     ).toBeVisible();
+    await menu.getByText("Edit profile", { exact: true }).click();
     await menu.getByLabel("Profile photo", { exact: true }).setInputFiles({
       name: "verified-upload.png",
       mimeType: "image/png",
@@ -47,6 +48,30 @@ test("guest preferences and real account lifecycle use the canonical profile men
         "base64",
       ),
     });
+    await expect(
+      menu.getByRole("img", { name: "Photo preview" }),
+    ).toBeVisible();
+    await menu
+      .getByRole("button", { name: "Discard photo preview", exact: true })
+      .click();
+    await expect(menu.getByRole("img", { name: "Photo preview" })).toHaveCount(
+      0,
+    );
+    expect(
+      (await (await page.request.get("/api/v1/profile/me")).json()).profile
+        .photoMediaId,
+    ).toBeNull();
+    await menu.getByLabel("Profile photo", { exact: true }).setInputFiles({
+      name: "confirmed-upload.png",
+      mimeType: "image/png",
+      buffer: Buffer.from(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAADElEQVQImWMQ2NkIAAInAUsQFDrHAAAAAElFTkSuQmCC",
+        "base64",
+      ),
+    });
+    await menu
+      .getByRole("button", { name: "Update photo", exact: true })
+      .click();
     await expect(
       menu.getByRole("img", { name: "Profile photo" }),
     ).toBeVisible();
@@ -62,6 +87,20 @@ test("guest preferences and real account lifecycle use the canonical profile men
       .getAttribute("src");
     const oldId = originalSource!.split("/")[4];
     await menu.getByLabel("Profile photo", { exact: true }).setInputFiles({
+      name: "invalid.png",
+      mimeType: "image/png",
+      buffer: Buffer.from("not an image"),
+    });
+    await menu
+      .getByRole("button", { name: "Update photo", exact: true })
+      .click();
+    await expect(menu.getByRole("alert")).toHaveText(
+      "The photo could not be saved or removed. Please try again.",
+    );
+    await expect(
+      menu.getByRole("img", { name: "Profile photo" }),
+    ).toHaveAttribute("src", originalSource!);
+    await menu.getByLabel("Profile photo", { exact: true }).setInputFiles({
       name: "replacement-upload.png",
       mimeType: "image/png",
       buffer: Buffer.from(
@@ -69,6 +108,9 @@ test("guest preferences and real account lifecycle use the canonical profile men
         "base64",
       ),
     });
+    await menu
+      .getByRole("button", { name: "Update photo", exact: true })
+      .click();
     await expect(
       menu.getByRole("img", { name: "Profile photo" }),
     ).not.toHaveAttribute("src", originalSource!);

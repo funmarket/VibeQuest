@@ -63,6 +63,7 @@ html:has(.profile-menu[open]) {
   min-block-size: 44px;
 }
 .profile-menu label,
+.self-profile label,
 .account-form {
   display: grid;
   gap: 8px;
@@ -76,7 +77,10 @@ html:has(.profile-menu[open]) {
 }
 .profile-menu input,
 .profile-menu textarea,
-.profile-menu select {
+.profile-menu select,
+.self-profile input,
+.self-profile textarea,
+.self-profile select {
   inline-size: 100%;
   min-inline-size: 0;
   color: var(--text);
@@ -98,6 +102,49 @@ html:has(.profile-menu[open]) {
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 12px;
+  display: grid;
+  gap: 8px;
+}
+.self-profile,
+.self-profile-summary {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.self-profile img {
+  object-fit: cover;
+  border-radius: 16px;
+}
+.self-profile fieldset {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 16px;
+}
+.profile-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.profile-interests > * {
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+.profile-interests [aria-pressed="true"] {
+  color: var(--text);
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+.self-profile .profile-checkbox {
+  display: flex;
+  align-items: center;
+}
+.self-profile .profile-checkbox input {
+  inline-size: 24px;
+  flex: 0 0 24px;
+}
+.profile-photo {
   display: grid;
   gap: 8px;
 }

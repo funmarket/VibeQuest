@@ -14,6 +14,10 @@ export {
   profileSchema,
   profileResponseSchema,
   profilePhotoInputSchema,
+  profileInterestPresets,
+  interestSchema,
+  handleAvailabilityQuerySchema,
+  handleAvailabilityResponseSchema,
 } from "./profile";
 export type { Profile, ProfileInput } from "./profile";
 export { uploadInputSchema, mediaSchema, mediaResponseSchema } from "./media";

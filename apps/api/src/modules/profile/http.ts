@@ -4,6 +4,8 @@ import {
   profileInputSchema,
   profileResponseSchema,
   profilePhotoInputSchema,
+  handleAvailabilityQuerySchema,
+  handleAvailabilityResponseSchema,
 } from "@vq/contracts";
 import {
   createProfiles,
@@ -89,11 +91,12 @@ export function registerProfileRoutes(
       try {
         const account = await authenticate(request);
         if (!account) return reply.code(401).send({ code: "AUTH_REQUIRED" });
-        const query = request.query as { handle?: string };
-        const handle = profileInputSchema.shape.handle.safeParse(query.handle);
-        if (!handle.success || !handle.data)
+        const query = handleAvailabilityQuerySchema.safeParse(request.query);
+        if (!query.success)
           return reply.code(400).send({ code: "INVALID_INPUT" });
-        return { available: await profiles.available(handle.data, account.id) };
+        return handleAvailabilityResponseSchema.parse({
+          available: await profiles.available(query.data.handle, account.id),
+        });
       } catch {
         return reply.code(503).send({ code: "PROFILE_UNAVAILABLE" });
       }

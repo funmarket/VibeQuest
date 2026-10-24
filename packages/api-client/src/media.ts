@@ -39,14 +39,23 @@ export async function attachProfilePhoto(
   version: number,
 ) {
   const input = profilePhotoInputSchema.parse({ mediaId, version });
-  const response = await checked(
-    await fetch(`${baseURL.replace(/\/$/, "")}/v1/profile/photo`, {
+  const response = await fetch(
+    `${baseURL.replace(/\/$/, "")}/v1/profile/photo`,
+    {
       method: "PUT",
       credentials: "same-origin",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(input),
-    }),
+    },
   );
+  if (!response.ok) {
+    const payload = await response.json().catch(() => null);
+    throw new Error(
+      payload?.code === "STALE_PROFILE"
+        ? "STALE_PROFILE"
+        : "MEDIA_REQUEST_FAILED",
+    );
+  }
   return profileResponseSchema.parse(await response.json()).profile;
 }
 export async function deleteMedia(baseURL: string, id: string) {
