@@ -1,6 +1,6 @@
 # VibeQuest master product reconstruction and execution plan
 
-Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02 and R03 source implementation merged, R04 next in approved sequence; B5 remains partial.** B1–B4 remain accepted for initial staging. Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
+Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02–R04 source implementation merged, R05 next in approved sequence; B5 remains partial.** B1–B4 remain accepted for initial staging. Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
 
 **Goal:** Restore the complete original VibeQuest product through genuine, persisted user journeys while retaining the existing clean foundation.
 
@@ -32,6 +32,13 @@ Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02 and R03 sou
 - **Scope verified from merged diff:** Right-edge native Console with `min(80vw, 340px)` presentation, X/backdrop/Escape and right-swipe dismissal (strict >80 CSS px drag or >300 px/s velocity), focus and document-scroll preservation, nested input safety, reduced motion and host Back/route-close wiring. Changes are confined to Console gesture/helper, `ProfileMenu`, `Shell`, Account CSS and focused unit/browser regressions; database, API and domain ownership are unchanged. Browser writing suites now require an explicitly local disposable `vq_test` database URL.
 - **Verification boundary:** Codex reports successful local Node/pnpm checks, 43 Chrome regressions and real local Identity/Profile/Business cases. The merged-foundation GitHub Actions check is independently verified successful. The local browser and database runs are documented in the PR, not independently rerun in this documentation task; actual Railway deployment, real Telegram hardware, other browser engines, deployed interaction parity and owner parity acceptance remain unverified. B5 retains its existing scope/status.
 - **Next position:** R04 Activities interaction parity is the existing dependency-ordered packet after R03; this record does not authorize starting it.
+
+### R04 source integration — 24 October 2026
+
+- **Merged implementation:** [PR #20 — R04 Activities interaction parity](https://github.com/funmarket/VibeQuest/pull/20) merged into `phase-0-foundation` at [`8535755b87f164241a544994f7936f757ed5aac7`](https://github.com/funmarket/VibeQuest/commit/8535755b87f164241a544994f7936f757ed5aac7), with both exact PR-head checks successful before merge (push run `40098678681`, PR run `40098689933`). Merged-foundation CI is separate and must not be inferred from exact PR-head checks.
+- **R04 scope:** Existing Activities presentation, form, card, review, localized Explore navigation and host interactions received the bounded parity work; associated locale, unit/browser regression and Activities implementation documentation changed. Preserve the existing Activities domain, image limit, optimistic versions and durable behavior; no new schema/service or unrelated milestone was included.
+- **Verification level:** Codex-reported 71 unit tests, 6 integration tests and 40 targeted browser cases passed. The broader browser run retained three documented stale Foundation assertions; those are not silently recast as R04 acceptance failures or claimed resolved. Those local runs were not independently repeated during the merge. PR-head CI was independently verified; deployment, live runtime, genuine Telegram hardware and owner parity acceptance remain unverified. B5 remains partial.
+- **Next position:** R05 Official Events interaction parity is the already-defined dependency-ordered packet; this document does not authorize beginning it.
 
 ### Verified staging and repository
 
@@ -76,7 +83,7 @@ Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02 and R03 sou
 
 ### Execution instruction for the next agent
 
-**Current next planned bounded implementation: R04 — Activities interaction parity**, after merged R03; no implementation is initiated by this document. The preceding 19 October R02 checkpoint identified R03 as next before its merge. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R04 code, a staging deployment, services or Business privileges.
+**Current next planned bounded implementation: R05 — Official Events interaction parity**, after merged R04; no implementation is initiated by this document. The preceding 19 October R02 checkpoint identified R03 as next before its merge. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R05 code, a staging deployment, services or Business privileges.
 
 ---
 
@@ -639,7 +646,8 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | --------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | S00       | Runtime Verified                    | Completed publication; commit and successful CI recorded in S00 checkpoint above                                   |
 | R01–03    | Implemented                         | R01/R02 retained; R03 merged via PR #18 (`77adca6e4`); staging/device parity unverified                            |
-| R04–05    | Partial                             | Core domains Implemented with historical runtime evidence; small parity gaps remain                                |
+| R04       | Implemented                         | Activities parity merged in PR #20 (`8535755b8`); deployment/device parity unverified                              |
+| R05       | Partial                             | Existing Events core implemented; R05 parity packet remains next                                                   |
 | R06       | Partial                             | Real Profile fields/photos; missing interests/contact/self-screen/availability UI                                  |
 | R07–11    | Shell                               | Gossip/Home feed/Drift/Vibes/Pulls presentation; Graph independently Implemented, not these flows                  |
 | R12–13    | Not Started                         | Existing image Media is Implemented; video/genuine capture not these completed capabilities                        |
