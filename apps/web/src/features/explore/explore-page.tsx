@@ -51,14 +51,18 @@ const categoryMapping: Record<string, string> = {
   hidden: "hidden",
 };
 
-export function ExplorePage() {
+export function ExplorePage({
+  initialSearch = "",
+}: {
+  initialSearch?: string;
+}) {
   const t = useTranslations("explore");
   const c = useTranslations("common");
   const [bounds, setBounds] = useState<PlacesQuery>(initialBounds);
   const [draft, setDraft] = useState(initialBounds);
   const [category, setCategory] = useState("all");
-  const [search, setSearch] = useState("");
-  const [q, setQ] = useState("");
+  const [search, setSearch] = useState(initialSearch);
+  const [q, setQ] = useState(initialSearch);
   const [view, setView] = useState<"list" | "map">("list");
   const [notice, setNotice] = useState<string | null>(null);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
@@ -143,7 +147,7 @@ export function ExplorePage() {
             aria-label={t("search")}
             placeholder={t("search")}
             value={search}
-            maxLength={100}
+            maxLength={120}
             onChange={(event) => setSearch(event.target.value)}
           />
           <button

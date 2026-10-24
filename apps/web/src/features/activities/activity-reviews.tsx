@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, useId, type FormEvent } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { useHost } from "../../platform/host";
+import { activityReviewInputSchema } from "@vq/contracts";
 import { readActivityReviews, reviewActivity } from "@vq/api-client";
 import type { ActivityReview } from "@vq/contracts";
 export function ActivityReviews({
@@ -14,6 +16,11 @@ export function ActivityReviews({
 }) {
   const t = useTranslations("activities");
   const locale = useLocale();
+  const host = useHost();
+  const formId = useId();
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(5);
+  const [saved, setSaved] = useState(false);
   const [reviews, setReviews] = useState<ActivityReview[]>([]);
   const [next, setNext] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
@@ -42,16 +49,25 @@ export function ActivityReviews({
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
+    const parsed = activityReviewInputSchema.safeParse({
+      rating,
+      text: String(data.get("text")),
+    });
+    if (!parsed.success) {
+      setError(true);
+      return;
+    }
     setBusy(true);
     setError(false);
+    setSaved(false);
     try {
-      await reviewActivity("/api", id, {
-        rating: Number(data.get("rating")),
-        text: String(data.get("text")),
-      });
+      await reviewActivity("/api", id, parsed.data);
       form.reset();
       setRevision((r) => r + 1);
       await onChange();
+      setOpen(false);
+      setSaved(true);
+      host.haptic();
     } catch {
       setError(true);
     } finally {
@@ -97,30 +113,68 @@ export function ActivityReviews({
           )}
         </>
       )}
+      {canReview && (
+        <button
+          disabled={busy}
+          aria-expanded={open}
+          aria-controls={formId}
+          onClick={() => {
+            host.haptic();
+            setOpen(!open);
+            setRating(5);
+            setSaved(false);
+            setError(false);
+          }}
+        >
+          {t(open ? "closeReview" : "evaluate")}
+        </button>
+      )}
       {canReview ? (
-        <form onSubmit={submit}>
-          <fieldset disabled={busy}>
-            <label>
-              {t("rating")}
-              <select name="rating" defaultValue="5">
-                {[5, 4, 3, 2, 1].map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
+        open && (
+          <form id={formId} onSubmit={submit}>
+            <fieldset disabled={busy}>
+              <fieldset className="activity-rating">
+                <legend>{t("rating")}</legend>
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <label key={value}>
+                    <input
+                      type="radio"
+                      name="rating"
+                      value={value}
+                      checked={rating === value}
+                      aria-label={value + " / 5"}
+                      onChange={() => {
+                        setRating(value);
+                        host.haptic();
+                      }}
+                    />
+                    <span aria-hidden>{value <= rating ? "★" : "☆"}</span>
+                  </label>
                 ))}
-              </select>
-            </label>
-            <label>
-              {t("reviewText")}
-              <textarea name="text" required maxLength={1000} />
-            </label>
-            <button type="submit">{t("submitReview")}</button>
-          </fieldset>
-        </form>
+              </fieldset>
+              <label>
+                {t("reviewText")}
+                <textarea name="text" required maxLength={1000} />
+              </label>
+              <button type="submit">{t("submitReview")}</button>
+            </fieldset>
+          </form>
+        )
       ) : (
         <p>{t("signInReview")}</p>
       )}
-      {error && <p role="alert">{t("failed")}</p>}
+      {saved && <p role="status">{t("reviewSaved")}</p>}
+      {error && (
+        <div>
+          <p role="alert">{t("failed")}</p>
+          <button
+            disabled={busy}
+            onClick={() => setRevision((value) => value + 1)}
+          >
+            {t("retry")}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

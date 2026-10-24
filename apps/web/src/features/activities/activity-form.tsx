@@ -8,21 +8,26 @@ import {
   deleteMedia,
   ActivityRequestError,
 } from "@vq/api-client";
-import type { Activity } from "@vq/contracts";
+import { activityInputSchema, type Activity } from "@vq/contracts";
+import { useHost } from "../../platform/host";
 export function ActivityForm({
   tab,
   activity,
   onSaved,
   onClose,
   onBusy,
+  onReload,
 }: {
   tab: "live" | "upcoming";
   activity?: Activity;
   onSaved: (activity: Activity) => void;
   onClose: () => void;
   onBusy?: (busy: boolean) => void;
+  onReload?: () => Promise<void>;
 }) {
   const t = useTranslations("activities");
+  const host = useHost();
+  const [conflict, setConflict] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mediaIds, setMediaIds] = useState(activity?.mediaIds ?? []);
@@ -47,34 +52,48 @@ export function ActivityForm({
       setError(t("mediaLimit"));
       return;
     }
+    const date =
+      tab === "upcoming" ? new Date(String(data.get("startsAt"))) : null;
+    if (date && !Number.isFinite(date.getTime())) {
+      setError(t("invalidSchedule"));
+      return;
+    }
+    const parsed = activityInputSchema.safeParse({
+      title: String(data.get("title")),
+      description: String(data.get("description")),
+      location: String(data.get("location")),
+      emoji: String(data.get("emoji")),
+      startsAt: date ? date.toISOString() : (activity?.startsAt ?? null),
+      mediaIds,
+    });
+    if (!parsed.success) {
+      setError(t("invalidDetails"));
+      return;
+    }
     setBusy(true);
     onBusy?.(true);
     setError(null);
+    setConflict(false);
     const uploaded: string[] = [];
     try {
       for (const file of files) {
         const image = await uploadImage("/api", file, "public");
         uploaded.push(image.id);
       }
-      const input = {
-        title: String(data.get("title")),
-        description: String(data.get("description")),
-        location: String(data.get("location")),
-        emoji: String(data.get("emoji")) as Activity["emoji"],
-        startsAt:
-          tab === "upcoming"
-            ? new Date(String(data.get("startsAt"))).toISOString()
-            : (activity?.startsAt ?? null),
-        mediaIds: [...mediaIds, ...uploaded],
-      };
+      const input = { ...parsed.data, mediaIds: [...mediaIds, ...uploaded] };
       const saved = activity
         ? await editActivity("/api", activity.id, {
             ...input,
             version: activity.version,
           })
         : await postActivity("/api", input);
+      host.haptic();
       onSaved(saved);
     } catch (cause) {
+      setConflict(
+        cause instanceof ActivityRequestError &&
+          cause.code === "ACTIVITY_CONFLICT",
+      );
       setError(
         t(
           cause instanceof ActivityRequestError &&
@@ -83,7 +102,10 @@ export function ActivityForm({
             : cause instanceof ActivityRequestError &&
                 cause.code === "ACTIVITY_CONFLICT"
               ? "conflict"
-              : "failed",
+              : cause instanceof ActivityRequestError &&
+                  cause.code === "INVALID_SCHEDULE"
+                ? "invalidSchedule"
+                : "failed",
         ),
       );
       // Delete only newly uploaded, unattached objects. Media's FK guard protects a committed activity if its response was lost.
@@ -140,14 +162,16 @@ export function ActivityForm({
         )}
         <label>
           {t("indicator")}
-          <select name="emoji" defaultValue={activity?.emoji ?? "🎵"}>
-            {["🎵", "☕", "🎨", "🎸", "🍵", "🌅", "🎭", "🎻", "🧘"].map(
-              (emoji, i) => (
-                <option value={emoji} key={emoji}>
-                  {emoji} {t(`category${i}`)}
-                </option>
-              ),
-            )}
+          <select
+            name="emoji"
+            defaultValue={activity?.emoji ?? "🎵"}
+            onChange={() => host.haptic()}
+          >
+            {activityInputSchema.shape.emoji.options.map((emoji, i) => (
+              <option value={emoji} key={emoji}>
+                {emoji} {t(`category${i}`)}
+              </option>
+            ))}
           </select>
         </label>
         <label>
@@ -192,13 +216,40 @@ export function ActivityForm({
                     : "schedule",
             )}
           </button>
-          <button type="button" onClick={onClose}>
+          <button
+            type="button"
+            onClick={() => {
+              host.haptic();
+              onClose();
+            }}
+          >
             {t("close")}
           </button>
         </div>
       </fieldset>
       {busy && <p role="status">{t("loading")}</p>}
       {error && <p role="alert">{error}</p>}
+      {conflict && onReload && (
+        <button
+          type="button"
+          className="activity-button"
+          disabled={busy}
+          onClick={async () => {
+            setBusy(true);
+            onBusy?.(true);
+            try {
+              await onReload();
+            } catch {
+              setError(t("failed"));
+            } finally {
+              setBusy(false);
+              onBusy?.(false);
+            }
+          }}
+        >
+          {t("reload")}
+        </button>
+      )}
     </form>
   );
 }

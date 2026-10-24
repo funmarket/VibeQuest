@@ -266,3 +266,34 @@ html[data-theme="light"] .activities-panel [role="alert"] {
     padding: 20px;
   }
 }
+
+.activity-reviews .activity-rating {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.activity-rating label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.activity-rating input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.activity-rating span {
+  font-size: 1.5rem;
+  color: var(--activity-accent);
+}
+.activity-rating label:has(:focus-visible) {
+  outline: 2px solid var(--activity-accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}

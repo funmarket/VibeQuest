@@ -324,7 +324,17 @@
     "category5": "Paseo al atardecer",
     "category6": "Poesía / teatro",
     "category7": "Jam de violín",
-    "category8": "Yoga al aire libre"
+    "category8": "Yoga al aire libre",
+    "published": "Actividad publicada.",
+    "updated": "Cambios de la actividad guardados.",
+    "saved": "Actividad guardada.",
+    "removedSave": "Actividad eliminada de los favoritos.",
+    "evaluate": "Evaluar el encuentro",
+    "closeReview": "Cerrar evaluación",
+    "reviewSaved": "Reseña guardada.",
+    "reload": "Recargar actividad",
+    "invalidDetails": "Introduce un título y un lugar. Revisa la longitud de los campos.",
+    "invalidSchedule": "Elige una fecha y hora de encuentro futuras válidas."
   },
   "officialEvents": {
     "live": "Eventos en directo",
