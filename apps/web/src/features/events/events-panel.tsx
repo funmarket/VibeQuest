@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { myBusinesses, readEvents } from "@vq/api-client";
 import type { Business, OfficialEvent } from "@vq/contracts";
+import { useHost } from "../../platform/host";
 import { useAccount } from "../identity/account-provider";
 import { tabKeyboard } from "../../components/tab-keyboard";
 import { EventForm } from "./event-form";
 import { EventCard } from "./event-card";
 export function EventsPanel() {
   const t = useTranslations("officialEvents");
+  const host = useHost();
+  const [message, setMessage] = useState<string | null>(null);
   const { account, loading: accountLoading } = useAccount();
   const [tab, setTab] = useState<"live" | "upcoming">("live");
   const [items, setItems] = useState<OfficialEvent[]>([]);
@@ -117,6 +120,8 @@ export function EventsPanel() {
               aria-selected={tab === value}
               tabIndex={tab === value ? 0 : -1}
               onClick={() => {
+                host.haptic();
+                setMessage(null);
                 setTab(value);
                 setHosting(false);
                 setExpanded(null);
@@ -129,7 +134,10 @@ export function EventsPanel() {
         <button
           className="event-button"
           disabled={busy}
-          onClick={() => setHosting((value) => !value)}
+          onClick={() => {
+            host.haptic();
+            setHosting((value) => !value);
+          }}
         >
           {t(hosting ? "close" : "host")}
         </button>
@@ -156,12 +164,14 @@ export function EventsPanel() {
             onBusy={setBusy}
             onSaved={(event) => {
               setHosting(false);
+              setMessage(t("published"));
               setExpanded(event.id);
               setRevision((value) => value + 1);
             }}
             onClose={() => setHosting(false)}
           />
         ))}
+      {message && <p role="status">{message}</p>}
       <div
         id="events-feed"
         role="tabpanel"
@@ -188,9 +198,10 @@ export function EventsPanel() {
               key={event.id}
               event={event}
               expanded={expanded === event.id}
-              onToggle={() =>
-                setExpanded((value) => (value === event.id ? null : event.id))
-              }
+              onToggle={() => {
+                host.haptic();
+                setExpanded((value) => (value === event.id ? null : event.id));
+              }}
               onChange={changed}
             />
           ))

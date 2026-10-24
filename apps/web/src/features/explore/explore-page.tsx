@@ -53,14 +53,16 @@ const categoryMapping: Record<string, string> = {
 
 export function ExplorePage({
   initialSearch = "",
+  initialCategory = "all",
 }: {
   initialSearch?: string;
+  initialCategory?: "all" | "art" | "venues";
 }) {
   const t = useTranslations("explore");
   const c = useTranslations("common");
   const [bounds, setBounds] = useState<PlacesQuery>(initialBounds);
   const [draft, setDraft] = useState(initialBounds);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState<string>(initialCategory);
   const [search, setSearch] = useState(initialSearch);
   const [q, setQ] = useState(initialSearch);
   const [view, setView] = useState<"list" | "map">("list");

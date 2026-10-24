@@ -392,7 +392,19 @@
     "empty": "No official events here yet.",
     "save": "Save Event",
     "saved": "Saved — remove bookmark",
-    "signInSave": "Sign in to save this Event."
+    "signInSave": "Sign in to save this Event.",
+    "published": "Event published.",
+    "updated": "Event changes saved.",
+    "bookmarkSaved": "Event saved.",
+    "bookmarkRemoved": "Event removed from saved items.",
+    "rsvpAdded": "RSVP saved as an intention to attend.",
+    "rsvpRemoved": "RSVP removed.",
+    "evaluate": "Evaluate Event",
+    "closeReview": "Close evaluation",
+    "reviewSaved": "Review saved.",
+    "reload": "Reload event",
+    "invalidDetails": "Enter an event title and location. Check the field lengths.",
+    "invalidSchedule": "Choose a valid future event date and time."
   },
   "social": {
     "lookup": "Public username / handle",

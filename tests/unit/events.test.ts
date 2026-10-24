@@ -33,3 +33,20 @@ it("cannot switch an existing event's business or resurrect a cancellation", () 
     validateEventSchedule(input, { ...current, status: "cancelled" }, 1000),
   ).toThrow("EVENT_CONFLICT");
 });
+
+it("hands Event names and exact categories to localized Explore without changing Activity navigation", async () => {
+  const { eventExploreHref, exploreEventCategory, activityExploreHref } =
+    await import("../../apps/web/src/features/explore/navigation");
+  expect(eventExploreHref("fr", { title: "Art & café?", tag: "cafe" })).toBe(
+    "/fr/explore?q=Art+%26+caf%C3%A9%3F&category=cafe",
+  );
+  expect(exploreEventCategory("music")).toBe("venues");
+  expect(exploreEventCategory("art")).toBe("art");
+  expect(exploreEventCategory("cafe")).toBe("all");
+  expect(exploreEventCategory("theatre")).toBe("all");
+  expect(exploreEventCategory(["art", "cafe"])).toBe("all");
+  expect(exploreEventCategory("unknown")).toBe("all");
+  expect(activityExploreHref("ar", { location: "Medina" })).toBe(
+    "/ar/explore?q=Medina",
+  );
+});

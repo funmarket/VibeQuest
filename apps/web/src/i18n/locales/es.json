@@ -392,7 +392,19 @@
     "empty": "Todavía no hay eventos oficiales aquí.",
     "save": "Guardar evento",
     "saved": "Guardado — quitar favorito",
-    "signInSave": "Inicia sesión para guardar este evento."
+    "signInSave": "Inicia sesión para guardar este evento.",
+    "published": "Evento publicado.",
+    "updated": "Cambios del evento guardados.",
+    "bookmarkSaved": "Evento guardado.",
+    "bookmarkRemoved": "Evento eliminado de los favoritos.",
+    "rsvpAdded": "Intención de asistir guardada.",
+    "rsvpRemoved": "Intención de asistir eliminada.",
+    "evaluate": "Evaluar el evento",
+    "closeReview": "Cerrar evaluación",
+    "reviewSaved": "Reseña guardada.",
+    "reload": "Recargar evento",
+    "invalidDetails": "Introduce un título y un lugar. Revisa la longitud de los campos.",
+    "invalidSchedule": "Elige una fecha y hora futuras válidas."
   },
   "social": {
     "lookup": "Nombre de usuario público",
