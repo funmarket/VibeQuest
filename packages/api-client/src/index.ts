@@ -5,7 +5,7 @@ import {
   type PlacesResponse,
 } from "@vq/contracts";
 export { accountRequest, AccountRequestError } from "./identity";
-export { profileRequest } from "./profile";
+export { profileRequest, profileHandleAvailable } from "./profile";
 export {
   myBusinesses,
   createBusiness,
