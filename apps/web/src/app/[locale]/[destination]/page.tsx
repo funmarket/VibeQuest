@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { HomePage } from "../../../features/home/home-page";
-import { exploreSearch } from "../../../features/explore/navigation";
+import {
+  exploreSearch,
+  exploreEventCategory,
+} from "../../../features/explore/navigation";
 import { ExplorePage } from "../../../features/explore/explore-page";
 import { SharePage } from "../../../features/share/share-page";
 import { VibePage } from "../../../features/vibe/vibe-page";
@@ -20,8 +23,16 @@ export default async function Destination({
     case "home":
       return <HomePage />;
     case "explore": {
-      const query = exploreSearch((await searchParams).q);
-      return <ExplorePage key={query} initialSearch={query} />;
+      const incoming = await searchParams;
+      const query = exploreSearch(incoming.q);
+      const category = exploreEventCategory(incoming.category);
+      return (
+        <ExplorePage
+          key={query + ":" + category}
+          initialSearch={query}
+          initialCategory={category}
+        />
+      );
     }
     case "share":
       return <SharePage />;

@@ -1,7 +1,11 @@
 "use client";
 import { useState, useId, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
-import type { Business, OfficialEvent } from "@vq/contracts";
+import {
+  eventInputSchema,
+  type Business,
+  type OfficialEvent,
+} from "@vq/contracts";
 import {
   postEvent,
   editEvent,
@@ -9,6 +13,7 @@ import {
   deleteMedia,
   EventRequestError,
 } from "@vq/api-client";
+import { useHost } from "../../platform/host";
 export function EventForm({
   tab,
   businesses,
@@ -16,6 +21,7 @@ export function EventForm({
   onSaved,
   onClose,
   onBusy,
+  onReload,
 }: {
   tab: "live" | "upcoming";
   businesses: Business[];
@@ -23,9 +29,12 @@ export function EventForm({
   onSaved: (event: OfficialEvent) => void;
   onClose: () => void;
   onBusy: (busy: boolean) => void;
+  onReload?: () => Promise<void>;
 }) {
   const t = useTranslations("officialEvents");
   const descriptionId = useId();
+  const host = useHost();
+  const [conflict, setConflict] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [ids, setIds] = useState(event?.mediaIds ?? []);
@@ -49,34 +58,46 @@ export function EventForm({
       setError(t("mediaLimit"));
       return;
     }
+    const scheduled =
+      tab === "upcoming" ? new Date(String(data.get("startsAt"))) : null;
+    if (scheduled && !Number.isFinite(scheduled.getTime())) {
+      setError(t("invalidSchedule"));
+      return;
+    }
+    const parsed = eventInputSchema.safeParse({
+      businessId: event?.businessId ?? String(data.get("businessId")),
+      title: String(data.get("title")),
+      description: String(data.get("description")),
+      location: String(data.get("location")),
+      tag: String(data.get("tag")),
+      startsAt: scheduled ? scheduled.toISOString() : (event?.startsAt ?? null),
+      mediaIds: ids,
+    });
+    if (!parsed.success) {
+      setError(t("invalidDetails"));
+      return;
+    }
     setBusy(true);
     onBusy(true);
     setError(null);
+    setConflict(false);
     const uploaded: string[] = [];
     try {
       for (const file of files)
         uploaded.push((await uploadImage("/api", file, "public")).id);
-      const input = {
-        businessId: event?.businessId ?? String(data.get("businessId")),
-        title: String(data.get("title")),
-        description: String(data.get("description")),
-        location: String(data.get("location")),
-        tag: String(data.get("tag")) as OfficialEvent["tag"],
-        startsAt:
-          tab === "upcoming"
-            ? new Date(String(data.get("startsAt"))).toISOString()
-            : (event?.startsAt ?? null),
-        mediaIds: [...ids, ...uploaded],
-      };
-      onSaved(
-        event
-          ? await editEvent("/api", event.id, {
-              ...input,
-              version: event.version,
-            })
-          : await postEvent("/api", input),
-      );
+      const input = { ...parsed.data, mediaIds: [...ids, ...uploaded] };
+      const saved = event
+        ? await editEvent("/api", event.id, {
+            ...input,
+            version: event.version,
+          })
+        : await postEvent("/api", input);
+      host.haptic();
+      onSaved(saved);
     } catch (cause) {
+      setConflict(
+        cause instanceof EventRequestError && cause.code === "EVENT_CONFLICT",
+      );
       setError(
         t(
           cause instanceof EventRequestError && cause.code === "EVENT_FORBIDDEN"
@@ -84,7 +105,10 @@ export function EventForm({
             : cause instanceof EventRequestError &&
                 cause.code === "EVENT_CONFLICT"
               ? "conflict"
-              : "failed",
+              : cause instanceof EventRequestError &&
+                  cause.code === "INVALID_EVENT_SCHEDULE"
+                ? "invalidSchedule"
+                : "failed",
         ),
       );
       for (const id of uploaded)
@@ -149,8 +173,12 @@ export function EventForm({
         )}
         <label>
           {t("category")}
-          <select name="tag" defaultValue={event?.tag ?? "music"}>
-            {["music", "art", "cafe", "theatre"].map((tag) => (
+          <select
+            name="tag"
+            defaultValue={event?.tag ?? "music"}
+            onChange={() => host.haptic()}
+          >
+            {eventInputSchema.shape.tag.options.map((tag) => (
               <option key={tag} value={tag}>
                 {t(tag)}
               </option>
@@ -191,13 +219,40 @@ export function EventForm({
           <button type="submit">
             {t(busy ? "loading" : event ? "saveChanges" : "publish")}
           </button>
-          <button type="button" onClick={onClose}>
+          <button
+            type="button"
+            onClick={() => {
+              host.haptic();
+              onClose();
+            }}
+          >
             {t("close")}
           </button>
         </div>
       </fieldset>
       {busy && <p role="status">{t("loading")}</p>}
       {error && <p role="alert">{error}</p>}
+      {conflict && onReload && (
+        <button
+          type="button"
+          className="event-button"
+          disabled={busy}
+          onClick={async () => {
+            setBusy(true);
+            onBusy(true);
+            try {
+              await onReload();
+            } catch {
+              setError(t("failed"));
+            } finally {
+              setBusy(false);
+              onBusy(false);
+            }
+          }}
+        >
+          {t("reload")}
+        </button>
+      )}
     </form>
   );
 }

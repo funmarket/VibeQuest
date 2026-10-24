@@ -392,7 +392,19 @@
     "empty": "Aucun événement officiel pour le moment.",
     "save": "Enregistrer l’événement",
     "saved": "Enregistré — retirer le favori",
-    "signInSave": "Connectez-vous pour enregistrer cet événement."
+    "signInSave": "Connectez-vous pour enregistrer cet événement.",
+    "published": "Événement publié.",
+    "updated": "Modifications enregistrées.",
+    "bookmarkSaved": "Événement enregistré.",
+    "bookmarkRemoved": "Événement retiré des favoris.",
+    "rsvpAdded": "Intention de participer enregistrée.",
+    "rsvpRemoved": "Intention de participer retirée.",
+    "evaluate": "Évaluer l’événement",
+    "closeReview": "Fermer l’évaluation",
+    "reviewSaved": "Avis enregistré.",
+    "reload": "Recharger l’événement",
+    "invalidDetails": "Saisissez un titre et un lieu. Vérifiez la longueur des champs.",
+    "invalidSchedule": "Choisissez une date et une heure futures valides."
   },
   "social": {
     "lookup": "Nom d’utilisateur public",
