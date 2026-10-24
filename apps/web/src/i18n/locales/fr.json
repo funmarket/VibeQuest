@@ -324,7 +324,17 @@
     "category5": "Balade au coucher du soleil",
     "category6": "Poésie / théâtre",
     "category7": "Jam de violon",
-    "category8": "Yoga en plein air"
+    "category8": "Yoga en plein air",
+    "published": "Activité publiée.",
+    "updated": "Modifications enregistrées.",
+    "saved": "Activité enregistrée.",
+    "removedSave": "Activité retirée des favoris.",
+    "evaluate": "Évaluer la rencontre",
+    "closeReview": "Fermer l’évaluation",
+    "reviewSaved": "Avis enregistré.",
+    "reload": "Recharger l’activité",
+    "invalidDetails": "Saisissez un titre et un lieu. Vérifiez la longueur des champs.",
+    "invalidSchedule": "Choisissez une date et une heure de rencontre futures valides."
   },
   "officialEvents": {
     "live": "Événements en direct",

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { profileRequest, readActivities } from "@vq/api-client";
 import type { Activity } from "@vq/contracts";
+import { useHost } from "../../platform/host";
 import { useAccount } from "../identity/account-provider";
 import { ProfileForm } from "../profile/profile-form";
 import { tabKeyboard } from "../../components/tab-keyboard";
@@ -10,6 +11,8 @@ import { ActivityForm } from "./activity-form";
 import { ActivityCard } from "./activity-card";
 export function ActivitiesPanel() {
   const t = useTranslations("activities");
+  const host = useHost();
+  const [message, setMessage] = useState<string | null>(null);
   const { account, loading: accountLoading } = useAccount();
   const [tab, setTab] = useState<"live" | "upcoming">("live");
   const [items, setItems] = useState<Activity[]>([]);
@@ -119,6 +122,8 @@ export function ActivitiesPanel() {
               aria-selected={tab === value}
               tabIndex={tab === value ? 0 : -1}
               onClick={() => {
+                host.haptic();
+                setMessage(null);
                 setTab(value);
                 setPosting(false);
                 setExpanded(null);
@@ -131,7 +136,10 @@ export function ActivitiesPanel() {
         <button
           className="activity-button"
           disabled={postingBusy}
-          onClick={() => setPosting((value) => !value)}
+          onClick={() => {
+            host.haptic();
+            setPosting((value) => !value);
+          }}
         >
           {t(posting ? "close" : tab === "live" ? "post" : "schedule")}
         </button>
@@ -163,17 +171,22 @@ export function ActivitiesPanel() {
             </button>
           </div>
         ) : (
-          <ActivityForm
-            onBusy={setPostingBusy}
-            tab={tab}
-            onSaved={(saved) => {
-              setPosting(false);
-              setExpanded(saved.id);
-              setRevision((value) => value + 1);
-            }}
-            onClose={() => setPosting(false)}
-          />
+          <div>
+            <ProfileForm />
+            <ActivityForm
+              onBusy={setPostingBusy}
+              tab={tab}
+              onSaved={(saved) => {
+                setPosting(false);
+                setMessage(t("published"));
+                setExpanded(saved.id);
+                setRevision((value) => value + 1);
+              }}
+              onClose={() => setPosting(false)}
+            />
+          </div>
         ))}
+      {message && <p role="status">{message}</p>}
       <div
         role="tabpanel"
         id="activities-feed"
@@ -200,9 +213,10 @@ export function ActivitiesPanel() {
               key={item.id}
               activity={item}
               expanded={expanded === item.id}
-              onToggle={() =>
-                setExpanded((value) => (value === item.id ? null : item.id))
-              }
+              onToggle={() => {
+                host.haptic();
+                setExpanded((value) => (value === item.id ? null : item.id));
+              }}
               onChange={changed}
             />
           ))

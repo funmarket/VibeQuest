@@ -32,3 +32,14 @@ it("does not resurrect cancellations or move started activities back to Upcoming
     validateSchedule(input, { ...current, status: "cancelled" }, 1000),
   ).toThrow("ACTIVITY_CONFLICT");
 });
+
+it("carries only a bounded location query into localized Explore navigation", async () => {
+  const { activityExploreHref, exploreSearch } =
+    await import("../../apps/web/src/features/explore/navigation");
+  expect(activityExploreHref("ar", { location: "  المدينة & café?  " })).toBe(
+    "/ar/explore?q=%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9+%26+caf%C3%A9%3F",
+  );
+  expect(exploreSearch(["one", "two"])).toBe("");
+  expect(exploreSearch("   ")).toBe("");
+  expect(exploreSearch("a".repeat(200))).toHaveLength(120);
+});

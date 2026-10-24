@@ -324,7 +324,17 @@
     "category5": "Sunset walk",
     "category6": "Poetry / theatre",
     "category7": "Violin jam",
-    "category8": "Outdoor yoga"
+    "category8": "Outdoor yoga",
+    "published": "Activity published.",
+    "updated": "Activity changes saved.",
+    "saved": "Activity saved.",
+    "removedSave": "Activity removed from saved items.",
+    "evaluate": "Evaluate assembly",
+    "closeReview": "Close evaluation",
+    "reviewSaved": "Review saved.",
+    "reload": "Reload activity",
+    "invalidDetails": "Enter an activity title and location. Check the field lengths.",
+    "invalidSchedule": "Choose a valid future meeting date and time."
   },
   "officialEvents": {
     "live": "Live Events",
