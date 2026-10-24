@@ -662,7 +662,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | R01–03    | Implemented                         | R01/R02 retained; R03 merged via PR #18 (`77adca6e4`); staging/device parity unverified                            |
 | R04       | Implemented                         | Activities parity merged in PR #20 (`8535755b8`); deployment/device parity unverified                              |
 | R05       | Implemented                         | Events parity merged in PR #22 (`38b51fcb3`); staging/device parity unverified                                     |
-| R06       | Implemented                         | Profile journey merged in PR #24 (`f3c99ba25`); runtime/device parity unverified                                  |
+| R06       | Implemented                         | Profile journey merged in PR #24 (`f3c99ba25`); runtime/device parity unverified                                   |
 | R07–11    | Shell                               | Gossip/Home feed/Drift/Vibes/Pulls presentation; Graph independently Implemented, not these flows                  |
 | R12–13    | Not Started                         | Existing image Media is Implemented; video/genuine capture not these completed capabilities                        |
 | R14–16    | Shell                               | SHARE headings/chips/directory notices; no persisted corresponding journey                                         |
