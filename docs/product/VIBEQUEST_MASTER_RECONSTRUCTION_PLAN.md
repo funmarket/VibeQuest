@@ -638,7 +638,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | Packet(s) | Current status of requested outcome | Evidence / next gate                                                                                               |
 | --------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | S00       | Runtime Verified                    | Completed publication; commit and successful CI recorded in S00 checkpoint above                                   |
-| R01–03    | Implemented                         | R01/R02 retained; R03 merged via PR #18 (`77adca6e4`); staging/device parity unverified                         |
+| R01–03    | Implemented                         | R01/R02 retained; R03 merged via PR #18 (`77adca6e4`); staging/device parity unverified                            |
 | R04–05    | Partial                             | Core domains Implemented with historical runtime evidence; small parity gaps remain                                |
 | R06       | Partial                             | Real Profile fields/photos; missing interests/contact/self-screen/availability UI                                  |
 | R07–11    | Shell                               | Gossip/Home feed/Drift/Vibes/Pulls presentation; Graph independently Implemented, not these flows                  |
