@@ -3,7 +3,7 @@ import type { Profile } from "@vq/contracts";
 import { ProfileError, isProfileComplete } from "@vq/profile";
 import type { ProfileRepository } from "@vq/profile/ports";
 
-const columns = `user_id AS "userId",name,bio,handle,favorite_vibe AS "favoriteVibe",version,(SELECT media_id FROM profile_photos WHERE user_id=profile_profiles.user_id) AS "photoMediaId"`;
+const columns = `user_id AS "userId",name,bio,handle,favorite_vibe AS "favoriteVibe",version,interests,location,contact_method AS "contactMethod",contact_email AS "contactEmail",phone_number AS "phoneNumber",x_handle AS "xHandle",telegram_handle AS "telegramHandle",cozy_diary AS "cozyDiary",(SELECT media_id FROM profile_photos WHERE user_id=profile_profiles.user_id) AS "photoMediaId"`;
 function present(row: Omit<Profile, "completed">): Profile {
   return { ...row, completed: isProfileComplete(row) };
 }
@@ -114,14 +114,22 @@ export function createProfileRepository(pool: Pool): ProfileRepository {
           input.handle,
           input.favoriteVibe,
           input.version,
+          input.interests ?? null,
+          input.location ?? null,
+          input.contactMethod ?? null,
+          input.contactEmail ?? null,
+          input.phoneNumber ?? null,
+          input.xHandle ?? null,
+          input.telegramHandle ?? null,
+          input.cozyDiary ?? null,
         ];
         const query =
           input.version === 0
-            ? `INSERT INTO profile_profiles(user_id,name,bio,handle,favorite_vibe) VALUES($1,$2,$3,$4,$5) ON CONFLICT(user_id) DO NOTHING RETURNING ${columns}`
-            : `UPDATE profile_profiles SET name=$2,bio=$3,handle=$4,favorite_vibe=$5,version=version+1,updated_at=now() WHERE user_id=$1 AND version=$6 RETURNING ${columns}`;
+            ? `INSERT INTO profile_profiles(user_id,name,bio,handle,favorite_vibe,version,interests,location,contact_method,contact_email,phone_number,x_handle,telegram_handle,cozy_diary) VALUES($1,$2,$3,$4,$5,$6+1,COALESCE($7,'{}'::text[]),COALESCE($8,''),COALESCE($9,'telegram'),COALESCE($10,''),COALESCE($11,''),COALESCE($12,''),COALESCE($13,''),COALESCE($14,false)) ON CONFLICT(user_id) DO NOTHING RETURNING ${columns}`
+            : `UPDATE profile_profiles SET name=$2,bio=$3,handle=$4,favorite_vibe=$5,interests=COALESCE($7,interests),location=COALESCE($8,location),contact_method=COALESCE($9,contact_method),contact_email=COALESCE($10,contact_email),phone_number=COALESCE($11,phone_number),x_handle=COALESCE($12,x_handle),telegram_handle=COALESCE($13,telegram_handle),cozy_diary=COALESCE($14,cozy_diary),version=version+1,updated_at=now() WHERE user_id=$1 AND version=$6 RETURNING ${columns}`;
         const result = await pool.query<Omit<Profile, "completed">>(
           query,
-          input.version === 0 ? values.slice(0, 5) : values,
+          values,
         );
         if (!result.rows[0]) throw new ProfileError("STALE_PROFILE");
         return present(result.rows[0]);
