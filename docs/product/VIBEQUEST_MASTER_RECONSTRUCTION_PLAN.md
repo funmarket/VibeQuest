@@ -1,6 +1,6 @@
 # VibeQuest master product reconstruction and execution plan
 
-Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02–R05 source implementation merged, R06 next in approved sequence; B5 remains partial.** B1–B4 remain accepted for initial staging. Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
+Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02–R06 source implementation merged, R07 next subject to existing D02 gate; B5 remains partial.** B1–B4 remain accepted for initial staging. Full reconstruction and production readiness remain incomplete. Historical checkpoints below are not the current task. This single file is the authoritative live master plan; supporting roadmaps and screen contracts supply evidence, not competing execution authority.
 
 **Goal:** Restore the complete original VibeQuest product through genuine, persisted user journeys while retaining the existing clean foundation.
 
@@ -47,6 +47,13 @@ Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02–R05 sourc
 - **Verification boundary:** Codex reports pinned `pnpm check` success (including 72 unit tests and production build), 8/8 Events/Business integration tests, and focused real-local-API/database browser suites. The exact-head CI checks were independently verified. Physical-device haptics, actual external-map rendering, staging deployment/runtime acceptance and owner parity acceptance remain unverified. The previously recorded Next.js security advisory remains separate; no dependency upgrade was included. B5 status remains partial.
 - **Next existing packet:** R06 — original Profile interests and self-profile journey. This documentation does not start R06.
 
+### R06 source integration — 24 October 2026
+
+- **Merged implementation:** [PR #24 — R06 original Profile interests and self-profile journey](https://github.com/funmarket/VibeQuest/pull/24) merged into `phase-0-foundation` at [`f3c99ba25e1603d5f29b3eb78eb786c294515d6c`](https://github.com/funmarket/VibeQuest/commit/f3c99ba25e1603d5f29b3eb78eb786c294515d6c). Exact PR-head checks succeeded: [push CI 40126488672](https://github.com/funmarket/VibeQuest/actions/runs/40126488672) and [PR CI 40126516154](https://github.com/funmarket/VibeQuest/actions/runs/40126516154). Merged-foundation CI is separately tracked and cannot be inferred from PR-head runs.
+- **Scope:** The 20-file change implements the original self-profile editing journey, ten interest presets and custom interests, additional private Profile fields, 450 ms handle feedback, photo preview/update/remove and save/cancel/error flows. It extends Profile-owned contracts, API/client and persistence with additive migration `0014_profile_personal_fields.sql`, relevant translations, tests and implementation evidence. Existing eligibility remains unchanged; the approved four-field public projection remains unchanged pending D01; Cozy Diary data does not grant verification or privileges. Profile/Identity/Media ownership remains intact.
+- **Verification boundary:** Codex reported 77 passing unit tests, 42 focused integration tests, targeted Profile/browser regressions and a passing production build; the exact-head GitHub CI runs are independently confirmed. Physical Telegram/device behavior, staging runtime, owner parity acceptance and the pre-existing Next.js security advisory remain outstanding. B5 remains partial.
+- **Next existing packet:** R07 — persistent Social Content and Gossip. Its existing D02 audience/moderation policy dependency remains binding for writable release; this record does not resolve D02 or authorize starting R07.
+
 ### Verified staging and repository
 
 - Repository: `funmarket/VibeQuest`, integration branch `phase-0-foundation`.
@@ -90,7 +97,7 @@ Prepared: 10 October 2026. **Active checkpoint: 24 October 2026; R02–R05 sourc
 
 ### Execution instruction for the next agent
 
-**Current next planned bounded implementation: R06 — original Profile interests and self-profile journey**, after merged R05; no implementation is initiated by this document. The preceding 19 October R02 checkpoint identified R03 as next before its merge. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R06 code, a staging deployment, services or Business privileges.
+**Current next planned packet: R07 — persistent Social Content and Gossip**, following merged R06 and subject to the existing D02 audience/moderation prerequisite for writable release; no implementation is initiated by this document. The preceding 19 October R02 checkpoint identified R03 as next before its merge. B5 remains partial and its live prerequisites are retained; do not restart another B4 reconciliation or repeat the entire public smoke. Inspect the current source and relevant authorization before the next task. Keep original mechanics and domain ownership intact. Integrate targeted verification into implementation and avoid repeated acceptance-only loops. After each accepted milestone update **this same plan**, recording source SHA, CI, deployment, tests, limitations and the next task. This checkpoint does not itself authorize R07 code, a staging deployment, services or Business privileges.
 
 ---
 
@@ -655,7 +662,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | R01–03    | Implemented                         | R01/R02 retained; R03 merged via PR #18 (`77adca6e4`); staging/device parity unverified                            |
 | R04       | Implemented                         | Activities parity merged in PR #20 (`8535755b8`); deployment/device parity unverified                              |
 | R05       | Implemented                         | Events parity merged in PR #22 (`38b51fcb3`); staging/device parity unverified                                     |
-| R06       | Partial                             | Real Profile fields/photos; missing interests/contact/self-screen/availability UI                                  |
+| R06       | Implemented                         | Profile journey merged in PR #24 (`f3c99ba25`); runtime/device parity unverified                                  |
 | R07–11    | Shell                               | Gossip/Home feed/Drift/Vibes/Pulls presentation; Graph independently Implemented, not these flows                  |
 | R12–13    | Not Started                         | Existing image Media is Implemented; video/genuine capture not these completed capabilities                        |
 | R14–16    | Shell                               | SHARE headings/chips/directory notices; no persisted corresponding journey                                         |
