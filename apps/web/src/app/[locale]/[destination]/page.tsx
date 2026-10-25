@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { HomePage } from "../../../features/home/home-page";
+import { homePostId } from "../../../features/home/post-link";
 import {
   exploreSearch,
   exploreEventCategory,
@@ -20,8 +21,11 @@ export default async function Destination({
   const { locale, destination } = await params;
   setRequestLocale(locale);
   switch (destination) {
-    case "home":
-      return <HomePage />;
+    case "home": {
+      const incoming = await searchParams;
+      const postId = homePostId(incoming.post);
+      return <HomePage key={postId ?? "network"} postId={postId} />;
+    }
     case "explore": {
       const incoming = await searchParams;
       const query = exploreSearch(incoming.q);

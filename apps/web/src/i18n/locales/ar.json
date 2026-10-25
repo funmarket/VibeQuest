@@ -150,7 +150,15 @@
     "checkinsUnavailable": "تسجيل الحضور غير متاح",
     "checkinsHint": "تابع المستكشفين على VibeCenter!",
     "rewardUnavailable": "المكافأة غير متاحة",
-    "noTimer": "لا يوجد مؤقت نشط"
+    "noTimer": "لا يوجد مؤقت نشط",
+    "backToNetwork": "العودة إلى شبكتي",
+    "postUnavailable": "هذا المنشور غير متاح أو ليس لديك إذن بالوصول إليه.",
+    "openPost": "فتح المنشور",
+    "sharePost": "مشاركة",
+    "copied": "تم نسخ رابط المنشور.",
+    "copyFailed": "تعذر نسخ الرابط. قد يكون الوصول إلى الحافظة مرفوضًا أو غير متاح.",
+    "noComments": "لا توجد تعليقات بعد.",
+    "send": "إرسال"
   },
   "explore": {
     "title": "استكشف محليًا",
