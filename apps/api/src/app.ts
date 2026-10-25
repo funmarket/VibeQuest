@@ -22,6 +22,8 @@ import { registerEventsRoutes } from "./modules/events/http";
 import type { SocialRepository } from "@vq/social";
 import { registerSocialRoutes } from "./modules/social/http";
 import { registerPublicProfileRoutes } from "./modules/profile/public-http";
+import type { ContentRepository } from "@vq/content";
+import { registerContentRoutes } from "./modules/content/http";
 
 export function buildApi(
   repository: PlacesRepository,
@@ -34,6 +36,7 @@ export function buildApi(
     activities?: ActivitiesRepository;
     events?: EventsRepository;
     social?: SocialRepository;
+    content?: ContentRepository;
     media?: MediaRepository;
     mediaRoot?: string;
     mediaStorage?: MediaStorage;
@@ -56,6 +59,35 @@ export function buildApi(
       options.allowedOrigins ?? [],
       options.secureCookies ?? true,
     );
+    const content = options.content
+      ? registerContentRoutes(
+          app,
+          options.content,
+          (request) => accounts.me(readSessionCookie(request)),
+          options.allowedOrigins ?? [],
+        )
+      : undefined;
+    if (content) {
+      let active: Promise<void> | undefined;
+      const timer = setInterval(() => {
+        if (!active)
+          active = content
+            .purgeExpired()
+            .catch(() => {
+              app.log.error(
+                "Social Content expiry failed; records remain pending.",
+              );
+            })
+            .finally(() => {
+              active = undefined;
+            });
+      }, 60000);
+      timer.unref();
+      app.addHook("onClose", async () => {
+        clearInterval(timer);
+        await active;
+      });
+    }
     const storage =
       options.mediaStorage ??
       (options.mediaRoot

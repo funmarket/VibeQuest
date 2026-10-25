@@ -7,6 +7,7 @@ import { createBusinessRepository } from "./business/repository";
 import { createActivitiesRepository } from "./activities/repository";
 import { createEventsRepository } from "./events/repository";
 import { createSocialRepository } from "./social/repository";
+import { createContentRepository } from "./content/repository";
 
 export function createDatabase(connectionString: string) {
   const pool = new pg.Pool({
@@ -25,6 +26,7 @@ export function createDatabase(connectionString: string) {
     activities: createActivitiesRepository(pool),
     events: createEventsRepository(pool),
     social: createSocialRepository(pool),
+    content: createContentRepository(pool),
     repository: createPlacesRepository(pool),
     async readiness() {
       await pool.query(
@@ -37,7 +39,7 @@ export function createDatabase(connectionString: string) {
         CROSS JOIN identity_privileges ip CROSS JOIN business_organizations bo CROSS JOIN business_memberships bm CROSS JOIN business_reviews br
         CROSS JOIN activities_entries ae CROSS JOIN activities_attachments aa CROSS JOIN activities_saves av CROSS JOIN activities_reviews ar CROSS JOIN activities_media_retirements amr
         CROSS JOIN events_entries ee CROSS JOIN events_attachments ea CROSS JOIN events_rsvps er CROSS JOIN events_saves es CROSS JOIN events_reviews ev CROSS JOIN events_media_retirements emr
-        CROSS JOIN social_follows sf LIMIT 0`);
+        CROSS JOIN social_follows sf CROSS JOIN content_posts cp LIMIT 0`);
     },
     close: () => pool.end(),
   };

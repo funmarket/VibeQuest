@@ -21,6 +21,7 @@ const app = buildApi(database.repository, {
   activities: database.activities,
   events: database.events,
   social: database.social,
+  content: database.content,
   media: database.media,
   mediaStorage,
   allowedOrigins: (

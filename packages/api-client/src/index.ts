@@ -16,6 +16,7 @@ export { uploadImage, attachProfilePhoto, deleteMedia } from "./media";
 export * from "./activities";
 export * from "./events";
 export * from "./social";
+export * from "./content";
 
 export async function readPlaces(
   baseURL: string,

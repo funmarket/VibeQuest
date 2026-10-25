@@ -5,6 +5,7 @@
   "type": "module",
   "exports": "./src/index.ts",
   "dependencies": {
+    "@vq/content": "workspace:*",
     "@vq/events": "workspace:*",
     "@vq/activities": "workspace:*",
     "@vq/identity": "workspace:*",

@@ -3,6 +3,7 @@ export * from "./business";
 export * from "./activities";
 export * from "./events";
 export * from "./social";
+export * from "./content";
 export {
   credentialsSchema,
   accountSchema,
