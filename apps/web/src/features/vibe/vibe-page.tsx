@@ -1,6 +1,10 @@
 "use client";
 import { useState } from "react";
 import { ConnectionsPanel } from "../social/connections-panel";
+import { GossipPanel } from "../content/gossip";
+import { GossipComposer } from "../content/composer";
+import { useAccount } from "../identity/account-provider";
+import type { GossipTextPost } from "@vq/contracts";
 import { tabKeyboard } from "../../components/tab-keyboard";
 import { useTranslations } from "next-intl";
 import {
@@ -35,6 +39,10 @@ export function VibePage() {
   const c = useTranslations("common");
   const [tab, setTab] = useState<(typeof tabs)[number]>("gossip");
   const [notice, setNotice] = useState<string | null>(null);
+  const { account } = useAccount();
+  const [composer, setComposer] = useState(false),
+    [editing, setEditing] = useState<GossipTextPost | undefined>(),
+    [revision, setRevision] = useState(0);
   const Glyph = icons[tab];
   return (
     <>
@@ -51,7 +59,13 @@ export function VibePage() {
         >
           <Camera data-icon-role="feature" aria-hidden />
         </button>
-        <button className="capsule-title" onClick={() => setNotice(t("share"))}>
+        <button
+          className="capsule-title"
+          onClick={() => {
+            setEditing(undefined);
+            setComposer(true);
+          }}
+        >
           {t("share")}
           <small className="sr-only">{t("composer")}</small>
         </button>
@@ -89,13 +103,22 @@ export function VibePage() {
         ))}
       </div>
       <section
-        className={`panel vibe-view${tab === "orbit" || tab === "echo" ? " social-view" : ""}`}
+        className={`panel vibe-view${tab === "orbit" || tab === "echo" ? " social-view" : tab === "gossip" ? " gossip-view" : ""}`}
         data-feature={tab}
         role="tabpanel"
         id="vibe-view"
         aria-labelledby={`vibe-${tab}`}
       >
-        {tab === "orbit" || tab === "echo" ? (
+        {tab === "gossip" ? (
+          <GossipPanel
+            key={`${account?.id ?? "guest"}:${revision}`}
+            onRefresh={() => setRevision((v) => v + 1)}
+            onEdit={(post) => {
+              setEditing(post);
+              setComposer(true);
+            }}
+          />
+        ) : tab === "orbit" || tab === "echo" ? (
           <ConnectionsPanel
             key={tab}
             side={tab === "orbit" ? "following" : "followers"}
@@ -121,6 +144,18 @@ export function VibePage() {
         <Empty>{t("soundBody")}</Empty>
       </Section>
       <PageEnd />
+      {composer && (
+        <GossipComposer
+          key={editing?.id ?? "new"}
+          post={editing}
+          onClose={() => setComposer(false)}
+          onSaved={() => {
+            setComposer(false);
+            setTab("gossip");
+            setRevision((v) => v + 1);
+          }}
+        />
+      )}
       {notice && (
         <NoticeDialog title={notice} onClose={() => setNotice(null)}>
           <p>{c("notAvailable")}</p>

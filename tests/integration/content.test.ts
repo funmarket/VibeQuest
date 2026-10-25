@@ -98,16 +98,16 @@ it("persists author records across instances without exposing them to other acto
   );
   expect(
     (await other.inject({ url: `/v1/content/posts/${post.id}` })).statusCode,
-  ).toBe(404);
+  ).toBe(503);
 });
 
-it("rejects spoofed actors, over-limit inputs, unsupported attachments, and unapproved audience edits", async () => {
+it("rejects spoofed actors, over-limit inputs and unauthorized attachments while permitting approved audience edits", async () => {
   for (const payload of [
     { ...input, authorId: people[1].id },
     { ...input, text: "😀".repeat(141) },
     { ...input, locationLabel: "😀".repeat(21) },
     { ...input, text: " " },
-    { ...input, mediaId: randomUUID() },
+    { ...input, localVibes: true },
   ])
     expect(
       (
@@ -123,6 +123,16 @@ it("rejects spoofed actors, over-limit inputs, unsupported attachments, and unap
   expect(
     (
       await app.inject({
+        method: "POST",
+        url: base,
+        headers: headers(),
+        payload: { ...input, mediaId: randomUUID() },
+      })
+    ).statusCode,
+  ).toBe(422);
+  expect(
+    (
+      await app.inject({
         method: "PUT",
         url: `${base}/${post.id}`,
         headers: headers(),
@@ -134,7 +144,7 @@ it("rejects spoofed actors, over-limit inputs, unsupported attachments, and unap
         },
       })
     ).statusCode,
-  ).toBe(400);
+  ).toBe(200);
   expect(
     (
       await app.inject({

@@ -59,20 +59,13 @@ export function buildApi(
       options.allowedOrigins ?? [],
       options.secureCookies ?? true,
     );
-    const content = options.content
-      ? registerContentRoutes(
-          app,
-          options.content,
-          (request) => accounts.me(readSessionCookie(request)),
-          options.allowedOrigins ?? [],
-        )
-      : undefined;
-    if (content) {
+    let content: ReturnType<typeof registerContentRoutes> | undefined;
+    if (options.content) {
       let active: Promise<void> | undefined;
       const timer = setInterval(() => {
         if (!active)
           active = content
-            .purgeExpired()
+            ?.purgeExpired()
             .catch(() => {
               app.log.error(
                 "Social Content expiry failed; records remain pending.",
@@ -102,6 +95,9 @@ export function buildApi(
             imageProcessor,
             (request) => accounts.me(readSessionCookie(request)),
             options.allowedOrigins ?? [],
+            (postId, mediaId, actor) =>
+              content?.canReadAttachment(postId, mediaId, actor) ??
+              Promise.resolve(false),
           )
         : undefined;
     const businesses = options.businesses
@@ -125,16 +121,31 @@ export function buildApi(
       : undefined;
     if (profiles) {
       registerPublicProfileRoutes(app, profiles);
-      if (options.social)
-        registerSocialRoutes(
-          app,
-          options.social,
-          accounts,
-          profiles,
-          (request) => accounts.me(readSessionCookie(request)),
-          options.allowedOrigins ?? [],
-        );
     }
+    const social =
+      options.social && profiles
+        ? registerSocialRoutes(
+            app,
+            options.social,
+            accounts,
+            profiles,
+            (request) => accounts.me(readSessionCookie(request)),
+            options.allowedOrigins ?? [],
+          )
+        : undefined;
+    if (options.content)
+      content = registerContentRoutes(
+        app,
+        options.content,
+        (request) => accounts.me(readSessionCookie(request)),
+        options.allowedOrigins ?? [],
+        {
+          graph: social,
+          profiles,
+          media,
+          canModerate: accounts.canModerateContent,
+        },
+      );
     const activities =
       options.activities && profiles
         ? registerActivitiesRoutes(

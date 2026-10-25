@@ -1,11 +1,11 @@
 import { z } from "zod";
 export const uploadInputSchema = z
-  .object({ visibility: z.enum(["public", "private"]) })
+  .object({ visibility: z.enum(["public", "private", "content"]) })
   .strict();
 export const mediaSchema = z
   .object({
     id: z.string().uuid(),
-    visibility: z.enum(["public", "private"]),
+    visibility: z.enum(["public", "private", "content"]),
     status: z.enum(["pending", "processing", "ready", "failed", "deleted"]),
     width: z.number().int().positive().nullable(),
     height: z.number().int().positive().nullable(),

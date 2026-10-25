@@ -4,6 +4,8 @@ import {
   socialStateSchema,
   relationshipSchema,
   followInputSchema,
+  blockInputSchema,
+  blockedPeopleSchema,
   type SocialCursor,
 } from "@vq/contracts";
 export class SocialRequestError extends Error {
@@ -92,4 +94,17 @@ export async function setFollowing(
       followInputSchema.parse({ following }),
     ),
   );
+}
+export async function setBlocked(base: string, id: string, blocked: boolean) {
+  return blockInputSchema.parse(
+    await request(
+      base,
+      `social/users/${encodeURIComponent(id)}/block`,
+      blockInputSchema.parse({ blocked }),
+    ),
+  );
+}
+export async function readBlockedPeople(base: string) {
+  return blockedPeopleSchema.parse(await request(base, "social/me/blocked"))
+    .people;
 }

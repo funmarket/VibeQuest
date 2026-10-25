@@ -1,6 +1,7 @@
 export class SocialError extends Error {
   constructor(
-    public readonly code: "SOCIAL_NOT_FOUND" | "SELF_FOLLOW" | "AUTH_REQUIRED",
+    public readonly code:
+      "SOCIAL_NOT_FOUND" | "SELF_FOLLOW" | "AUTH_REQUIRED" | "SOCIAL_BLOCKED",
   ) {
     super(code);
   }

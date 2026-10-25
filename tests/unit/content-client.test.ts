@@ -40,6 +40,8 @@ it("uses the author restore route and encodes stable cursor pairs without leakin
     text: "restored",
     locationLabel: "",
     audience: "PUBLIC",
+    mediaId: null,
+    emoji: "✨",
     version: 3,
     deletedAt: null,
     createdAt: "2026-10-25T00:00:00Z",

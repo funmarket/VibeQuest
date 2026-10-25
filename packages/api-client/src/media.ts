@@ -11,7 +11,7 @@ async function checked(response: Response) {
 export async function uploadImage(
   baseURL: string,
   file: Blob,
-  visibility: "private" | "public" = "private",
+  visibility: "private" | "public" | "content" = "private",
 ) {
   const base = baseURL.replace(/\/$/, "");
   const intent = await checked(

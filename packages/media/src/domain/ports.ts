@@ -10,7 +10,7 @@ export interface ProcessedImage {
 export interface MediaRepository {
   create(
     ownerId: string,
-    visibility: "public" | "private",
+    visibility: "public" | "private" | "content",
   ): Promise<MediaRecord>;
   read(id: string): Promise<MediaRecord | null>;
   claim(id: string, ownerId: string): Promise<boolean>;

@@ -1,0 +1,252 @@
+.gossip-feed {
+  width: 100%;
+  min-width: 0;
+  text-align: start;
+}
+.vibe-view.gossip-view {
+  display: block;
+  text-align: start;
+  padding: 0;
+}
+.gossip-toolbar,
+.gossip-actions,
+.gossip-compose-footer,
+.gossip-distribution {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.gossip-toolbar {
+  padding: 16px;
+  border-block-end: 1px solid var(--border);
+}
+.gossip-toolbar h2 {
+  flex: 1;
+  margin: 0;
+}
+.gossip-feed button,
+.gossip-composer button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.gossip-feed button:disabled,
+.gossip-composer button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.gossip-post,
+.gossip-deleted,
+.gossip-blocked {
+  padding: 20px;
+  border-block-end: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+.gossip-post header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.gossip-post time {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+.gossip-audience {
+  margin-inline-start: auto;
+  font-size: 11px;
+  color: var(--muted);
+}
+.gossip-avatar {
+  font-size: 26px;
+}
+.gossip-text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.gossip-image,
+.gossip-preview img {
+  display: block;
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+.gossip-actions svg,
+.gossip-composer svg {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+.gossip-actions button[aria-pressed="true"],
+.gossip-emojis button[aria-pressed="true"] {
+  color: var(--coral);
+  border-color: var(--coral);
+}
+.gossip-comments {
+  margin-block-start: 16px;
+  border-block-start: 1px solid var(--border);
+}
+.gossip-comment {
+  padding-block: 12px;
+  border-block-end: 1px solid var(--border);
+}
+.gossip-comment[data-reply="true"] {
+  margin-inline-start: 16px;
+  border-inline-start: 2px solid var(--border);
+  padding-inline-start: 12px;
+}
+.gossip-feed textarea,
+.gossip-composer textarea,
+.gossip-composer input:not([type="checkbox"]),
+.gossip-composer select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+.gossip-comments textarea {
+  min-height: 70px;
+}
+.gossip-composer {
+  width: min(640px, calc(100vw - 16px));
+  max-height: calc(100dvh - 20px);
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 28px 28px 16px 16px;
+  padding: 20px;
+  background: var(--surface);
+  color: var(--text);
+  margin: auto auto 10px;
+}
+.gossip-composer::backdrop {
+  background: #000b;
+  backdrop-filter: blur(8px);
+}
+.gossip-composer-heading {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: 16px;
+}
+.gossip-composer h2 {
+  font-size: 13px;
+  text-align: center;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.gossip-publish {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+.gossip-composer .gossip-file {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.gossip-file:focus-within {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+}
+.gossip-composer fieldset {
+  border: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+.gossip-composer textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+.gossip-compose-footer {
+  justify-content: space-between;
+}
+.gossip-emojis {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.gossip-emojis button {
+  padding: 6px;
+  min-width: 32px;
+}
+.gossip-counter {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.gossip-counter[data-warning="true"] {
+  color: var(--coral);
+  font-weight: 700;
+}
+.gossip-hint {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.gossip-composer label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+.gossip-distribution label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gossip-composer .primary-button {
+  background: var(--coral);
+  color: #fff;
+}
+.gossip-preview {
+  display: grid;
+  gap: 6px;
+}
+.gossip-report,
+.gossip-moderation {
+  display: grid;
+  gap: 12px;
+  margin: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  min-width: 0;
+}
+.gossip-report label {
+  display: grid;
+  gap: 6px;
+}
+.gossip-report select {
+  width: 100%;
+  padding: 10px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.gossip-moderation pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 400px;
+  overflow: auto;
+  font-size: 12px;
+  min-width: 0;
+}

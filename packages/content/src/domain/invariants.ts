@@ -3,6 +3,11 @@ export class ContentError extends Error {
     public readonly code:
       | "CONTENT_FORBIDDEN"
       | "CONTENT_NOT_FOUND"
+      | "INVALID_CONTENT_MEDIA"
+      | "INVALID_CONTENT"
+      | "REPORT_CLOSED"
+      | "REPORT_EXPIRED"
+      | "CONTENT_UNAVAILABLE"
       | "CONTENT_CONFLICT"
       | "CONTENT_RESTORE_EXPIRED",
   ) {
