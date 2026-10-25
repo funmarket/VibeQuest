@@ -7,6 +7,7 @@ const namespaces = new Set([
   "activities",
   "events",
   "social",
+  "content",
 ]);
 
 export function foreignTables(owner: string, sql: string): string[] {

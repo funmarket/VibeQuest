@@ -68,6 +68,9 @@ importers:
       '@vq/business':
         specifier: workspace:*
         version: link:../../packages/business
+      '@vq/content':
+        specifier: workspace:*
+        version: link:../../packages/content
       '@vq/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -147,6 +150,12 @@ importers:
         specifier: workspace:*
         version: link:../contracts
 
+  packages/content:
+    dependencies:
+      '@vq/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+
   packages/contracts:
     dependencies:
       zod:
@@ -161,6 +170,9 @@ importers:
       '@vq/business':
         specifier: workspace:*
         version: link:../business
+      '@vq/content':
+        specifier: workspace:*
+        version: link:../content
       '@vq/contracts':
         specifier: workspace:*
         version: link:../contracts

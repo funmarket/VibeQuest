@@ -30,6 +30,8 @@ export function createAccounts(
     availableUsers: (ids: string[]) => repository.availableUsers(ids),
     canReviewBusiness: (userId: string) =>
       repository.hasPrivilege(userId, "business.review"),
+    canModerateContent: (userId: string) =>
+      repository.hasPrivilege(userId, "content.moderate"),
     async register(input: unknown, caller: string) {
       const { email, password } = credentialsSchema.parse(input);
       await throttle(caller, "register");

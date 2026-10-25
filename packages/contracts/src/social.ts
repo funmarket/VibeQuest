@@ -8,10 +8,14 @@ export const publicProfileSchema = z
   })
   .strict();
 export type PublicProfile = z.infer<typeof publicProfileSchema>;
+export const blockedPeopleSchema = z
+  .object({ people: z.array(publicProfileSchema) })
+  .strict();
 export const publicProfileResponseSchema = z
   .object({ profile: publicProfileSchema })
   .strict();
 export const followInputSchema = z.object({ following: z.boolean() }).strict();
+export const blockInputSchema = z.object({ blocked: z.boolean() }).strict();
 export const socialCursorSchema = z
   .object({ at: z.string().datetime(), id: z.string().uuid() })
   .strict();

@@ -6,7 +6,10 @@ export interface NewSession {
 }
 export interface IdentityRepository {
   availableUsers(ids: string[]): Promise<string[]>;
-  hasPrivilege(userId: string, privilege: "business.review"): Promise<boolean>;
+  hasPrivilege(
+    userId: string,
+    privilege: "business.review" | "content.moderate",
+  ): Promise<boolean>;
   register(
     email: string,
     passwordHash: string,

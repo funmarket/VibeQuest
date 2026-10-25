@@ -34,6 +34,20 @@ export function createSocial(
     return { following, followers };
   }
   return {
+    withRelationship: repository.withRelationship,
+    feedAuthors: repository.feedAuthors,
+    async blockedUsers(actor: string) {
+      return {
+        people: await profiles.publicMany(await repository.blockedUsers(actor)),
+      };
+    },
+    async block(actor: string, target: string, blocked: boolean) {
+      assertDifferentUsers(actor, target);
+      await available(target);
+      await available(actor);
+      await repository.setBlock(actor, target, blocked);
+      return { blocked };
+    },
     async state(target: string, actor?: string) {
       await available(target);
       return {

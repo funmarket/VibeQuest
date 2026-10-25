@@ -1,6 +1,8 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import {
   followInputSchema,
+  blockInputSchema,
+  blockedPeopleSchema,
   socialQuerySchema,
   publicProfileSchema,
   socialListSchema,
@@ -33,6 +35,11 @@ export function registerSocialRoutes(
       )
         return reply.code(403).send({ code: "ORIGIN_REJECTED" });
     });
+    scope.get("/v1/social/me/blocked", async (request, reply) => {
+      const actor = await authenticate(request);
+      if (!actor) return reply.code(401).send({ code: "AUTH_REQUIRED" });
+      return blockedPeopleSchema.parse(await social.blockedUsers(actor.id));
+    });
     scope.setErrorHandler((error, _request, reply) => {
       if (error instanceof SocialError)
         return reply
@@ -41,7 +48,9 @@ export function registerSocialRoutes(
               ? 404
               : error.code === "AUTH_REQUIRED"
                 ? 401
-                : 422,
+                : error.code === "SOCIAL_BLOCKED"
+                  ? 403
+                  : 422,
           )
           .send({ code: error.code });
       if (
@@ -92,6 +101,17 @@ export function registerSocialRoutes(
       return relationshipSchema.parse(
         await social.follow(actor.id, id.data, input.data.following),
       );
+    });
+    scope.put("/v1/social/users/:id/block", async (request, reply) => {
+      const actor = await authenticate(request);
+      if (!actor) return reply.code(401).send({ code: "AUTH_REQUIRED" });
+      const id = publicProfileSchema.shape.id.safeParse(
+        (request.params as { id: string }).id,
+      );
+      const input = blockInputSchema.safeParse(request.body);
+      if (!id.success || !input.success)
+        return reply.code(400).send({ code: "INVALID_INPUT" });
+      return social.block(actor.id, id.data, input.data.blocked);
     });
   });
   return social;

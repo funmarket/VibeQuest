@@ -8,6 +8,7 @@
     "start": "tsx src/main.ts"
   },
   "dependencies": {
+    "@vq/content": "workspace:*",
     "@aws-sdk/client-s3": "3.1152.0",
     "@vq/events": "workspace:*",
     "@vq/activities": "workspace:*",

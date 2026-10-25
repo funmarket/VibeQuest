@@ -10,9 +10,22 @@ export function createMedia(
   repository: MediaRepository,
   storage: MediaStorage,
   processor: ImageProcessor,
+  contentAccess?: (
+    postId: string,
+    mediaId: string,
+    actor?: string,
+  ) => Promise<boolean>,
 ) {
   let activeUploads = 0;
   return {
+    async canAttachContent(userId: string, id: string) {
+      const record = await repository.read(id);
+      return (
+        record?.ownerId === userId &&
+        record.status === "ready" &&
+        record.visibility === "content"
+      );
+    },
     async canAttachPublic(userId: string, id: string) {
       const record = await repository.read(id);
       return (
@@ -34,7 +47,11 @@ export function createMedia(
     },
     async canAttach(userId: string, id: string) {
       const record = await repository.read(id);
-      return record?.ownerId === userId && record.status === "ready";
+      return (
+        record?.ownerId === userId &&
+        record.status === "ready" &&
+        record.visibility !== "content"
+      );
     },
     async cleanup() {
       await repository.expireUploads();
@@ -86,12 +103,15 @@ export function createMedia(
       id: string,
       variant: "image" | "thumbnail",
       userId: string | undefined,
+      postId?: string,
     ) {
       const record = await repository.read(id);
       if (
         !record ||
         record.status !== "ready" ||
-        (record.visibility === "private" && record.ownerId !== userId)
+        (record.visibility === "private" && record.ownerId !== userId) ||
+        (record.visibility === "content" &&
+          (!postId || !(await contentAccess?.(postId, id, userId))))
       )
         throw new MediaError("MEDIA_NOT_FOUND");
       return {

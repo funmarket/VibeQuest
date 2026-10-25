@@ -35,6 +35,7 @@ describe("first-release interface catalogs", () => {
     expect(Object.keys(english).sort()).toEqual([
       "activities",
       "common",
+      "content",
       "explore",
       "home",
       "identity",

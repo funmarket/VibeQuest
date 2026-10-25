@@ -20,8 +20,13 @@ export function registerMediaRoutes(
   processor: ImageProcessor,
   authenticate: (request: FastifyRequest) => Promise<Account | null>,
   origins: string[],
+  contentAccess?: (
+    postId: string,
+    mediaId: string,
+    actor?: string,
+  ) => Promise<boolean>,
 ) {
-  const media = createMedia(repository, storage, processor);
+  const media = createMedia(repository, storage, processor, contentAccess);
   function response(record: Awaited<ReturnType<typeof media.request>>) {
     return mediaResponseSchema.parse({
       media: {
@@ -41,6 +46,7 @@ export function registerMediaRoutes(
       (_request, body, done) => done(null, body),
     );
     scope.addHook("onRequest", async (request, reply) => {
+      reply.header("Cache-Control", "no-store");
       if (
         request.method !== "GET" &&
         !origins.includes(request.headers.origin ?? "")
@@ -130,10 +136,21 @@ export function registerMediaRoutes(
       if (!id.success || !["image", "thumbnail"].includes(parameters.variant))
         return reply.code(404).send({ code: "MEDIA_NOT_FOUND" });
       const account = await authenticate(request);
+      const query = request.query as { postId?: string };
+      const postId =
+        query.postId === undefined
+          ? undefined
+          : mediaSchema.shape.id.safeParse(query.postId);
+      if (postId && !postId.success)
+        return reply
+          .code(404)
+          .header("Cache-Control", "no-store")
+          .send({ code: "MEDIA_NOT_FOUND" });
       const result = await media.retrieve(
         id.data,
         parameters.variant as "image" | "thumbnail",
         account?.id,
+        postId?.success ? postId.data : undefined,
       );
       return reply
         .header(
@@ -143,6 +160,7 @@ export function registerMediaRoutes(
             : "private, no-store",
         )
         .header("X-Content-Type-Options", "nosniff")
+        .header("Vary", "Cookie")
         .type("image/webp")
         .send(Buffer.from(result.bytes));
     });
