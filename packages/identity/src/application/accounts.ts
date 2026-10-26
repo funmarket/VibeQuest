@@ -62,9 +62,25 @@ export function createAccounts(
         ? repository.findSession(crypto.digest(token))
         : Promise.resolve(null);
     },
-    async logout(token: string | undefined) {
-      if (token && /^[A-Za-z0-9_-]{43}$/.test(token))
-        await repository.revokeSession(crypto.digest(token));
+    withSession<T>(
+      token: string | undefined,
+      work: (
+        session: import("../domain/ports").IdentitySession | null,
+      ) => Promise<T>,
+    ) {
+      return token && /^[A-Za-z0-9_-]{43}$/.test(token)
+        ? repository.withSession(crypto.digest(token), work)
+        : work(null);
+    },
+    async logout(
+      token: string | undefined,
+      afterRevoke?: (sessionKey: string) => Promise<void>,
+    ) {
+      if (token && /^[A-Za-z0-9_-]{43}$/.test(token)) {
+        const key = crypto.digest(token);
+        await repository.revokeSession(key);
+        await afterRevoke?.(key);
+      }
     },
   };
 }

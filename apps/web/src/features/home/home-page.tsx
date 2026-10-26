@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { LocationSummary } from "../geo/location-display";
 import { NetworkFeed } from "./network-feed";
 import { ActivitiesPanel } from "../activities/activities-panel";
 import { EventsPanel } from "../events/events-panel";
@@ -32,6 +33,7 @@ export function HomePage({ postId = null }: { postId?: string | null }) {
   return (
     <>
       <h1 className="sr-only">{t("title")}</h1>
+      <LocationSummary />
       <div className="home-grid">
         <section className="checkins-panel" aria-labelledby="checkins-title">
           <h2 id="checkins-title">{t("checkins")}</h2>

@@ -1,6 +1,7 @@
 /** Current canonical table namespaces; new owners extend this existing gate. */
 const namespaces = new Set([
   "identity",
+  "geo",
   "profile",
   "media",
   "business",

@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@vq/ui/theme";
 import { X } from "lucide-react";
+import { useGeo } from "../features/geo/geo-provider";
 import { AccountForm } from "../features/identity/account-form";
 import "../features/identity/account.css";
 import {
@@ -19,6 +20,8 @@ export function ProfileMenu({
   closeRequest: RefObject<(() => void) | null>;
 }) {
   const t = useTranslations("identity");
+  const geoT = useTranslations("geo");
+  const geo = useGeo();
   const c = useTranslations("common");
   const locale = useLocale();
   const router = useRouter();
@@ -199,6 +202,9 @@ export function ProfileMenu({
       </div>
       <details open>
         <summary>{t("settings")}</summary>
+        <button className="soft-button" onClick={geo.openSettings}>
+          {geoT("access")}
+        </button>
         <details>
           <summary>{t("appearance")}</summary>
           <label className="select-control">

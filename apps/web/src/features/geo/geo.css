@@ -1,0 +1,59 @@
+.geo-entry,
+.geo-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.geo-entry a,
+.geo-summary > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow-wrap: anywhere;
+}
+.geo-entry button,
+.geo-summary button {
+  min-height: 44px;
+}
+.geo-summary {
+  margin-block: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  background: var(--surface);
+}
+.geo-summary small {
+  flex: 1;
+  min-width: 8rem;
+}
+.geo-access {
+  display: grid;
+  gap: 0.75rem;
+}
+.geo-access label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+}
+.geo-access label span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.geo-access input {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.geo-access p {
+  margin: 0;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}

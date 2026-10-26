@@ -1,3 +1,4 @@
+import type { LocationAdapter } from "./location";
 export type HostScheme = "light" | "dark";
 export type HostSnapshot = {
   kind: "browser" | "telegram";
@@ -21,6 +22,7 @@ export type TelegramWebApp = {
   HapticFeedback?: { impactOccurred: (style: "light") => void };
 };
 export type HostAdapter = {
+  location: LocationAdapter;
   snapshot: () => HostSnapshot;
   subscribe: (listener: () => void) => () => void;
   back: (handler?: () => void) => () => void;

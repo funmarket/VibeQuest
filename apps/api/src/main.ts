@@ -16,6 +16,7 @@ const app = buildApi(database.repository, {
   logger: true,
   readiness: database.readiness,
   identity: database.identity,
+  geo: database.geo,
   profiles: database.profiles,
   businesses: database.businesses,
   activities: database.activities,

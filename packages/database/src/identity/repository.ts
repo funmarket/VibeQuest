@@ -18,8 +18,35 @@ async function insertSession(
     });
 }
 
-export function createIdentityRepository(pool: Pool): IdentityRepository {
+export function createIdentityRepository(
+  pool: Pool,
+  sessionPool: Pool = pool,
+): IdentityRepository {
   return {
+    async withSession(tokenHash, work) {
+      const client = await sessionPool.connect();
+      try {
+        await client.query("BEGIN");
+        const row = (
+          await client.query(
+            'SELECT s.user_id AS "userId",s.token_hash AS "sessionKey",s.expires_at AS "sessionExpiresAt" FROM identity_sessions s JOIN identity_users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp() AND u.disabled_at IS NULL FOR SHARE OF s,u',
+            [tokenHash],
+          )
+        ).rows[0];
+        const result = await work(
+          row
+            ? { ...row, sessionExpiresAt: row.sessionExpiresAt.toISOString() }
+            : null,
+        );
+        await client.query("COMMIT");
+        return result;
+      } catch (error) {
+        await client.query("ROLLBACK");
+        throw error;
+      } finally {
+        client.release();
+      }
+    },
     async availableUsers(ids) {
       return (
         await pool.query(

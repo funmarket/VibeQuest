@@ -17,6 +17,7 @@ export * from "./activities";
 export * from "./events";
 export * from "./social";
 export * from "./content";
+export { geoRequest, readGeoPlaces } from "./geo";
 
 export async function readPlaces(
   baseURL: string,

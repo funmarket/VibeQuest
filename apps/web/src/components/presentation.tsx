@@ -40,10 +40,12 @@ export function NoticeDialog({
   title,
   children,
   onClose,
+  planned = true,
 }: {
   title: string;
   children: ReactNode;
   onClose: () => void;
+  planned?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const id = useId();
@@ -71,10 +73,12 @@ export function NoticeDialog({
       }}
     >
       <div className="dialog-heading">
-        <span className="eyebrow">
-          <Clock data-icon-role="metadata" aria-hidden />
-          {t("planned")}
-        </span>
+        {planned && (
+          <span className="eyebrow">
+            <Clock data-icon-role="metadata" aria-hidden />
+            {t("planned")}
+          </span>
+        )}
         <button
           className="icon-button"
           aria-label={t("close")}
