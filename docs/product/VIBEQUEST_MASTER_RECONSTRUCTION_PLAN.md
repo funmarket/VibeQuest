@@ -754,7 +754,7 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | R07       | Source merged                       | PR #27 (`8c9cd1c5`): genuine Gossip/My Network Social Content; deployed staging and device acceptance unverified   |
 | R08       | Source merged                       | PR #29 (`bce50dde9`): Home network feed/actions; deployed staging and device acceptance unverified                 |
 | R09       | Source merged                       | Geo Presence and readable area integrated via PR #33; real-device/Railway acceptance remains pending               |
-| R10–11    | Shell                               | Drift/Vibes/Pulls deferred; R10 next subject to D03 and source/reference preflight                                  |
+| R10–11    | Shell                               | Drift/Vibes/Pulls deferred; R10 next subject to D03 and source/reference preflight                                 |
 | R12–13    | Not Started                         | Existing image Media is Implemented; video/genuine capture not these completed capabilities                        |
 | R14–16    | Shell                               | SHARE headings/chips/directory notices; no persisted corresponding journey                                         |
 | R17–27    | Not Started                         | Messaging/community rooms/voice/polls/notifications/native challenge workflows unavailable; some headings retained |
