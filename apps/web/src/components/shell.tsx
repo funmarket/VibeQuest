@@ -15,7 +15,6 @@ import {
   Users,
   Bell,
   CircleUser,
-  MapPin,
   Sun,
   Moon,
 } from "lucide-react";
@@ -23,6 +22,8 @@ import { useTheme } from "@vq/ui/theme";
 import { HomeGlyph, WalletGlyph } from "./icon-glyphs";
 import { useHost } from "../platform/host";
 import { NoticeDialog } from "./presentation";
+import { LocationEntry } from "../features/geo/location-display";
+import { useGeo } from "../features/geo/geo-provider";
 import { ProfileMenu } from "./profile-menu";
 import { useAccount } from "../features/identity/account-provider";
 import { advanceNavigationScroll } from "./navigation-scroll";
@@ -44,6 +45,7 @@ export function Shell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const account = useAccount();
   const host = useHost();
+  const geo = useGeo();
   const theme = useTheme();
   const themeAction = c(
     theme.theme === "dark" ? "switchToLightTheme" : "switchToDarkTheme",
@@ -68,15 +70,17 @@ export function Shell({ children }: { children: ReactNode }) {
   useEffect(
     () =>
       host.back(
-        dialog === "account"
-          ? () => closeConsole.current?.()
-          : dialog
-            ? () => setDialog(null)
-            : destination === "home"
-              ? undefined
-              : () => router.back(),
+        geo.settingsOpen
+          ? geo.closeSettings
+          : dialog === "account"
+            ? () => closeConsole.current?.()
+            : dialog
+              ? () => setDialog(null)
+              : destination === "home"
+                ? undefined
+                : () => router.back(),
       ),
-    [host, destination, router, dialog],
+    [host, destination, router, dialog, geo.settingsOpen, geo.closeSettings],
   );
   useEffect(() => {
     setDialog(null);
@@ -139,10 +143,7 @@ export function Shell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <div className="context-strip">
-        <Link href={`/${locale}/explore`}>
-          <MapPin data-icon-role="metadata" aria-hidden />
-          {c("chooseArea")}
-        </Link>
+        <LocationEntry />
         <span className="guest-label">
           {account.account
             ? account.account.email

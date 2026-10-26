@@ -15,6 +15,7 @@
     "drizzle-orm": "0.45.4",
     "pg": "8.23.1",
     "@vq/business": "workspace:*",
-    "@vq/social": "workspace:*"
+    "@vq/social": "workspace:*",
+    "@vq/geo": "workspace:*"
   }
 }

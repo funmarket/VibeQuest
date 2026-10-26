@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { createLocationAdapter } from "./location";
 import type { HostAdapter, HostSnapshot, TelegramWebApp } from "./host-types";
 
 const browser: HostSnapshot = { kind: "browser", safeTop: 0, safeBottom: 0 };
@@ -22,7 +23,10 @@ const safely = (action: () => void) => {
   }
 };
 
-export function createHostAdapter(candidate?: TelegramWebApp): HostAdapter {
+export function createHostAdapter(
+  candidate?: TelegramWebApp,
+  device?: Navigator,
+): HostAdapter {
   // Launch data is used only as a host-presence hint; it grants no identity or permission.
   const sdk =
     candidate &&
@@ -31,6 +35,7 @@ export function createHostAdapter(candidate?: TelegramWebApp): HostAdapter {
       ? candidate
       : undefined;
   return {
+    location: createLocationAdapter(device),
     snapshot: () =>
       sdk
         ? {
@@ -80,7 +85,8 @@ export function createHostAdapter(candidate?: TelegramWebApp): HostAdapter {
     },
   };
 }
-type HostValue = HostSnapshot & Pick<HostAdapter, "back" | "haptic">;
+type HostValue = HostSnapshot &
+  Pick<HostAdapter, "back" | "haptic" | "location">;
 const HostContext = createContext<HostValue | undefined>(undefined);
 const useBeforePaint =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -92,7 +98,10 @@ export function HostProvider({ children }: { children: ReactNode }) {
     const hostWindow = window as Window & {
       Telegram?: { WebApp?: TelegramWebApp };
     };
-    const next = createHostAdapter(hostWindow.Telegram?.WebApp);
+    const next = createHostAdapter(
+      hostWindow.Telegram?.WebApp,
+      window.navigator,
+    );
     setAdapter(next);
     const update = () => setSnapshot(next.snapshot());
     update();
@@ -100,7 +109,14 @@ export function HostProvider({ children }: { children: ReactNode }) {
   }, []);
   return createElement(
     HostContext.Provider,
-    { value: { ...snapshot, back: adapter.back, haptic: adapter.haptic } },
+    {
+      value: {
+        ...snapshot,
+        back: adapter.back,
+        haptic: adapter.haptic,
+        location: adapter.location,
+      },
+    },
     children,
   );
 }

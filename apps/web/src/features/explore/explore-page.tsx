@@ -15,7 +15,10 @@ import {
   Flag,
   MessageCircle,
 } from "lucide-react";
-import { boundsSchema, type PlacesQuery } from "@vq/contracts";
+import { useArea } from "./area-provider";
+import { useGeo } from "../geo/geo-provider";
+import { LocationSummary } from "../geo/location-display";
+import { boundsSchema } from "@vq/contracts";
 import { usePlaces } from "./use-places";
 import { PlacesMap } from "./places-map";
 import {
@@ -35,13 +38,6 @@ const categories = [
   "venues",
   "hidden",
 ] as const;
-const initialBounds = {
-  west: 10.1,
-  east: 10.3,
-  south: 36.7,
-  north: 36.9,
-  limit: 50,
-};
 const categoryMapping: Record<string, string> = {
   food: "food",
   cafes: "cafe",
@@ -60,44 +56,37 @@ export function ExplorePage({
 }) {
   const t = useTranslations("explore");
   const c = useTranslations("common");
-  const [bounds, setBounds] = useState<PlacesQuery>(initialBounds);
-  const [draft, setDraft] = useState(initialBounds);
+  const area = useArea(),
+    geo = useGeo();
+  const presence = geo.state?.presence;
+  const bounds =
+    area.manual || !presence
+      ? area.bounds
+      : {
+          west: Math.max(-180, presence.longitude - 0.05),
+          east: Math.min(180, presence.longitude + 0.05),
+          south: Math.max(-90, presence.latitude - 0.05),
+          north: Math.min(90, presence.latitude + 0.05),
+          limit: 50,
+        };
+  const [draft, setDraft] = useState(area.bounds);
   const [category, setCategory] = useState<string>(initialCategory);
   const [search, setSearch] = useState(initialSearch);
   const [q, setQ] = useState(initialSearch);
   const [view, setView] = useState<"list" | "map">("list");
   const [notice, setNotice] = useState<string | null>(null);
-  const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [invalid, setInvalid] = useState(false);
-  const data = usePlaces({
-    ...bounds,
-    ...(q ? { q } : {}),
-    ...(category === "all" ? {} : { category: categoryMapping[category] }),
-  });
-  function locate() {
-    if (!navigator.geolocation) {
-      setLocationMessage(c("locationDenied"));
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        const next = {
-          west: Math.max(-180, coords.longitude - 0.05),
-          east: Math.min(180, coords.longitude + 0.05),
-          south: Math.max(-90, coords.latitude - 0.05),
-          north: Math.min(90, coords.latitude + 0.05),
-          limit: 50,
-        };
-        setBounds(next);
-        setDraft(next);
-        setLocationMessage(null);
-      },
-      () => setLocationMessage(c("locationDenied")),
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 },
-    );
-  }
+  const data = usePlaces(
+    {
+      ...bounds,
+      ...(q ? { q } : {}),
+      ...(category === "all" ? {} : { category: categoryMapping[category] }),
+    },
+    !area.manual && Boolean(presence),
+  );
   return (
     <>
+      <LocationSummary />
       <div className="page-heading">
         <div className="eyebrow">
           <Compass data-icon-role="metadata" aria-hidden />
@@ -109,7 +98,13 @@ export function ExplorePage({
         <p>{t("intro")}</p>
       </div>
       <div className="explore-top">
-        <button className="soft-button" onClick={() => setNotice("area")}>
+        <button
+          className="soft-button"
+          onClick={() => {
+            setDraft(area.bounds);
+            setNotice("area");
+          }}
+        >
           <MapPin data-icon-role="metadata" aria-hidden />
           {t("chooseBounds")}
         </button>
@@ -299,7 +294,7 @@ export function ExplorePage({
                     setInvalid(true);
                     return;
                   }
-                  setBounds(parsed.data);
+                  area.select(parsed.data);
                   setNotice(null);
                   setInvalid(false);
                 }}
@@ -326,10 +321,15 @@ export function ExplorePage({
                   {t("apply")}
                 </button>
               </form>
-              <button className="soft-button" onClick={locate}>
+              <button
+                className="soft-button"
+                onClick={() => {
+                  area.followDevice();
+                  void geo.refresh();
+                }}
+              >
                 {c("useLocation")}
               </button>
-              {locationMessage && <p role="status">{locationMessage}</p>}
             </>
           ) : (
             <>

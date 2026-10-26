@@ -4,7 +4,16 @@ export interface NewSession {
   tokenHash: string;
   expiresAt: Date;
 }
+export type IdentitySession = {
+  userId: string;
+  sessionKey: string;
+  sessionExpiresAt: string;
+};
 export interface IdentityRepository {
+  withSession<T>(
+    tokenHash: string,
+    work: (session: IdentitySession | null) => Promise<T>,
+  ): Promise<T>;
   availableUsers(ids: string[]): Promise<string[]>;
   hasPrivilege(
     userId: string,

@@ -21,6 +21,7 @@
     "fastify": "5.12.5",
     "tsx": "4.23.15",
     "@vq/business": "workspace:*",
-    "@vq/social": "workspace:*"
+    "@vq/social": "workspace:*",
+    "@vq/geo": "workspace:*"
   }
 }

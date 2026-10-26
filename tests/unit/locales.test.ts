@@ -37,6 +37,7 @@ describe("first-release interface catalogs", () => {
       "common",
       "content",
       "explore",
+      "geo",
       "home",
       "identity",
       "nav",
@@ -94,7 +95,10 @@ describe("first-release interface catalogs", () => {
           englishArguments.get(key),
         );
         expect(
-          translate(key as Parameters<typeof translate>[0], { count: 2 }),
+          translate(key as Parameters<typeof translate>[0], {
+            count: 2,
+            state: "granted",
+          }),
         ).not.toBe(key);
       }
       for (const count of [0, 1, 2, 3, 11, 100]) {

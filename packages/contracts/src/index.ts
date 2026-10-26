@@ -4,6 +4,7 @@ export * from "./activities";
 export * from "./events";
 export * from "./social";
 export * from "./content";
+export * from "./geo";
 export {
   credentialsSchema,
   accountSchema,

@@ -19,6 +19,7 @@ export function registerIdentityRoutes(
   repository: IdentityRepository,
   allowedOrigins: string[],
   secure: boolean,
+  afterLogout?: (sessionKey: string) => Promise<void>,
 ) {
   const accounts = createAccounts(repository, identityCrypto);
   const cookie = (token: string, clear = false) =>
@@ -72,7 +73,7 @@ export function registerIdentityRoutes(
     });
     scope.post("/v1/identity/logout", async (request, reply) => {
       try {
-        await accounts.logout(readSessionCookie(request));
+        await accounts.logout(readSessionCookie(request), afterLogout);
         return reply.header("Set-Cookie", cookie("", true)).code(204).send();
       } catch {
         return reply.code(503).send({ code: "IDENTITY_UNAVAILABLE" });

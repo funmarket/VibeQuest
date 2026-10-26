@@ -1,4 +1,5 @@
 import pg from "pg";
+import { createGeoRepository } from "./geo/repository";
 import { createPlacesRepository } from "./places/repository";
 import { createIdentityRepository } from "./identity/repository";
 import { createProfileRepository } from "./profile/repository";
@@ -28,7 +29,8 @@ export function createDatabase(connectionString: string) {
   });
   return {
     pool,
-    identity: createIdentityRepository(pool),
+    identity: createIdentityRepository(pool, graphPool),
+    geo: createGeoRepository(pool),
     profiles: createProfileRepository(pool),
     media: createMediaRepository(pool),
     businesses: createBusinessRepository(pool),
@@ -38,6 +40,9 @@ export function createDatabase(connectionString: string) {
     content: createContentRepository(pool),
     repository: createPlacesRepository(pool),
     async readiness() {
+      await pool.query(
+        "SELECT geo_preferences.user_id FROM geo_preferences CROSS JOIN geo_positions CROSS JOIN geo_sessions LIMIT 0",
+      );
       await pool.query(
         "SELECT id FROM places WHERE publication_status = 'published' LIMIT 0",
       );

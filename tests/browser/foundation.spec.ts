@@ -128,7 +128,7 @@ test("theme persists and follows OS changes only when system is selected", async
   await setTheme(page, "dark");
   await page.reload();
   await openPreferences(page);
-  await expect(page.getByLabel("Theme")).toHaveValue("dark");
+  await expect(page.getByLabel("Theme", { exact: true })).toHaveValue("dark");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
@@ -147,7 +147,7 @@ test("locale preference, tab keyboard navigation and dialog focus work in RTL", 
     "true",
   );
   await page.keyboard.press("End");
-  await expect(page.locator('[data-tab="echo"]')).toBeFocused();
+  await expect(page.locator('[data-tab="pulls"]')).toBeFocused();
   await page.keyboard.press("Home");
   await expect(page.locator('[data-tab="gossip"]')).toBeFocused();
   await page.goto("/");
@@ -178,7 +178,7 @@ test("Explore reads the actual loopback API and shows honest map unavailability"
     page.getByText("No published places in this area."),
   ).toBeVisible();
   await page.getByRole("button", { name: "Map", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("Map");
+  await expect(page.locator(".map-unavailable")).toContainText("Map");
 });
 
 test("Telegram entry shares navigation and safely falls back in an ordinary browser", async ({
@@ -217,6 +217,7 @@ test("Explore distinguishes empty, failure, retry and pending contribution actio
   await page.reload();
   await openPreferences(page);
   await expect(page.getByText("Places could not be loaded.")).toBeVisible();
+  await page.keyboard.press("Escape");
   await page.unroute("**/api/v1/places?*");
   await page.route("**/api/v1/places?*", (route) =>
     route.fulfill({ json: { places: [] } }),

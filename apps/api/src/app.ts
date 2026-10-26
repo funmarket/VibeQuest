@@ -22,6 +22,9 @@ import { registerEventsRoutes } from "./modules/events/http";
 import type { SocialRepository } from "@vq/social";
 import { registerSocialRoutes } from "./modules/social/http";
 import { registerPublicProfileRoutes } from "./modules/profile/public-http";
+import type { GeoRepository } from "@vq/geo";
+import { createGeo } from "@vq/geo";
+import { registerGeoRoutes } from "./modules/geo/http";
 import type { ContentRepository } from "@vq/content";
 import { registerContentRoutes } from "./modules/content/http";
 
@@ -31,6 +34,7 @@ export function buildApi(
     logger?: boolean;
     readiness?: () => Promise<void>;
     identity?: IdentityRepository;
+    geo?: GeoRepository;
     profiles?: ProfileRepository;
     businesses?: BusinessRepository;
     activities?: ActivitiesRepository;
@@ -53,12 +57,41 @@ export function buildApi(
   });
   registerPlacesRoutes(app, createListPublishedPlaces(repository));
   if (options.identity) {
+    const geo = options.geo ? createGeo(options.geo) : undefined;
     const accounts = registerIdentityRoutes(
       app,
       options.identity,
       options.allowedOrigins ?? [],
       options.secureCookies ?? true,
+      geo?.logout,
     );
+    if (geo) {
+      registerGeoRoutes(
+        app,
+        geo,
+        (request, work) =>
+          accounts.withSession(readSessionCookie(request), work),
+        options.allowedOrigins ?? [],
+        createListPublishedPlaces(repository),
+      );
+      let active: Promise<void> | undefined;
+      const timer = setInterval(() => {
+        if (!active)
+          active = geo
+            .cleanup()
+            .catch(() => {
+              app.log.error("Geo cleanup failed; records remain pending.");
+            })
+            .finally(() => {
+              active = undefined;
+            });
+      }, 60000);
+      timer.unref();
+      app.addHook("onClose", async () => {
+        clearInterval(timer);
+        await active;
+      });
+    }
     let content: ReturnType<typeof registerContentRoutes> | undefined;
     if (options.content) {
       let active: Promise<void> | undefined;
