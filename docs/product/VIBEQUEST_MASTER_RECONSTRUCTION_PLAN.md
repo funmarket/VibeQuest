@@ -691,7 +691,8 @@ Use exactly **Not Started / Shell / Partial / Implemented / Runtime Verified / P
 | R05       | Implemented                         | Events parity merged in PR #22 (`38b51fcb3`); staging/device parity unverified                                     |
 | R06       | Implemented                         | Profile journey merged in PR #24 (`f3c99ba25`); runtime/device parity unverified                                   |
 | R07       | Source merged                       | PR #27 (`8c9cd1c5`): genuine Gossip/My Network Social Content; deployed staging and device acceptance unverified   |
-| R08–11    | Shell                               | Home feed/Drift/Vibes/Pulls presentation; Graph independently implemented; later flows not completed               |
+| R08       | Source merged                       | PR #29 (`bce50dde9`): Home network feed/actions; deployed staging and device acceptance unverified                 |
+| R09–11    | Shell                               | Geo Presence/Drift/Vibes/Pulls deferred; R09 next subject to D05; existing packet dependencies retained            |
 | R12–13    | Not Started                         | Existing image Media is Implemented; video/genuine capture not these completed capabilities                        |
 | R14–16    | Shell                               | SHARE headings/chips/directory notices; no persisted corresponding journey                                         |
 | R17–27    | Not Started                         | Messaging/community rooms/voice/polls/notifications/native challenge workflows unavailable; some headings retained |
