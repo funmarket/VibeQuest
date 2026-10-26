@@ -150,7 +150,15 @@
     "checkinsUnavailable": "Check-ins unavailable",
     "checkinsHint": "Follow explorers on the VibeCenter!",
     "rewardUnavailable": "Reward unavailable",
-    "noTimer": "No active timer"
+    "noTimer": "No active timer",
+    "backToNetwork": "Back to My Network",
+    "postUnavailable": "This post is unavailable or you do not have access.",
+    "openPost": "Open post",
+    "sharePost": "Share",
+    "copied": "Post link copied.",
+    "copyFailed": "The link could not be copied. Clipboard access may be denied or unavailable.",
+    "noComments": "No comments yet.",
+    "send": "Send"
   },
   "explore": {
     "title": "Explore Local",

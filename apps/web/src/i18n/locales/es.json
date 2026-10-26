@@ -150,7 +150,15 @@
     "checkinsUnavailable": "Registros no disponibles",
     "checkinsHint": "¡Sigue a exploradores en VibeCenter!",
     "rewardUnavailable": "Recompensa no disponible",
-    "noTimer": "Sin temporizador activo"
+    "noTimer": "Sin temporizador activo",
+    "backToNetwork": "Volver a Mi red",
+    "postUnavailable": "Esta publicación no está disponible o no tienes acceso.",
+    "openPost": "Abrir publicación",
+    "sharePost": "Compartir",
+    "copied": "Enlace de la publicación copiado.",
+    "copyFailed": "No se pudo copiar el enlace. El portapapeles puede estar bloqueado o no disponible.",
+    "noComments": "Todavía no hay comentarios.",
+    "send": "Enviar"
   },
   "explore": {
     "title": "Explora tu entorno",

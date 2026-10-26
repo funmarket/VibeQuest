@@ -150,7 +150,15 @@
     "checkinsUnavailable": "Présences indisponibles",
     "checkinsHint": "Suivez des explorateurs sur VibeCenter !",
     "rewardUnavailable": "Récompense indisponible",
-    "noTimer": "Aucun minuteur actif"
+    "noTimer": "Aucun minuteur actif",
+    "backToNetwork": "Retour à Mon réseau",
+    "postUnavailable": "Cette publication est indisponible ou vous n’y avez pas accès.",
+    "openPost": "Ouvrir la publication",
+    "sharePost": "Partager",
+    "copied": "Lien de la publication copié.",
+    "copyFailed": "Le lien n’a pas pu être copié. Le presse-papiers est peut-être refusé ou indisponible.",
+    "noComments": "Aucun commentaire pour le moment.",
+    "send": "Envoyer"
   },
   "explore": {
     "title": "Explorer les environs",

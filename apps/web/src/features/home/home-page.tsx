@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { NetworkFeed } from "./network-feed";
 import { ActivitiesPanel } from "../activities/activities-panel";
 import { EventsPanel } from "../events/events-panel";
 import { tabKeyboard } from "../../components/tab-keyboard";
@@ -23,7 +24,7 @@ import {
   PageEnd,
 } from "../../components/presentation";
 
-export function HomePage() {
+export function HomePage({ postId = null }: { postId?: string | null }) {
   const t = useTranslations("home");
   const c = useTranslations("common");
   const [notice, setNotice] = useState<string | null>(null);
@@ -144,7 +145,11 @@ export function HomePage() {
             ))}
           </div>
           <div role="tabpanel" id="home-feed" aria-labelledby={`feed-${feed}`}>
-            <Empty>{t("feedEmpty")}</Empty>
+            {feed === "network" ? (
+              <NetworkFeed postId={postId} />
+            ) : (
+              <Empty>{t("feedEmpty")}</Empty>
+            )}
           </div>
         </section>
         <Section title={t("coordinates")}>
