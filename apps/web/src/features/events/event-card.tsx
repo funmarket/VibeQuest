@@ -111,21 +111,19 @@ export function EventCard({
           </span>
         )}
         <span className="event-summary-text">
-          <strong>{event.title}</strong>
+          <span className="event-summary-heading">
+            <strong>{event.title}</strong>
+            <span className="event-status">
+              {t(event.status === "live" ? "liveNow" : "upcoming")}
+            </span>
+          </span>
           <small>{event.location}</small>
           <small>
             {t("hostLabel")} {event.hostName}
           </small>
-          <span>
-            {t(event.status === "live" ? "liveNow" : "upcoming")} ·{" "}
-            {t(event.tag)}
-          </span>
-          <span>
+          <span className="event-summary-rating">
             {t("rating")}: {ratingText}
           </span>
-          {event.going && (
-            <span className="event-going">{t("goingCount")}</span>
-          )}
           {event.startsAt && (
             <time dateTime={event.startsAt}>
               {new Date(event.startsAt).toLocaleString(locale)}
@@ -133,7 +131,14 @@ export function EventCard({
           )}
         </span>
         <span className="event-expand">
-          {t(expanded ? "collapse" : "expand")} {expanded ? "▴" : "▾"}
+          <span>{t(event.tag)}</span>
+          {event.going && (
+            <span className="event-going">{t("goingCount")}</span>
+          )}
+          <span className="event-expand-tray" aria-hidden>
+            {expanded ? "▴" : "▾"}
+          </span>
+          <span className="sr-only">{t(expanded ? "collapse" : "expand")}</span>
         </span>
       </button>
       {expanded && (

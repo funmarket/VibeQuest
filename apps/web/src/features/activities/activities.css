@@ -6,7 +6,7 @@
   --activity-expanded: #04331a;
   --activity-text: #f4f4f5;
   --activity-muted: #a1b9ad;
-  padding: 14px;
+  padding: 20px;
   border: 1px solid var(--activity-border);
   border-radius: 22px;
   background: var(--activity-bg);
@@ -102,7 +102,7 @@ html[data-theme="light"] .activities-panel {
 .activity-summary {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   width: 100%;
   background: transparent;
   text-align: start;
@@ -144,6 +144,9 @@ html[data-theme="light"] .activities-panel {
   color: var(--activity-accent);
   font-weight: 800;
   flex-shrink: 0;
+  max-inline-size: 30%;
+  overflow-wrap: anywhere;
+  text-align: end;
 }
 .activity-details {
   border-top: 1px solid var(--activity-border);
