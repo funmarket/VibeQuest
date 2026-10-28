@@ -669,6 +669,11 @@ test("real approved-business hosting, images, public discovery, RSVP, reviews an
       );
       const popup = guest.waitForEvent("popup");
       await nav.click();
+      // The external map takes focus. Resume the application tab before
+      // asserting its separate Explore handoff; do not depend on background
+      // navigation scheduling or the external provider finishing its load.
+      await (await popup).close();
+      await guest.bringToFront();
       await expect(guest).toHaveURL(
         origin +
           "/" +
@@ -689,7 +694,6 @@ test("real approved-business hosting, images, public discovery, RSVP, reviews an
           exact: true,
         }),
       ).toHaveAttribute("aria-pressed", "true");
-      await (await popup).close();
       await guest.reload();
       await expect(
         guest.getByRole("textbox", {

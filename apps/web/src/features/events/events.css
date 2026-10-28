@@ -6,10 +6,13 @@
   --event-expanded: #0b1b3d;
   --event-text: #f4f4f5;
   --event-muted: #a8b8d4;
+  --event-tray: #27272a;
+  --event-live: #34d399;
+  --event-rating: #eab308;
   background: var(--event-bg);
   border: 1px solid var(--event-border);
   border-radius: 22px;
-  padding: 14px;
+  padding: 20px;
   color: var(--event-text);
   min-width: 0;
   text-align: start;
@@ -23,6 +26,9 @@ html[data-theme="light"] .events-panel {
   --event-expanded: #d4e4ff;
   --event-text: #0b254d;
   --event-muted: #36547e;
+  --event-tray: #e8eaed;
+  --event-live: #087849;
+  --event-rating: #805c00;
 }
 .events-panel > header,
 .event-tabs,
@@ -86,7 +92,7 @@ html[data-theme="light"] .events-panel {
 .event-card {
   background: var(--event-card);
   border: 1px solid var(--event-border);
-  border-radius: 12px;
+  border-radius: 16px;
   margin-block: 12px;
   padding: 12px;
 }
@@ -97,7 +103,7 @@ html[data-theme="light"] .events-panel {
 .event-summary {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
   width: 100%;
   text-align: start;
   background: transparent;
@@ -129,6 +135,23 @@ html[data-theme="light"] .events-panel {
   font-size: 13px;
   overflow-wrap: anywhere;
 }
+.event-summary-text .event-summary-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--event-text);
+}
+.event-summary-heading .event-status {
+  border-radius: 4px;
+  padding: 2px 4px;
+  color: var(--event-live);
+  background: color-mix(in srgb, var(--event-live) 12%, transparent);
+  font-weight: 800;
+}
+.event-summary-text .event-summary-rating {
+  color: var(--event-rating);
+}
 .event-summary-text small {
   font-size: 11px;
   color: var(--event-muted);
@@ -136,12 +159,28 @@ html[data-theme="light"] .events-panel {
 .event-summary-text span,
 .event-summary-text time,
 .event-expand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
   font-size: 10px;
   color: var(--event-accent);
 }
 .event-expand {
   font-weight: 800;
   flex-shrink: 0;
+  max-inline-size: 30%;
+  overflow-wrap: anywhere;
+  text-align: end;
+}
+.event-expand-tray {
+  display: grid;
+  place-items: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: 50%;
+  background: var(--event-tray);
+  color: var(--event-muted);
 }
 .event-details {
   display: grid;

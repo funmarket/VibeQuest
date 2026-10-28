@@ -1,6 +1,32 @@
 .checkins-panel {
   min-inline-size: 0;
 }
+.home-feed-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block-end: 1px solid var(--border);
+}
+.home-feed-tabs button {
+  min-inline-size: 0;
+  min-block-size: 44px;
+  padding: 10px 2px;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  border-block-end: 2px solid transparent;
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.home-feed-tabs button[aria-selected="true"] {
+  color: #eab308;
+  border-block-end-color: #eab308;
+}
+html[data-theme="light"] .home-feed-tabs button[aria-selected="true"] {
+  color: #8a6500;
+}
 .home-network {
   display: grid;
   gap: 20px;

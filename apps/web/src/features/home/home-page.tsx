@@ -87,6 +87,35 @@ export function HomePage({ postId = null }: { postId?: string | null }) {
             </div>
           </div>
         </section>
+        <section className="panel feed-panel">
+          <div
+            className="home-feed-tabs"
+            role="tablist"
+            aria-label={t("local")}
+            onKeyDown={tabKeyboard}
+          >
+            {["network", "local", "forYou"].map((id) => (
+              <button
+                key={id}
+                role="tab"
+                tabIndex={feed === id ? 0 : -1}
+                aria-selected={feed === id}
+                aria-controls="home-feed"
+                id={`feed-${id}`}
+                onClick={() => setFeed(id)}
+              >
+                {t(id)}
+              </button>
+            ))}
+          </div>
+          <div role="tabpanel" id="home-feed" aria-labelledby={`feed-${feed}`}>
+            {feed === "network" ? (
+              <NetworkFeed postId={postId} />
+            ) : (
+              <Empty>{t("feedEmpty")}</Empty>
+            )}
+          </div>
+        </section>
         <ActivitiesPanel />
         <EventsPanel />
         <Section title={t("streak")} className="streak-panel">
@@ -125,35 +154,6 @@ export function HomePage({ postId = null }: { postId?: string | null }) {
             {c("learnMore")}
           </PendingButton>
         </Section>
-        <section className="panel feed-panel">
-          <div
-            className="tab-rail"
-            role="tablist"
-            aria-label={t("local")}
-            onKeyDown={tabKeyboard}
-          >
-            {["network", "local", "forYou"].map((id) => (
-              <button
-                key={id}
-                role="tab"
-                tabIndex={feed === id ? 0 : -1}
-                aria-selected={feed === id}
-                aria-controls="home-feed"
-                id={`feed-${id}`}
-                onClick={() => setFeed(id)}
-              >
-                {t(id)}
-              </button>
-            ))}
-          </div>
-          <div role="tabpanel" id="home-feed" aria-labelledby={`feed-${feed}`}>
-            {feed === "network" ? (
-              <NetworkFeed postId={postId} />
-            ) : (
-              <Empty>{t("feedEmpty")}</Empty>
-            )}
-          </div>
-        </section>
         <Section title={t("coordinates")}>
           <MapPinned
             data-icon-role="feature"
