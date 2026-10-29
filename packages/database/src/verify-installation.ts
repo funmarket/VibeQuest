@@ -16,7 +16,7 @@ const pool = new pg.Pool({
 try {
   const directory = new URL("../migrations/", import.meta.url);
   const names = (await readdir(directory))
-    .filter((name) => /^\\d+.*\\.sql$/.test(name))
+    .filter((name) => /^\d+.*\.sql$/.test(name))
     .sort();
   const expected = new Map<string, string>();
   for (const name of names) {
