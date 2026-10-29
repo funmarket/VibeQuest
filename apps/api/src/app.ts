@@ -233,7 +233,15 @@ export function buildApi(
     try {
       await options.readiness();
       return { status: "ready" };
-    } catch {
+    } catch (error) {
+      const errorCode =
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        typeof error.code === "string"
+          ? error.code
+          : undefined;
+      app.log.error({ errorCode }, "Database readiness check failed");
       return reply.code(503).send({ status: "unavailable" });
     }
   });
