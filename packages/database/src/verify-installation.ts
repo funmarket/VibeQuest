@@ -4,7 +4,10 @@ import pg from "pg";
 
 // Inspection only: never invoke migrate() or execute schema-changing SQL.
 const url = process.env.DATABASE_URL;
-if (!url || !["postgres:", "postgresql:"].includes(new URL(url).protocol)) {
+if (
+  !url ||
+  !["postgres:", "postgresql:"].includes(new URL(url).protocol)
+) {
   throw new Error("DATABASE_URL must be a PostgreSQL URL.");
 }
 
@@ -39,7 +42,9 @@ try {
       "SELECT to_regclass('public.vq_schema_migrations')::text AS exists",
     );
     if (!ledgerExists.rows[0]?.exists) {
-      throw new Error("Migration ledger is absent; installation cannot be verified.");
+      throw new Error(
+        "Migration ledger is absent; installation cannot be verified.",
+      );
     }
     const installed = await client.query<{ name: string; sha256: string }>(
       "SELECT name, sha256 FROM public.vq_schema_migrations ORDER BY name",
