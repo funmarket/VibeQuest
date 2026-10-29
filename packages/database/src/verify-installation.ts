@@ -4,10 +4,7 @@ import pg from "pg";
 
 // Inspection only: never invoke migrate() or execute schema-changing SQL.
 const url = process.env.DATABASE_URL;
-if (
-  !url ||
-  !["postgres:", "postgresql:"].includes(new URL(url).protocol)
-) {
+if (!url || !["postgres:", "postgresql:"].includes(new URL(url).protocol)) {
   throw new Error("DATABASE_URL must be a PostgreSQL URL.");
 }
 
